@@ -1,5 +1,8 @@
 package com.teamawsome.awsomeeat;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -27,118 +30,135 @@ import com.squareup.picasso.Picasso;
 import com.teamawsome.awsomeeat.Common.Common;
 import com.teamawsome.awsomeeat.Interface.ItemClickListener;
 import com.teamawsome.awsomeeat.Model.Category;
+import com.teamawsome.awsomeeat.Model.Food;
+import com.teamawsome.awsomeeat.Model.Order;
 import com.teamawsome.awsomeeat.ViewHolder.MenuViewHolder;
 
-import static com.teamawsome.awsomeeat.R.*;
 
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
     FirebaseDatabase database;
     DatabaseReference category;
+
     TextView txtFullName;
-    RecyclerView recycler_menu;
+
+    RecyclerView recyler_menu;
     RecyclerView.LayoutManager layoutManager;
-    MenuViewHolder viewHolder;
 
-
-
-
+    FirebaseRecyclerAdapter<Category,MenuViewHolder> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(layout.activity_home);
-        Toolbar toolbar = (Toolbar) findViewById(id.toolbar);
+        setContentView(R.layout.activity_home);
+
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Menu");
         setSupportActionBar(toolbar);
 
-        //Firebase
+
+        //Init Firebase
         database = FirebaseDatabase.getInstance();
         category = database.getReference("Category");
 
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent cartIntent= new Intent(Home.this,Cart.class);
+                startActivity(cartIntent);
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, string.navigation_drawer_open, string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(id.nav_view);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
 
         //Set Name for User
         View headerView = navigationView.getHeaderView(0);
-        txtFullName=(TextView)headerView.findViewById(id.txtFullName);
+        txtFullName = (TextView)headerView.findViewById(R.id.txtFullName);
         txtFullName.setText(Common.currentUser.getName());
 
-
-        //Menu GOes here
-
-        recycler_menu = (RecyclerView)findViewById(id.recycler_menu);
-        recycler_menu.setHasFixedSize(true);
+        //Load Menu
+        recyler_menu= (RecyclerView)findViewById(R.id.recycler_menu);
+        recyler_menu.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
-        recycler_menu.setLayoutManager(layoutManager);
-        loadMenu();
+        recyler_menu.setLayoutManager(layoutManager);
 
+        if(Common.isNetworkAvailable(this))
+            loadMenu();
+        else
+        {
+            Toast.makeText(this, "Please check your Internet Connection!", Toast.LENGTH_SHORT).show();
+            return;
+        }
     }
 
     private void loadMenu() {
-        //FirebaseRecyclerAdapter<Category,MenuViewHolder>
-       FirebaseRecyclerAdapter adapter = new FirebaseRecyclerAdapter<Category,MenuViewHolder> (Category.class,layout.menu_item,MenuViewHolder.class,category){
 
+        adapter = new FirebaseRecyclerAdapter<Category, MenuViewHolder>(Category.class,R.layout.menu_item,MenuViewHolder.class,category) {
+            @Override
+            protected void populateViewHolder(MenuViewHolder viewHolder, Category model, int position) {
 
-
-
-           @Override
-           protected void populateViewHolder(MenuViewHolder viewHolder, Category model, int position) {
-
-           }
-
-
-            protected void onBindViewHolder(@NonNull MenuViewHolder holder, int position, @NonNull Category model) {
                 viewHolder.txtMenuName.setText(model.getName());
-                //edit
                 Picasso.with(getBaseContext()).load(model.getImage())
                         .into(viewHolder.imageView);
-                final Category clickItem=model;
+                final Category clickItem = model;
                 viewHolder.setItemClickListener(new ItemClickListener() {
                     @Override
                     public void onClick(View view, int position, boolean isLongClick) {
-                        Toast.makeText(Home.this,""+clickItem.getName(),Toast.LENGTH_SHORT).show();
+                        //Get Category Id and send to new activity
+                        Intent foodList= new Intent(Home.this,FoodList.class);
+                        //category id is key so we get key here of this item
+                        foodList.putExtra("CategoryId",adapter.getRef(position).getKey());
+                        startActivity(foodList);
 
                     }
                 });
-
-
-
             }
-
-
         };
-
-        recycler_menu.setAdapter(adapter);
+        recyler_menu.setAdapter(adapter);
     }
-
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(id.drawer_layout);
+        /*DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
-        }
+        }*/
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Exit");
+        builder.setMessage("Are You Sure?");
+
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                Intent signIn= new Intent(Home.this,SignIn.class);
+                signIn.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(signIn);
+                //finish();
+            }
+        });
+
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     @Override
@@ -151,7 +171,8 @@ public class Home extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-
+        if(item.getItemId() == R.id.refresh)
+            loadMenu();
 
         return super.onOptionsItemSelected(item);
     }
@@ -163,13 +184,23 @@ public class Home extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_menu) {
-            // Handle the camera action
+
         } else if (id == R.id.nav_cart) {
+            Intent cartIntent = new Intent(Home.this,Cart.class);
+            startActivity(cartIntent);
 
         } else if (id == R.id.nav_orders) {
+            /// edit later
+            Intent orderIntent = new Intent(Home.this,SignIn.class);
+            startActivity(orderIntent);
+
 
         } else if (id == R.id.nav_log_out) {
 
+            //logout
+            Intent signIn= new Intent(Home.this,SignIn.class);
+            signIn.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(signIn);
 
         }
 
@@ -178,4 +209,3 @@ public class Home extends AppCompatActivity
         return true;
     }
 }
-

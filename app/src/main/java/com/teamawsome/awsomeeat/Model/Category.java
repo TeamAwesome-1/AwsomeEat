@@ -2,13 +2,15 @@ package com.teamawsome.awsomeeat.Model;
 
 public class Category {
 
-
     private String Name;
-    private String Image;
+    private  String Image;
 
+    public Category() {
+    }
 
-    public Category(){
-
+    public Category(String name, String image) {
+        Name = name;
+        Image = image;
     }
 
     public String getName() {
@@ -25,11 +27,5 @@ public class Category {
 
     public void setImage(String image) {
         Image = image;
-    }
-
-    public Category(String name, String image) {
-        Name = name;
-        Image = image;
-
     }
 }
