@@ -37,7 +37,7 @@ public class SignUp extends AppCompatActivity {
         //Initialize Firebase
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference table_user = database.getReference("User");
-        DatabaseReference databaseReference = database.getReference(); 
+        DatabaseReference databaseReference = database.getReference();
 
 
 
