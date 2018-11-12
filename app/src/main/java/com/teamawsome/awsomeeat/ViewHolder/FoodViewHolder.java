@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.teamawsome.awsomeeat.Interface.ItemClickListener;
+import com.teamawsome.awsomeeat.Model.Food;
 import com.teamawsome.awsomeeat.R;
 
 public class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -27,6 +28,10 @@ public class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         food_image = (ImageView) itemView.findViewById(R.id.food_image);
 
         itemView.setOnClickListener(this);
+    }
+
+    public void setData (Food food){
+        food_name.setText(food.getName());
     }
 
     @Override

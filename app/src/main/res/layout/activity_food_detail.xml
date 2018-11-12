@@ -22,7 +22,6 @@
             android:fitsSystemWindows="true"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:contentScrim="#0e0d0e"
-            app:expandedTitleTextAppearance="@android:color/transparent"
             >
 
             <ImageView
