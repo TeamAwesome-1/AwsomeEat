@@ -15,6 +15,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.teamawsome.awsomeeat.Common.Common;
+import com.teamawsome.awsomeeat.Database.Database;
 import com.teamawsome.awsomeeat.Model.User;
 
 public class SignUp extends AppCompatActivity {
@@ -36,7 +37,7 @@ public class SignUp extends AppCompatActivity {
         //Initialize Firebase
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference table_user = database.getReference("User");
-
+        DatabaseReference databaseReference = database.getReference(); 
 
 
 
