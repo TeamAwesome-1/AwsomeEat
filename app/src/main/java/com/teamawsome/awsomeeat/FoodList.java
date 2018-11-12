@@ -76,7 +76,7 @@ public class FoodList extends AppCompatActivity {
                 Log.d(TAG,"picaasso" );
 
                 viewHolder.food_name.setText(model.getName());
-                Picasso.with(getBaseContext()).load(model.getImage())
+                Picasso.get().load(model.getImage())
                         .into(viewHolder.food_image);
 
 

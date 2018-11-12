@@ -1,23 +1,15 @@
 package com.teamawsome.awsomeeat.ResturantList;
 
-import android.support.annotation.NonNull;
-
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.support.v7.app.AppCompatActivity;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.squareup.picasso.Picasso;
-import com.teamawsome.MenuList.MenuListFragment;
-import com.teamawsome.awsomeeat.FoodList;
-import com.teamawsome.awsomeeat.Interface.ItemClickListener;
-import com.teamawsome.awsomeeat.Model.Food;
 import com.teamawsome.awsomeeat.R;
-import com.teamawsome.awsomeeat.ViewHolder.FoodViewHolder;
 
 import java.util.ArrayList;
 import java.util.HashMap;

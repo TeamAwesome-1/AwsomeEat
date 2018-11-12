@@ -98,7 +98,7 @@ public class FoodDetail extends AppCompatActivity {
                 currentFood =dataSnapshot.getValue(Food.class);
 
                 //set image
-                Picasso.with(getBaseContext()).load(currentFood.getImage())
+                Picasso.get().load(currentFood.getImage())
                         .into(food_image);
 
                 collapsingToolbarLayout.setTitle(currentFood.getName());

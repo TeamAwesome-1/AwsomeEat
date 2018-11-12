@@ -47,9 +47,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent signin = new Intent(MainActivity.this,SignIn.class);
                 startActivity(signin);
-
-
-
             }
         });
 
