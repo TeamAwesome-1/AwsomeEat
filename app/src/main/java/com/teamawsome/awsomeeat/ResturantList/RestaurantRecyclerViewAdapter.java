@@ -23,8 +23,7 @@ public class RestaurantRecyclerViewAdapter extends RecyclerView.Adapter<Restaura
         this.context = context;
         this.list = list;
     }
-
-
+    
     @NonNull
     @Override
     public RestaurantViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -43,26 +42,6 @@ public class RestaurantRecyclerViewAdapter extends RecyclerView.Adapter<Restaura
     public void onBindViewHolder(@NonNull RestaurantViewHolder restaurantViewHolder, int position) {
         Restaurant restaurant = list.get(position);
         restaurantViewHolder.setData(restaurant);
-
-        restaurantViewHolder.RestaurantListView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                Fragment MenuList = new MenuListFragment();
-                activity.getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.linearLayout1, MenuList).addToBackStack(null)
-                        .commit();
-
-                /*Intent test = new Intent (context, MainActivity.class);
-                context.startActivity(test);
-
-                Intent foodlist = new Intent(context, FoodList.class);
-                foodlist.putExtra("CategoryId", "11");
-                context.startActivity(foodlist);*/
-
-            }
-        });
     }
 
     public void addItem(Restaurant listItem) {
