@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.v7.app.AppCompatActivity;
+
+
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -19,10 +21,9 @@ import java.util.Map;
 import javax.annotation.Nullable;
 
 public class ResturantActivity extends AppCompatActivity {
-    List<Restaurant> itemList = new ArrayList<>();
-    Map<String, Restaurant> restaurants = new HashMap<>();
+    private List<Restaurant> itemList = new ArrayList<>();
     private RestaurantRecyclerViewAdapter adapter;
-    FirebaseFirestore db;
+    private FirebaseFirestore db;
     private int count;
 
     @Override
@@ -33,6 +34,11 @@ public class ResturantActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.list);
         adapter = new RestaurantRecyclerViewAdapter(this, itemList);
         recyclerView.setAdapter(adapter);
+
+       /* CollectionReference restaurantRef = db.collection("restaurants");
+        CollectionReference menuRef = db.collection("Menu");
+
+        Query query = menuRef.whereEqualTo*/
 
         db.collection("restaurants").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -60,7 +66,7 @@ public class ResturantActivity extends AppCompatActivity {
 
         findViewById(R.id.Button).setOnClickListener((View view) -> {
             count++;
-            Restaurant r = new Restaurant("Restaurant "+ count, "Gamla sjövägen","http://medifoods.my/images/menu/p1_ginger_pao.jpg");
+            Restaurant r = new Restaurant("Restaurant "+ count, "Gamla sjövägen","https://media-cdn.tripadvisor.com/media/photo-s/02/54/b7/ff/wrights-restaurant.jpg");
 
             db.collection("restaurants")
                     .add(r);

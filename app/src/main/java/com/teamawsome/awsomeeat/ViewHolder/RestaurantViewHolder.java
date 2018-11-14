@@ -33,8 +33,6 @@ public class RestaurantViewHolder extends RecyclerView.ViewHolder {
     public void setData(Restaurant restaurantInfo) {
         restaurantListNameView.setText(restaurantInfo.name);
         restaurantListAdressView.setText(restaurantInfo.adress);
-        PictureHelper.setPicture(restaurantInfo.pictureUrl, restaurantListImageView);
-        //TODO kolla hur vi gör med PictureLoadings
-        //Picasso.get().load(restaurantInfo.pictureUrl).into(restaurantListImageView);
+        Picasso.get().load(restaurantInfo.pictureUrl).into(restaurantListImageView);
     }
 }
