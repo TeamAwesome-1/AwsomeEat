@@ -15,7 +15,6 @@
         </activity>
         <activity android:name=".SignIn" />
         <activity android:name=".SignUp" />
-        <activity android:name=".ResturantList.ResturantActivity"></activity>
         <activity
             android:name=".Home"
             android:label="@string/title_activity_home"

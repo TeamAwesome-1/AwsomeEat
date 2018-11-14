@@ -37,7 +37,7 @@ public class RestaurantListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view= inflater.inflate(R.layout.activity_resturant, container, false);
+        View view= inflater.inflate(R.layout.fragment_restaurant_list, container, false);
         adapter = new RestaurantRecyclerViewAdapter(getActivity(), itemList);
         db= FirebaseFirestore.getInstance();
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.list);

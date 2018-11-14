@@ -23,7 +23,7 @@ public class RestaurantRecyclerViewAdapter extends RecyclerView.Adapter<Restaura
         this.context = context;
         this.list = list;
     }
-    
+
     @NonNull
     @Override
     public RestaurantViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
