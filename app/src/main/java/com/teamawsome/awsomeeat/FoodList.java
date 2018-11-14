@@ -91,7 +91,6 @@ public class FoodList extends AppCompatActivity {
                         startActivity(foodDetail);
                     }
                 });
-
             }
         };
         //set adapter

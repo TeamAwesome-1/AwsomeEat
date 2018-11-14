@@ -9,7 +9,6 @@
     tools:showIn="@layout/app_bar_home"
     tools:ignore="GradleDependency">
 
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_menu"
         android:scrollbars="vertical"
@@ -20,5 +19,6 @@
         tools:ignore="MissingConstraints">
 
     </android.support.v7.widget.RecyclerView>
+
 
 </android.support.constraint.ConstraintLayout>

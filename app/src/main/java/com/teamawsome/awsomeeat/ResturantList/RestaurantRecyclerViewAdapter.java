@@ -3,15 +3,15 @@ package com.teamawsome.awsomeeat.ResturantList;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.teamawsome.awsomeeat.MenuList.MenuListFragment;
+import com.teamawsome.awsomeeat.Fragments.MenuListFragment;
 import com.teamawsome.awsomeeat.R;
+import com.teamawsome.awsomeeat.ViewHolder.RestaurantViewHolder;
+
 import java.util.List;
 
 
@@ -51,7 +51,7 @@ public class RestaurantRecyclerViewAdapter extends RecyclerView.Adapter<Restaura
                 AppCompatActivity activity = (AppCompatActivity) v.getContext();
                 Fragment MenuList = new MenuListFragment();
                 activity.getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.framelayout, MenuList).addToBackStack(null)
+                        .replace(R.id.linearLayout1, MenuList).addToBackStack(null)
                         .commit();
 
                 /*Intent test = new Intent (context, MainActivity.class);
