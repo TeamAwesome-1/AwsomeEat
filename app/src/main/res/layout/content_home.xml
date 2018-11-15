@@ -5,20 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.teamawsome.awsomeeat.Home"
-    tools:showIn="@layout/app_bar_home"
-    tools:ignore="GradleDependency">
+    tools:context=".AwsomeEatActivity"
+    tools:ignore="GradleDependency"
+    tools:layout_editor_absoluteY="81dp"
+    tools:showIn="@layout/app_bar_home">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_menu"
-        android:scrollbars="vertical"
-        android:layout_width="395dp"
-        android:layout_height="587dp"
-        tools:layout_editor_absoluteY="8dp"
-        tools:layout_editor_absoluteX="8dp"
-        tools:ignore="MissingConstraints">
+    <LinearLayout
+        android:id="@+id/fragmentinsertlayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
 
 
 </android.support.constraint.ConstraintLayout>

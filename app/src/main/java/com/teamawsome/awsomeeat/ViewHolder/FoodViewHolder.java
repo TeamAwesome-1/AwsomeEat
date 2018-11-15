@@ -6,20 +6,23 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.teamawsome.awsomeeat.EventHandler;
 import com.teamawsome.awsomeeat.Interface.ItemClickListener;
 import com.teamawsome.awsomeeat.Model.Food;
+import com.teamawsome.awsomeeat.PictureHandler;
 import com.teamawsome.awsomeeat.R;
 
 public class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     public TextView food_name;
     public ImageView food_image;
+    private String itemId;
 
     private ItemClickListener itemClickListener;
 
-    public void setItemClickListener(ItemClickListener itemClickListener) {
+   /* public void setItemClickListener(ItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
-    }
+    }*/
 
     public FoodViewHolder(View itemView) {
         super(itemView);
@@ -32,11 +35,13 @@ public class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
     public void setData (Food food){
         food_name.setText(food.getName());
+        PictureHandler.setPictureFromUrl(food.getImage(), food_image);
     }
 
     @Override
     public void onClick(View view) {
-        itemClickListener.onClick(view, getAdapterPosition(), false  );
 
+        //itemClickListener.onClick(view, getAdapterPosition(), false  );
+        EventHandler.openFoodListFragment(view, itemId);
     }
 }

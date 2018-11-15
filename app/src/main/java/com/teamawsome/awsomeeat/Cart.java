@@ -20,7 +20,7 @@ import com.teamawsome.awsomeeat.Common.Common;
 import com.teamawsome.awsomeeat.Database.Database;
 import com.teamawsome.awsomeeat.Model.Order;
 import com.teamawsome.awsomeeat.Model.Request;
-import com.teamawsome.awsomeeat.ViewHolder.CartAdapter;
+import com.teamawsome.awsomeeat.Adapters.CartAdapter;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;

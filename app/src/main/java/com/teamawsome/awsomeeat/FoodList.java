@@ -82,7 +82,7 @@ public class FoodList extends AppCompatActivity {
 
 
                 final Food local =  model;
-                viewHolder.setItemClickListener(new ItemClickListener() {
+               /* viewHolder.setItemClickListener(new ItemClickListener() {
                     @Override
                     public void onClick(View view, int position, boolean isLongClick) {
                         //start new activity
@@ -90,7 +90,7 @@ public class FoodList extends AppCompatActivity {
                         foodDetail.putExtra("FoodId", adapter.getRef(position).getKey()); //send id to new activity
                         startActivity(foodDetail);
                     }
-                });
+                });*/
             }
         };
         //set adapter
