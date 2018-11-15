@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.teamawsome.awsomeeat.Fragments.CartFragment;
 import com.teamawsome.awsomeeat.Fragments.FoodListFragment;
 import com.teamawsome.awsomeeat.Fragments.MenuListFragment;
 import com.teamawsome.awsomeeat.Fragments.RestaurantListFragment;
@@ -134,6 +135,11 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
         } else if (id == R.id.nav_cart) {
 
+            fragment = new CartFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.fragmentinsertlayout, fragment);
+            fragmentTransaction.commit();
         } else if (id == R.id.nav_log_out) {
 
         }

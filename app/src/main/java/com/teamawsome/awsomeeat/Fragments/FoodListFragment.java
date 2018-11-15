@@ -93,7 +93,7 @@ public class FoodListFragment extends Fragment {
             @Override
             protected void populateViewHolder(FoodViewHolder viewHolder, Food model, int position) {
                 Log.d(TAG,"picaasso" );
-
+                viewHolder.itemId = adapter.getRef(position).getKey();
                 //TODO OBS! REPLACED OLD WAY OF SHOWING DATA
                 viewHolder.setData(model);
                 final Food local =  model;

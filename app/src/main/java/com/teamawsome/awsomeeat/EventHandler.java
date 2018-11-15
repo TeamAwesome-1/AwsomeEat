@@ -5,7 +5,9 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.teamawsome.awsomeeat.Fragments.CartFragment;
 import com.teamawsome.awsomeeat.Fragments.FoodCategoryFragment;
+import com.teamawsome.awsomeeat.Fragments.FoodDetailFragment;
 import com.teamawsome.awsomeeat.Fragments.FoodListFragment;
 import com.teamawsome.awsomeeat.Fragments.MenuListFragment;
 import com.teamawsome.awsomeeat.Fragments.RestaurantListFragment;
@@ -24,8 +26,8 @@ public class EventHandler {
                 .commit();
     }
 
-    public static void openMenuListFragment(View v, String id){
-        fragment = new MenuListFragment();
+    public static void openCartFragment(View v, String id){
+        fragment = new CartFragment();
         openFragment(fragment, v, id);
 
     }
@@ -47,6 +49,9 @@ public class EventHandler {
         openFragment(fragment, v, id);
     }
 
-
+    public static void openFoodDetailFragment(View v, String id){
+        fragment = new FoodDetailFragment();
+        openFragment(fragment, v, id);
+    }
 
 }

@@ -16,7 +16,7 @@ public class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
     public TextView food_name;
     public ImageView food_image;
-    private String itemId;
+    public String itemId;
 
     private ItemClickListener itemClickListener;
 
@@ -42,6 +42,6 @@ public class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     public void onClick(View view) {
 
         //itemClickListener.onClick(view, getAdapterPosition(), false  );
-        EventHandler.openFoodListFragment(view, itemId);
+        EventHandler.openFoodDetailFragment(view, itemId);
     }
 }
