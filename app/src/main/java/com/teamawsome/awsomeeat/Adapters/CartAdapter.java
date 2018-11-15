@@ -1,4 +1,4 @@
-package com.teamawsome.awsomeeat.ViewHolder;
+package com.teamawsome.awsomeeat.Adapters;
 
 import android.content.Context;
 import android.graphics.Color;

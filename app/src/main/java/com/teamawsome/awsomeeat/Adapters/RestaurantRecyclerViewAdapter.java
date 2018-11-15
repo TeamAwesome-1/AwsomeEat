@@ -1,27 +1,23 @@
-package com.teamawsome.awsomeeat.ResturantList;
+package com.teamawsome.awsomeeat.Adapters;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.teamawsome.awsomeeat.Fragments.MenuListFragment;
 import com.teamawsome.awsomeeat.R;
+import com.teamawsome.awsomeeat.Model.Restaurant;
 import com.teamawsome.awsomeeat.ViewHolder.RestaurantViewHolder;
 
 import java.util.List;
 
 
 public class RestaurantRecyclerViewAdapter extends RecyclerView.Adapter<RestaurantViewHolder> {
-    List<Restaurant> list;
-    Context context;
+    List<Restaurant> restaurantsList;
 
-    public RestaurantRecyclerViewAdapter(Context context, List<Restaurant> list) {
-        this.context = context;
-        this.list = list;
+    public RestaurantRecyclerViewAdapter( List<Restaurant> list) {
+
+        this.restaurantsList = list;
     }
 
     @NonNull
@@ -34,24 +30,24 @@ public class RestaurantRecyclerViewAdapter extends RecyclerView.Adapter<Restaura
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return restaurantsList.size();
     }
 
 
     @Override
     public void onBindViewHolder(@NonNull RestaurantViewHolder restaurantViewHolder, int position) {
-        Restaurant restaurant = list.get(position);
+        Restaurant restaurant = restaurantsList.get(position);
         restaurantViewHolder.setData(restaurant);
     }
 
     public void addItem(Restaurant listItem) {
-        list.add(listItem);
-        this.notifyItemInserted(list.size() - 1);
+        restaurantsList.add(listItem);
+        this.notifyItemInserted(restaurantsList.size() - 1);
     }
 
     public void addItem(Restaurant restaurantItem, int position) {
-        if (position >= 0 && position < list.size()) {
-            list.add(position, restaurantItem);
+        if (position >= 0 && position < restaurantsList.size()) {
+            restaurantsList.add(position, restaurantItem);
             this.notifyItemInserted(position);
 
         } else {
@@ -60,15 +56,15 @@ public class RestaurantRecyclerViewAdapter extends RecyclerView.Adapter<Restaura
     }
 
     public void removeListItem(int position) {
-        if (position > 0 && position < list.size()) {
-            list.remove(position);
+        if (position > 0 && position < restaurantsList.size()) {
+            restaurantsList.remove(position);
             this.notifyItemRemoved(position);
         }
     }
 
-        public void removeResturant(String id){
-            for (int i = 0; i < list.size(); i++) {
-                if (list.get(i).equals(id)){
+    public void removeResturant(String id){
+            for (int i = 0; i < restaurantsList.size(); i++) {
+                if (restaurantsList.get(i).equals(id)){
                     removeListItem(i);
                     return;
                 }

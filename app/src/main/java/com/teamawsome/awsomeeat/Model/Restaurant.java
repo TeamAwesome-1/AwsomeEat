@@ -1,4 +1,4 @@
-package com.teamawsome.awsomeeat.ResturantList;
+package com.teamawsome.awsomeeat.Model;
 
 import com.google.firebase.firestore.Exclude;
 
