@@ -1,20 +1,14 @@
-package com.teamawsome.awsomeeat.ResturantList;
+package com.teamawsome.awsomeeat;
 
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.teamawsome.awsomeeat.Firestore;
-import com.teamawsome.awsomeeat.R;
-import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.teamawsome.awsomeeat.Adapters.RestaurantRecyclerViewAdapter;
+import com.teamawsome.awsomeeat.Model.Restaurant;
 
 import javax.annotation.Nullable;
 
