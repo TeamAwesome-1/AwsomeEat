@@ -1,4 +1,4 @@
-package com.teamawsome.awsomeeat.MenuList;
+package com.teamawsome.awsomeeat.Adapters;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -12,11 +12,11 @@ import com.teamawsome.awsomeeat.ViewHolder.FoodViewHolder;
 
 import java.util.List;
 
-public class MenuListRecyclerViewAdapter extends RecyclerView.Adapter<FoodViewHolder> {
+public class FoodListRecyclerViewAdapter extends RecyclerView.Adapter<FoodViewHolder> {
     List<Food> list;
 
 
-    public MenuListRecyclerViewAdapter(List<Food> list){
+    public FoodListRecyclerViewAdapter(List<Food> list){
         this.list = list;
     }
     @NonNull
@@ -41,5 +41,21 @@ public class MenuListRecyclerViewAdapter extends RecyclerView.Adapter<FoodViewHo
     public void addItem(Food listItem){
         list.add(listItem);
         this.notifyItemInserted(list.size() - 1);
+    }
+    public void removeMenuItem(int position) {
+        if (position > 0 && position < list.size()) {
+            list.remove(position);
+            this.notifyItemRemoved(position);
+        }
+    }
+
+    public void removeMenuItem(String id){
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).equals(id)){
+                removeMenuItem(i);
+                return;
+            }
+
+        }
     }
 }

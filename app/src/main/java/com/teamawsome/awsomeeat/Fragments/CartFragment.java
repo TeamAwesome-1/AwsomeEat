@@ -1,13 +1,17 @@
-package com.teamawsome.awsomeeat;
+package com.teamawsome.awsomeeat.Fragments;
+
 
 import android.content.DialogInterface;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -16,19 +20,23 @@ import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.teamawsome.awsomeeat.Adapters.CartAdapter;
+import com.teamawsome.awsomeeat.Cart;
 import com.teamawsome.awsomeeat.Common.Common;
 import com.teamawsome.awsomeeat.Database.Database;
 import com.teamawsome.awsomeeat.Model.Order;
 import com.teamawsome.awsomeeat.Model.Request;
-import com.teamawsome.awsomeeat.Adapters.CartAdapter;
+import com.teamawsome.awsomeeat.R;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class Cart extends AppCompatActivity {
+import javax.annotation.Nullable;
 
+
+public class CartFragment extends Fragment {
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
 
@@ -38,28 +46,43 @@ public class Cart extends AppCompatActivity {
     TextView txtTotalPrice;
     Button btnPlace;
 
-
     List<Order> cart = new ArrayList<>();
 
     CartAdapter adapter;
 
+    public CartFragment() {
+
+    }
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cart);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view  = inflater.inflate(R.layout.fragment_cart, container, false);
 
         //Firebase
         database= FirebaseDatabase.getInstance();
         requests=database.getReference("Requests") ;
 
         //Init
-        recyclerView = (RecyclerView)findViewById(R.id.listCart);
+        recyclerView = (RecyclerView)view.findViewById(R.id.listCart);
         recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
+        layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        txtTotalPrice = (TextView)findViewById(R.id.total);
-        btnPlace = findViewById(R.id.btnPlaceOrder);
+        txtTotalPrice = (TextView)view.findViewById(R.id.total);
+        btnPlace = view.findViewById(R.id.btnPlaceOrder);
+
+
+
+    return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        loadListFood();
 
         btnPlace.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,27 +90,25 @@ public class Cart extends AppCompatActivity {
                 if(cart.size() > 0)
                     showAlertDialog();
                 else
-                    Toast.makeText(Cart.this, "Cart is empty!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Cart is empty!", Toast.LENGTH_SHORT).show();
             }
         });
-
-        loadListFood();
     }
 
-    private void showAlertDialog() {
-        if (cart.size()<= 0)  //checking if cart is empty or not
-        {
-            Toast.makeText(Cart.this, "Add some items to cart !", Toast.LENGTH_SHORT).show();
-            finish();
-        }
-        else
-        {
 
-            AlertDialog.Builder alertdialog = new AlertDialog.Builder(Cart.this);
+    private void showAlertDialog() {
+        if (cart.size() <= 0)  //checking if cart is empty or not
+        {
+            Toast.makeText(getContext(), "Add some items to cart !", Toast.LENGTH_SHORT).show();
+
+
+        } else {
+
+            AlertDialog.Builder alertdialog = new AlertDialog.Builder(getContext());
             alertdialog.setTitle("One more step!");
             alertdialog.setMessage("Enter address: ");
 
-            final EditText edtAddress = new EditText(Cart.this);
+            final EditText edtAddress = new EditText(getContext());
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.MATCH_PARENT
@@ -100,13 +121,10 @@ public class Cart extends AppCompatActivity {
 
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    if(edtAddress.getText().toString().length()==0 || edtAddress.getText().toString().matches(""))
-                    {
-                        Toast.makeText(Cart.this, "Address can't be left blank!", Toast.LENGTH_SHORT).show();
+                    if (edtAddress.getText().toString().length() == 0 || edtAddress.getText().toString().matches("")) {
+                        Toast.makeText(getContext(), "Address can't be left blank!", Toast.LENGTH_SHORT).show();
                         return;
-                    }
-                    else
-                    {
+                    } else {
 
                         //create new request
                         Request request = new Request(
@@ -121,9 +139,9 @@ public class Cart extends AppCompatActivity {
                         requests.child(String.valueOf(System.currentTimeMillis()))
                                 .setValue(request);
                         //delete cart
-                        new Database(getBaseContext()).cleanCart();
-                        Toast.makeText(Cart.this, "Order placed succesfully!", Toast.LENGTH_SHORT).show();
-                        finish();
+                        new Database(getContext()).cleanCart();
+                        Toast.makeText(getContext(), "Order placed succesfully!", Toast.LENGTH_SHORT).show();
+                        getActivity().getSupportFragmentManager().popBackStack();
                     }
 
                 }
@@ -141,11 +159,13 @@ public class Cart extends AppCompatActivity {
 
         }
 
+
     }
 
+
     private void loadListFood() {
-        cart = new Database(this).getCarts();
-        adapter = new CartAdapter(cart,this);
+        cart = new Database(getContext()).getCarts();
+        adapter = new CartAdapter(cart,getContext());
         adapter.notifyDataSetChanged();
         recyclerView.setAdapter(adapter);
 
@@ -172,10 +192,10 @@ public class Cart extends AppCompatActivity {
         //remove item at List<Order>
         cart.remove(position);
         //delete old data from SQLite
-        new Database(this).cleanCart();
+        new Database(getContext()).cleanCart();
         //finally, update new data from List<Order> to SQLite
         for (Order item:cart)
-            new Database(this).addToCart(item);
+            new Database(getContext()).addToCart(item);
         //refresh
         loadListFood();
 
