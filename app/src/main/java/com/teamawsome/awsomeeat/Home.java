@@ -4,11 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.view.menu.MenuView;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -19,7 +15,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,11 +23,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 import com.teamawsome.awsomeeat.Common.Common;
-import com.teamawsome.awsomeeat.Interface.ItemClickListener;
 import com.teamawsome.awsomeeat.Model.Category;
-import com.teamawsome.awsomeeat.Model.Food;
-import com.teamawsome.awsomeeat.Model.Order;
-import com.teamawsome.awsomeeat.ViewHolder.MenuViewHolder;
+import com.teamawsome.awsomeeat.ViewHolder.FoodListViewHolder;
 
 
 
@@ -47,7 +39,7 @@ public class Home extends AppCompatActivity
     RecyclerView recyler_menu;
     RecyclerView.LayoutManager layoutManager;
 
-    FirebaseRecyclerAdapter<Category,MenuViewHolder> adapter;
+    FirebaseRecyclerAdapter<Category,FoodListViewHolder> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,10 +81,10 @@ public class Home extends AppCompatActivity
         txtFullName.setText(Common.currentUser.getName());
 
         //Load Menu
-        recyler_menu= (RecyclerView)findViewById(R.id.recycler_menu);
+        /*recyler_menu= (RecyclerView)findViewById(R.id.recycler_menu);
         recyler_menu.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
-        recyler_menu.setLayoutManager(layoutManager);
+        recyler_menu.setLayoutManager(layoutManager);*/
 
         if(Common.isNetworkAvailable(this))
             loadMenu();
@@ -105,15 +97,15 @@ public class Home extends AppCompatActivity
 
     private void loadMenu() {
 
-        adapter = new FirebaseRecyclerAdapter<Category, MenuViewHolder>(Category.class,R.layout.menu_item,MenuViewHolder.class,category) {
+        adapter = new FirebaseRecyclerAdapter<Category, FoodListViewHolder>(Category.class,R.layout.menu_item,FoodListViewHolder.class,category) {
             @Override
-            protected void populateViewHolder(MenuViewHolder viewHolder, Category model, int position) {
+            protected void populateViewHolder(FoodListViewHolder viewHolder, Category model, int position) {
 
-                viewHolder.txtMenuName.setText(model.getName());
+               viewHolder.txtMenuName.setText(model.getName());
                 Picasso.get().load(model.getImage())
                         .into(viewHolder.imageView);
                 final Category clickItem = model;
-                viewHolder.setItemClickListener(new ItemClickListener() {
+                /*viewHolder.setItemClickListener(new ItemClickListener() {
                     @Override
                     public void onClick(View view, int position, boolean isLongClick) {
                         //Get Category Id and send to new activity
@@ -123,7 +115,7 @@ public class Home extends AppCompatActivity
                         startActivity(foodList);
 
                     }
-                });
+                });*/
             }
         };
         recyler_menu.setAdapter(adapter);

@@ -5,7 +5,8 @@
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.MenuListFragment">
+    tools:context=".Fragments.FoodCategoryFragment">
+
 
     <FrameLayout
         android:id="@+id/framelayout"
@@ -13,15 +14,16 @@
         android:layout_height="match_parent">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/menulist"
+            android:id="@+id/recycler_menu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="8dp"
+            android:scrollbars="vertical"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             tools:context=".ItemFragment"
-            tools:listitem="@layout/restaurant_item">
+            tools:listitem="@layout/menu_item">
 
         </android.support.v7.widget.RecyclerView>
     </FrameLayout>
