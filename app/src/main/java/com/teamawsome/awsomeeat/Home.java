@@ -194,7 +194,7 @@ public class Home extends AppCompatActivity
 
         } else if (id == R.id.nav_orders) {
             /// edit later
-            Intent orderIntent = new Intent(Home.this,SignIn.class);
+            Intent orderIntent = new Intent(Home.this,OrderStatus.class);
             startActivity(orderIntent);
 
 
