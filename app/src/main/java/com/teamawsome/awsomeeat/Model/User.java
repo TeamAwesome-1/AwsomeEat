@@ -3,7 +3,7 @@ package com.teamawsome.awsomeeat.Model;
 public class User {
     private String Name;
     private String Password;
-    private String Roll;
+    private String Phone;
 
 
     public User()
@@ -17,11 +17,11 @@ public class User {
     }
 
     public String getPhone() {
-        return Roll;
+        return Phone;
     }
 
     public void setPhone(String roll) {
-        Roll = roll;
+        Phone = Phone;
     }
 
     public String getName() {
