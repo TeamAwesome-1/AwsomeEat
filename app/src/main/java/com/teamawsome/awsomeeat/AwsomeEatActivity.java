@@ -74,6 +74,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.fragmentinsertlayout, restaurantListFragment);
         fragmentTransaction.commit();
+        //test
     }
 
     @Override
