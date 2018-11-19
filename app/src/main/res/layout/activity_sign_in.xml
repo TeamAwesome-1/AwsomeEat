@@ -28,13 +28,13 @@
         android:id="@+id/linearLayout">
 
         <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/edtPhone"
+            android:id="@+id/edtEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Phone Number"
             android:drawableLeft="@mipmap/ic_user"
-            android:inputType="number"
+            android:hint="Email"
 
+            android:inputType="textEmailAddress"
             android:textColor="@android:color/holo_orange_dark"
             android:textColorHint="@android:color/holo_blue_bright"
             android:textSize="25sp"
@@ -42,9 +42,8 @@
             app:met_floatingLabel="highlight"
             app:met_maxCharacters="9"
             app:met_primaryColor="@android:color/holo_red_light"
-            app:met_singleLineEllipsis="true"
 
-            />
+            app:met_singleLineEllipsis="true" />
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/edtPassword"
