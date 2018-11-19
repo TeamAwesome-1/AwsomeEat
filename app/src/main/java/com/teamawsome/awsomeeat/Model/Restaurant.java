@@ -13,10 +13,10 @@ public class Restaurant {
         
     }
 
-    public Restaurant(String name, String adress, String pictureUrl) {
+    public Restaurant(String name, String adress) {
         this.name = name;
         this.adress = adress;
-        this.pictureUrl = pictureUrl;
+       // this.pictureUrl = pictureUrl;
     }
 }
 
