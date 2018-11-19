@@ -16,8 +16,8 @@ public class AdminMain extends AppCompatActivity {
     private FirebaseFirestore firebaseFirestore;
     public EditText restaurantName;
     public EditText restaurantAdress;
-    public static String restaurantName1;
-    public static String restaurantAdress1;
+    public String restaurantName1;
+    public String restaurantAdress1;
 
 
     @Override

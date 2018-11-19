@@ -37,7 +37,7 @@ public class FirestoreMain extends AppCompatActivity {
         public void addRestaurant (String restaurantName, String restaurantAdress, FirebaseFirestore firebaseFirestore) {
 
 
-                  RestaurantAdmin r = new RestaurantAdmin(AdminMain.restaurantName1, AdminMain.restaurantAdress1);
+                  RestaurantAdmin r = new RestaurantAdmin(restaurantName, restaurantAdress);
                             firebaseFirestore.collection("restaurants")
                                     .add(r);
 

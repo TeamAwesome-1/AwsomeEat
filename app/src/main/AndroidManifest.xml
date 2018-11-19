@@ -30,6 +30,7 @@
         <activity android:name=".Cart" />
         <activity android:name=".Admin.FirestoreMain" />
 
+
     </application>
 
 </manifest>

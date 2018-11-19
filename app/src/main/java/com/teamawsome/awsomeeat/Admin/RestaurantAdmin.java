@@ -14,8 +14,8 @@ public class RestaurantAdmin {
     }
 
     public RestaurantAdmin(String name, String adress) {
-     this.name = AdminMain.restaurantName1;
-     this.adress = AdminMain.restaurantAdress1;
+     this.name = name;
+     this.adress = adress;
         // this.pictureUrl = pictureUrl;
     }
 }
