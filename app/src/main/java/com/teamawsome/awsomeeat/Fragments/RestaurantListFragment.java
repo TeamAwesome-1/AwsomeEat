@@ -1,5 +1,6 @@
 package com.teamawsome.awsomeeat.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,7 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.teamawsome.awsomeeat.Admin.AdminMain;
 import com.teamawsome.awsomeeat.R;
 import com.teamawsome.awsomeeat.Model.Restaurant;
 import com.teamawsome.awsomeeat.Adapters.RestaurantRecyclerViewAdapter;
@@ -74,10 +76,11 @@ public class RestaurantListFragment extends Fragment {
         });
 
         getActivity().findViewById(R.id.Button).setOnClickListener((View view) -> {
-            Restaurant r = new Restaurant("Restaurant ", "Gamla sjövägen","https://media-cdn.tripadvisor.com/media/photo-s/02/54/b7/ff/wrights-restaurant.jpg");
+            Intent intent = new Intent(getContext(), AdminMain.class);
+            startActivity(intent);
 
-            db.collection("restaurants")
-                    .add(r);
+          //  db.collection("restaurants")
+            //        .add(r);
                     /*.addOnCanceledListener(new OnSuccessListener<DocumentReference>() {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {

@@ -31,7 +31,7 @@
         <activity android:name=".FoodDetail" />
         <activity android:name=".Model.Cart" />
         <activity android:name=".Cart" />
-        <activity android:name=".ResturantList.FirestoreMain" />
+        <activity android:name=".Admin.AdminMain" />
 
     </application>
 
