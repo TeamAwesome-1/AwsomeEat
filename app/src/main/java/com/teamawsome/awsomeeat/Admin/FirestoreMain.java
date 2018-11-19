@@ -22,24 +22,28 @@ public class FirestoreMain extends AppCompatActivity {
 
     private static final FirestoreMain FirestoreMain = new FirestoreMain();
 
-    public static FirestoreMain getInstance () {
-        return FirestoreMain;
+    public static FirestoreMain getInstance () { return FirestoreMain;
     }
 
     private List<RestaurantAdmin> itemList = new ArrayList<>();
 
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    private Restaurant restaurant;
+
     private FirestoreMain () {
+
 
     }
 
         //Lägg till ny restaurang.
 
-        public void addRestaurant (String restaurantName, String restaurantAdress, FirebaseFirestore firebaseFirestore) {
+        public void addRestaurant (String restaurantName, String restaurantAdress) {
 
 
-                  RestaurantAdmin r = new RestaurantAdmin(restaurantName, restaurantAdress);
-                            firebaseFirestore.collection("restaurants")
-                                    .add(r);
+                  restaurant = new Restaurant(restaurantName, restaurantAdress);
+                            db.collection("restaurants")
+                                    .add(restaurant);
 
 
 
@@ -49,6 +53,8 @@ public class FirestoreMain extends AppCompatActivity {
         public void addToCart () {
 
         }
+
+    //    public RestaurantAdmin ()
 
         //Hämtar vald restaurangs meny.
         public void getRestaurantMenu () {

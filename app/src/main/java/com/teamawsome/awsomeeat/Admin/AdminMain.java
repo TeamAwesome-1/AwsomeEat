@@ -40,7 +40,7 @@ public class AdminMain extends AppCompatActivity {
                 restaurantAdress1 = restaurantAdress.getText().toString();
                 restaurantAdress.setText(restaurantAdress1);
                 restaurantName.setText(restaurantName1);
-              firestoreMain.addRestaurant(restaurantName1, restaurantAdress1, firebaseFirestore);
+              firestoreMain.addRestaurant(restaurantName1, restaurantAdress1);
             }
         });
     }

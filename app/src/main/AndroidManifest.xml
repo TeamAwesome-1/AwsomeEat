@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Admin.AdminMain">
+        <activity android:name=".AwsomeEatActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,6 +29,7 @@
         <activity android:name=".Model.Cart" />
         <activity android:name=".Cart" />
         <activity android:name=".Admin.FirestoreMain" />
+        <activity android:name=".Admin.AdminMain" />
 
 
     </application>

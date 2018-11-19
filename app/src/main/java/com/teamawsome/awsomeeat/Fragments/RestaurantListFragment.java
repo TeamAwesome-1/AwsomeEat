@@ -1,5 +1,6 @@
 package com.teamawsome.awsomeeat.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,10 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.teamawsome.awsomeeat.Admin.AdminMain;
+import com.teamawsome.awsomeeat.Admin.FirestoreMain;
+import com.teamawsome.awsomeeat.Admin.RestaurantAdmin;
+import com.teamawsome.awsomeeat.Firestore;
 import com.teamawsome.awsomeeat.R;
 import com.teamawsome.awsomeeat.Model.Restaurant;
 import com.teamawsome.awsomeeat.Adapters.RestaurantRecyclerViewAdapter;
@@ -19,12 +24,13 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 
+
 public class RestaurantListFragment extends Fragment {
 
     private List<Restaurant> itemList = new ArrayList<>();
     private RestaurantRecyclerViewAdapter adapter;
     private FirebaseFirestore db;
-
+    private FirestoreMain firestoreMain;
 
     public RestaurantListFragment() {
 
@@ -48,6 +54,7 @@ public class RestaurantListFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState){
       super.onActivityCreated(savedInstanceState);
+        firestoreMain = FirestoreMain.getInstance();
 
         db.collection("restaurants").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -74,7 +81,12 @@ public class RestaurantListFragment extends Fragment {
         });
 
         getActivity().findViewById(R.id.Button).setOnClickListener((View view) -> {
-            Restaurant r = new Restaurant("Restaurant ", "Gamla sjövägen","https://media-cdn.tripadvisor.com/media/photo-s/02/54/b7/ff/wrights-restaurant.jpg");
+            Intent intent = new Intent (getContext(), AdminMain.class);
+            startActivity(intent);
+         //   firestoreMain.addRestaurant("hejjeee", "testaaar");
+
+
+            /*Restaurant r = new Restaurant("Restaurant ", "Gamla sjövägen","https://media-cdn.tripadvisor.com/media/photo-s/02/54/b7/ff/wrights-restaurant.jpg");
 
             db.collection("restaurants")
                     .add(r);
