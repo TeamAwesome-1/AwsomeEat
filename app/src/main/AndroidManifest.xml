@@ -29,7 +29,6 @@
         </activity>
         <activity android:name=".FoodList" />
         <activity android:name=".FoodDetail" />
-        <activity android:name=".Model.Cart" />
         <activity android:name=".Cart" />
         <activity android:name=".Admin.AdminMain" />
 
