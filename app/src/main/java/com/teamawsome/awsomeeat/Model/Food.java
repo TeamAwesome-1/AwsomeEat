@@ -1,24 +1,41 @@
 package com.teamawsome.awsomeeat.Model;
 
+import com.google.firebase.database.Exclude;
+
 public class Food {
 
     private String Name;
+    @Exclude
     private String Image;
+    @Exclude
     private String Description;
+    @Exclude
     private String Price;
+    @Exclude
     private String Discount;
+    @Exclude
     private String MenuId;
+    public String Category;
+
 
     public Food() {
+
     }
 
-    public Food(String name, String image, String description, String price, String discount, String menuId ) {
+    public Food(String name, String image, String description, String price, String discount, String menuId, String category ) {
         Name = name;
         Image = image;
         Description = description;
         Price = price;
         Discount= discount;
         MenuId = menuId;
+        Category = category;
+
+    }
+
+    public Food(String name, String category) {
+        Name = name;
+        this.Category = category;
     }
 
     public String getName() {
@@ -29,7 +46,7 @@ public class Food {
         Name = name;
     }
 
-    public String getImage() {
+   public String getImage() {
         return Image;
     }
 
@@ -68,4 +85,6 @@ public class Food {
     public void setMenuId(String menuId) {
         MenuId = menuId;
     }
+
+
 }
