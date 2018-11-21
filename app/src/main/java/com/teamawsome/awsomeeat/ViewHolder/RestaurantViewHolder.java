@@ -23,6 +23,7 @@ public class RestaurantViewHolder extends RecyclerView.ViewHolder implements Vie
     private final TextView restaurantListNameView;
     private final TextView restaurantListAdressView;
     private final ImageView restaurantListImageView;
+    private String itemId;
 
 
 
@@ -42,19 +43,21 @@ public class RestaurantViewHolder extends RecyclerView.ViewHolder implements Vie
         restaurantListAdressView.setText(subtitle);
     }
 
+    //Set information for the listview
     public void setData(Restaurant restaurantInfo) {
         restaurantListNameView.setText(restaurantInfo.name);
         restaurantListAdressView.setText(restaurantInfo.adress);
-        restaurantListView.setTag(restaurantInfo.id);
+        itemId = restaurantInfo.id;
         PictureHandler.setPictureFromUrl(restaurantInfo.pictureUrl, restaurantListImageView);
     }
 
     @Override
     public void onClick(View v) {
 
-        idHolder.restaurantId= (String)restaurantListView.getTag();
+        //Save id for the restaurant that was clicked on
+        idHolder.restaurantId = itemId;
+        //open next fragment with foodcategories
         EventHandler.openFoodCategoryFragment(v);
-
 
     }
 }

@@ -16,6 +16,8 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
+import com.teamawsome.awsomeeat.Adapters.FoodListRecyclerViewAdapter;
+import com.teamawsome.awsomeeat.Admin.FirestoreMain;
 import com.teamawsome.awsomeeat.Common.Common;
 import com.teamawsome.awsomeeat.FoodDetail;
 import com.teamawsome.awsomeeat.FoodList;
@@ -23,22 +25,26 @@ import com.teamawsome.awsomeeat.Interface.ItemClickListener;
 import com.teamawsome.awsomeeat.Model.Food;
 import com.teamawsome.awsomeeat.R;
 import com.teamawsome.awsomeeat.ViewHolder.FoodViewHolder;
+import com.teamawsome.idHolder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.Nullable;
 
-
+//Displays a foodlist
 public class FoodListFragment extends Fragment {
 
 
-   RecyclerView recyclerView;
-   RecyclerView.LayoutManager layoutManager;
-   FirebaseDatabase database;
-   DatabaseReference foodList;
-   String categoryId="";
+    private List<Food> itemList = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private String categoryId;
+    private String restaurantId;
+    private FirestoreMain firestoreMain = FirestoreMain.getInstance();
 
     private static final String TAG = "Logging Example";
+    FoodListRecyclerViewAdapter adapter;
 
-    FirebaseRecyclerAdapter<Food,FoodViewHolder> adapter;
 
 
     public FoodListFragment() {
@@ -51,16 +57,19 @@ public class FoodListFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_food_list, container, false);
 
-        //Get info from the previous fragment- now FoodCategoryFragment
-        categoryId = getArguments().get("CategoryId").toString();
+        //specify the adapter
+        adapter = new FoodListRecyclerViewAdapter(itemList);
 
-        //Firebase_init
-        database = FirebaseDatabase.getInstance();
-        foodList = database.getReference("Foods");
+        //Get info about which category user pressed and for which restaurant
+        if(idHolder.categoryId != null) {
+            categoryId = idHolder.categoryId;
+        }
+        if(idHolder.restaurantId != null) {
+            restaurantId = idHolder.restaurantId;
+        }
+
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_food);
-        recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(getActivity().getBaseContext());
-        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
 
         return view;
     }
@@ -69,42 +78,20 @@ public class FoodListFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if(Common.isNetworkAvailable(getContext()))
-            loadListFood(categoryId);
+        if (Common.isNetworkAvailable(getContext())){
+            //Load Foodlist for a specific category to the choosen restaurant
+            firestoreMain.getMenuForRestaurantCategory(adapter, restaurantId, categoryId);
+        }
         else
         {
             Toast.makeText(getContext(), "Please check your Internet Connection!", Toast.LENGTH_SHORT).show();
-            return;
         }
 
-        loadListFood(categoryId);
-
-
     }
-
-
-    private void loadListFood(String categoryId) {
-        //TODO Change to firebase-database and make an adapter for FoodList
-        adapter = new FirebaseRecyclerAdapter<Food, FoodViewHolder>(Food.class,
-                R.layout.food_item,
-                FoodViewHolder.class,
-                foodList.orderByChild("MenuId").equalTo(categoryId)  //similar to select * from food where MenuId=
-        ) {
-            @Override
-            protected void populateViewHolder(FoodViewHolder viewHolder, Food model, int position) {
-                Log.d(TAG,"picaasso" );
-                viewHolder.itemId = adapter.getRef(position).getKey();
-                //TODO OBS! REPLACED OLD WAY OF SHOWING DATA
-                viewHolder.setData(model);
-                final Food local =  model;
-            }
-        };
-        //set adapter
-        recyclerView.setAdapter(adapter);
-    }
-
 
 }
+
+
 
 
 

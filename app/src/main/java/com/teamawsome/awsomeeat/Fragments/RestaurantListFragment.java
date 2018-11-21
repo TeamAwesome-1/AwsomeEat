@@ -13,6 +13,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.teamawsome.awsomeeat.Admin.AdminMain;
+import com.teamawsome.awsomeeat.Admin.FirestoreMain;
 import com.teamawsome.awsomeeat.R;
 import com.teamawsome.awsomeeat.Model.Restaurant;
 import com.teamawsome.awsomeeat.Adapters.RestaurantRecyclerViewAdapter;
@@ -20,12 +21,12 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Nullable;
 
-
+//Shows a list with all restaurants
 public class RestaurantListFragment extends Fragment {
 
     private List<Restaurant> itemList = new ArrayList<>();
     private RestaurantRecyclerViewAdapter adapter;
-    private FirebaseFirestore db;
+    FirestoreMain firestoreMain= FirestoreMain.getInstance();
 
     public RestaurantListFragment() {
 
@@ -36,7 +37,6 @@ public class RestaurantListFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_restaurant_list, container, false);
         adapter = new RestaurantRecyclerViewAdapter(itemList);
-        db= FirebaseFirestore.getInstance();
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.list);
         recyclerView.setAdapter(adapter);
         return view;
@@ -47,53 +47,16 @@ public class RestaurantListFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
-
         if (itemList.size()== 0) {
-
-            db.collection("restaurants").addSnapshotListener(new EventListener<QuerySnapshot>() {
-                @Override
-                public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                    if (e != null) {
-                        return;
-                    }
-
-                    for (DocumentChange dc : queryDocumentSnapshots.getDocumentChanges()) {
-                        if (dc.getType() == DocumentChange.Type.ADDED) {
-
-                            String id = dc.getDocument().getId();
-                            Restaurant restaurant = dc.getDocument().toObject(Restaurant.class);
-                            restaurant.id = id;
-                            adapter.addItem(restaurant);
-                        } else if (dc.getType() == DocumentChange.Type.REMOVED) {
-                            String id = dc.getDocument().getId();
-                            adapter.removeResturant(id);
-                        }
-                    }
-
-                }
-            });
+            firestoreMain.getRestaurantList(adapter);
         }
 
+        //specifies what happens when button is clicked - adminView is opened.
         getActivity().findViewById(R.id.Button).setOnClickListener((View view) -> {
             Intent intent = new Intent(getContext(), AdminMain.class);
             startActivity(intent);
 
-            //TODO remove old stuff:
-          //  db.collection("restaurants")
-            //        .add(r);
-                    /*.addOnCanceledListener(new OnSuccessListener<DocumentReference>() {
-                        @Override
-                        public void onSuccess(DocumentReference documentReference) {
-
-                        }
-                     })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                 }});*/
         });
-
-
 
     }
 

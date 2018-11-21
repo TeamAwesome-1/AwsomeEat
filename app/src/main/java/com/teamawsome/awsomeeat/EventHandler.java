@@ -14,6 +14,7 @@ import com.teamawsome.awsomeeat.Fragments.RestaurantListFragment;
 
 public class EventHandler {
 
+    //TODO Check if all methods are neccessary
     private static Fragment fragment;
 
     private static void openFragment(Fragment fragment, View v, String id){
@@ -31,15 +32,16 @@ public class EventHandler {
         activity.getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragmentinsertlayout, fragment).addToBackStack(null)
                 .commit();
-    }
+        }
 
     public static void openCartFragment(View v, String id){
         fragment = new CartFragment();
         openFragment(fragment, v, id);
 
     }
+
     public static void openFoodListFragment(View v){
-        fragment = new MenuListFragment();
+        fragment = new FoodListFragment();
         openFragment(fragment, v);
 
     }

@@ -18,6 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.teamawsome.awsomeeat.Adapters.CategoryListRecyclerViewAdapter;
+import com.teamawsome.awsomeeat.Admin.FirestoreMain;
 import com.teamawsome.awsomeeat.Common.Common;
 import com.teamawsome.awsomeeat.Model.Category;
 import com.teamawsome.awsomeeat.Model.Category;
@@ -30,15 +31,14 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+//Displays a list of food Categories.
 public class FoodCategoryFragment extends Fragment {
 
     private List<Category> foodCategoryList = new ArrayList<>();
     private CategoryListRecyclerViewAdapter adapter;
-    //FirebaseRecyclerAdapter<Category,FoodListViewHolder> adapter;
-    private FirebaseFirestore db;
-    //private FirebaseDatabase database;
     private RecyclerView recyclerView;
     private String restaurantId;
+    private FirestoreMain firestoreMain = FirestoreMain.getInstance();
 
     public FoodCategoryFragment() {
 
@@ -56,11 +56,7 @@ public class FoodCategoryFragment extends Fragment {
             restaurantId= idHolder.restaurantId;
         }
 
-
-        db = FirebaseFirestore.getInstance();
-        //category = database.getReference("Category");
         recyclerView = view.findViewById(R.id.recycler_menu);
-
         adapter = new CategoryListRecyclerViewAdapter(foodCategoryList);
         recyclerView.setAdapter(adapter);
         return view;
@@ -73,59 +69,17 @@ public class FoodCategoryFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if(Common.isNetworkAvailable(getContext()))
-            loadMenu();
+        if(Common.isNetworkAvailable(getContext())) {
+            if (foodCategoryList.size() == 0) {
+                //Load categoryList from database for the restaurant user pressed in previous fragment.
+                firestoreMain.getCategoriesForRestaurant(adapter, restaurantId);
+            }
+        }
         else
         {
             Toast.makeText(getActivity(), "Please check your Internet Connection!", Toast.LENGTH_SHORT).show();
             return;
         }
-    }
-
-    private void loadMenu() {
-
-        if(foodCategoryList.size()==0) {
-            db.collection("Categories").whereArrayContains("restaurantId", restaurantId)
-                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                        @Override
-                        public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                            if (e != null) {
-                                return;
-                            }
-                            for (DocumentChange dc : queryDocumentSnapshots.getDocumentChanges()) {
-                                if (dc.getType() == DocumentChange.Type.ADDED) {
-
-                                    String id = dc.getDocument().getId();
-                                    Category category = dc.getDocument().toObject(Category.class);
-                                    category.setId(id);
-                                    adapter.addCategoryItem(category);
-                                } else if (dc.getType() == DocumentChange.Type.MODIFIED) {
-
-                                    //TODO make method for modifying category
-                                    String id = dc.getDocument().getId();
-                                    Category category = dc.getDocument().toObject(Category.class);
-                                    //adapter.modifyItem(id, category);
-                                } else if (dc.getType() == DocumentChange.Type.REMOVED) {
-                                    String id = dc.getDocument().getId();
-                                    //TODO make method for removing category
-                                    //adapter.removeItem(id);
-                                }
-                            }
-                        }
-                    });
-
-        }
-
-        /* adapter = new FirebaseRecyclerAdapter<Category, FoodListViewHolder>(Category.class,R.layout.menu_item,FoodListViewHolder.class, ) {
-            @Override
-            protected void populateViewHolder(FoodListViewHolder viewHolder, Category model, int position) {
-
-                viewHolder.itemId = adapter.getRef(position).getKey();
-                viewHolder.setData(model);
-                final Category clickItem = model;
-            }
-        };
-        recyclerView.setAdapter(adapter);*/
     }
 
 }
