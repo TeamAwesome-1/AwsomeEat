@@ -13,7 +13,7 @@ import java.util.List;
 
 
 public class RestaurantRecyclerViewAdapter extends RecyclerView.Adapter<RestaurantViewHolder> {
-    List<Restaurant> restaurantsList;
+    public List<Restaurant> restaurantsList;
 
     public RestaurantRecyclerViewAdapter( List<Restaurant> list) {
 

@@ -42,6 +42,18 @@ public class FoodListRecyclerViewAdapter extends RecyclerView.Adapter<FoodViewHo
         list.add(listItem);
         this.notifyItemInserted(list.size() - 1);
     }
+
+    public void modifyItem(String id, Food food) {
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getId().equals(id)) {
+                list.set(i, food);
+                this.notifyItemChanged(i);
+                return;
+            }
+        }
+    }
+
+
     public void removeMenuItem(int position) {
         if (position > 0 && position < list.size()) {
             list.remove(position);
@@ -49,13 +61,12 @@ public class FoodListRecyclerViewAdapter extends RecyclerView.Adapter<FoodViewHo
         }
     }
 
-    public void removeMenuItem(String id){
+   public void removeMenuItem(String id){
         for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).equals(id)){
+            if (list.get(i).getId().equals(id)){
                 removeMenuItem(i);
                 return;
             }
-
         }
     }
 }

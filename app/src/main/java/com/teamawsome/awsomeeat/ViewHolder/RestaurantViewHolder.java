@@ -1,16 +1,22 @@
 package com.teamawsome.awsomeeat.ViewHolder;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.teamawsome.awsomeeat.EventHandler;
+import com.teamawsome.awsomeeat.Fragments.FoodCategoryFragment;
+import com.teamawsome.awsomeeat.Fragments.MenuListFragment;
 import com.teamawsome.awsomeeat.Interface.ItemClickListener;
 import com.teamawsome.awsomeeat.PictureHandler;
 import com.teamawsome.awsomeeat.R;
 import com.teamawsome.awsomeeat.Model.Restaurant;
+import com.teamawsome.idHolder;
 
 public class RestaurantViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     public final View restaurantListView;
@@ -39,11 +45,16 @@ public class RestaurantViewHolder extends RecyclerView.ViewHolder implements Vie
     public void setData(Restaurant restaurantInfo) {
         restaurantListNameView.setText(restaurantInfo.name);
         restaurantListAdressView.setText(restaurantInfo.adress);
+        restaurantListView.setTag(restaurantInfo.id);
         PictureHandler.setPictureFromUrl(restaurantInfo.pictureUrl, restaurantListImageView);
     }
 
     @Override
     public void onClick(View v) {
-        EventHandler.openFoodCategoryFragment(v, "hej");
+
+        idHolder.restaurantId= (String)restaurantListView.getTag();
+        EventHandler.openFoodCategoryFragment(v);
+
+
     }
 }

@@ -27,7 +27,6 @@ public class RestaurantListFragment extends Fragment {
     private RestaurantRecyclerViewAdapter adapter;
     private FirebaseFirestore db;
 
-
     public RestaurantListFragment() {
 
     }
@@ -39,9 +38,7 @@ public class RestaurantListFragment extends Fragment {
         adapter = new RestaurantRecyclerViewAdapter(itemList);
         db= FirebaseFirestore.getInstance();
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.list);
-
         recyclerView.setAdapter(adapter);
-
         return view;
 
     }
@@ -51,34 +48,37 @@ public class RestaurantListFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
 
-        db.collection("restaurants").addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                if (e != null){
-                    return;
-                }
+        if (itemList.size()== 0) {
 
-                for (DocumentChange dc: queryDocumentSnapshots.getDocumentChanges()){
-                    if (dc.getType() == DocumentChange.Type.ADDED){
-
-                        String id = dc.getDocument().getId();
-                        Restaurant restaurant = dc.getDocument().toObject(Restaurant.class);
-                        restaurant.id = id;
-                        adapter.addItem(restaurant);
+            db.collection("restaurants").addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                    if (e != null) {
+                        return;
                     }
-                    else if (dc.getType() == DocumentChange.Type.REMOVED){
-                        String id = dc.getDocument().getId();
-                        adapter.removeResturant(id);
-                    }
-                }
 
-            }
-        });
+                    for (DocumentChange dc : queryDocumentSnapshots.getDocumentChanges()) {
+                        if (dc.getType() == DocumentChange.Type.ADDED) {
+
+                            String id = dc.getDocument().getId();
+                            Restaurant restaurant = dc.getDocument().toObject(Restaurant.class);
+                            restaurant.id = id;
+                            adapter.addItem(restaurant);
+                        } else if (dc.getType() == DocumentChange.Type.REMOVED) {
+                            String id = dc.getDocument().getId();
+                            adapter.removeResturant(id);
+                        }
+                    }
+
+                }
+            });
+        }
 
         getActivity().findViewById(R.id.Button).setOnClickListener((View view) -> {
             Intent intent = new Intent(getContext(), AdminMain.class);
             startActivity(intent);
 
+            //TODO remove old stuff:
           //  db.collection("restaurants")
             //        .add(r);
                     /*.addOnCanceledListener(new OnSuccessListener<DocumentReference>() {

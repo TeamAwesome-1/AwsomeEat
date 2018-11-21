@@ -47,15 +47,37 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
         //Hellåååå Testing testing
 
-
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        drawer.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(@NonNull View view, float v) {
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+            }
+
+            @Override
+            public void onDrawerOpened(@NonNull View view) {
+
+            }
+
+            @Override
+            public void onDrawerClosed(@NonNull View view) {
+
+            }
+
+            @Override
+            public void onDrawerStateChanged(int i) {
+               //TODO Insert "insert-restaurant-button" here for admin.
+                navigationView.getMenu().add("test");
+            }
+        });
+
+
 
         // Starts the fragment shown on first page in app
         RestaurantListFragment restaurantListFragment = new RestaurantListFragment();
@@ -101,6 +123,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
         return super.onOptionsItemSelected(item);
     }
+
 
 
 

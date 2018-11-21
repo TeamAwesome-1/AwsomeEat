@@ -26,9 +26,21 @@ public class EventHandler {
                 .commit();
     }
 
+    private static void openFragment(Fragment fragment, View v){
+        AppCompatActivity activity = (AppCompatActivity) v.getContext();
+        activity.getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragmentinsertlayout, fragment).addToBackStack(null)
+                .commit();
+    }
+
     public static void openCartFragment(View v, String id){
         fragment = new CartFragment();
         openFragment(fragment, v, id);
+
+    }
+    public static void openFoodListFragment(View v){
+        fragment = new MenuListFragment();
+        openFragment(fragment, v);
 
     }
 
@@ -47,6 +59,11 @@ public class EventHandler {
     public static void openFoodCategoryFragment(View v, String id){
         fragment = new FoodCategoryFragment();
         openFragment(fragment, v, id);
+    }
+
+    public static void openFoodCategoryFragment(View v){
+        fragment = new FoodCategoryFragment();
+        openFragment(fragment, v);
     }
 
     public static void openFoodDetailFragment(View v, String id){
