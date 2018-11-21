@@ -34,5 +34,8 @@
     <color name="fbutton_color_asbestos">#7f8c8d</color>
     <color name="fbutton_color_transparent">@android:color/transparent</color>
 
+    <color name="tableText">#ea8080</color>
+    <color name="tabindicator">#9b9797</color>
+
 
 </resources>

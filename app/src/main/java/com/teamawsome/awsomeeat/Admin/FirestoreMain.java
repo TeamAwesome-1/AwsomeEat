@@ -3,21 +3,25 @@ package com.teamawsome.awsomeeat.Admin;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
 
+
+
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.teamawsome.awsomeeat.Adapters.CategoryListRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Adapters.FoodListRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Adapters.RestaurantRecyclerViewAdapter;
-import com.teamawsome.awsomeeat.Model.Category;
 import com.teamawsome.awsomeeat.Model.Food;
 import com.teamawsome.awsomeeat.Model.Restaurant;
 import android.widget.EditText;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Future;
 
 import javax.annotation.Nullable;
 
@@ -35,6 +39,8 @@ public class FirestoreMain extends AppCompatActivity {
 
     private Restaurant restaurant;
 
+    private Food food;
+
     private FirestoreMain () {
 
 
@@ -48,6 +54,7 @@ public class FirestoreMain extends AppCompatActivity {
                   restaurant = new Restaurant(restaurantName, restaurantAdress);
                             db.collection("restaurants")
                                     .add(restaurant);
+
 
 
 
@@ -209,6 +216,12 @@ public class FirestoreMain extends AppCompatActivity {
 
 
 
+        }
+
+        public void addFood (String name, String category) {
+        food = new Food(name, category);
+        //food.Category = category;
+        db.collection("Foods").add(food);
         }
 
 
