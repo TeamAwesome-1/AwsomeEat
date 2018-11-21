@@ -15,6 +15,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.teamawsome.awsomeeat.Adapters.CategoryListRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Adapters.FoodListRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Adapters.RestaurantRecyclerViewAdapter;
+import com.teamawsome.awsomeeat.Model.Category;
 import com.teamawsome.awsomeeat.Model.Food;
 import com.teamawsome.awsomeeat.Model.Restaurant;
 import android.widget.EditText;
