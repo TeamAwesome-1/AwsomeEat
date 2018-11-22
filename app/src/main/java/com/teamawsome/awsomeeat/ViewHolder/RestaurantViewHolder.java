@@ -55,7 +55,7 @@ public class RestaurantViewHolder extends RecyclerView.ViewHolder implements Vie
     public void onClick(View v) {
 
         //Save id for the restaurant that was clicked on
-        idHolder.restaurantId = itemId;
+        idHolder.setRestaurantId(itemId);
         //open next fragment with foodcategories
         EventHandler.openFoodCategoryFragment(v);
 

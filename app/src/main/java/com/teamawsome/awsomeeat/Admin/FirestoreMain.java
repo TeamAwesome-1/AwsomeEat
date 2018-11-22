@@ -1,29 +1,40 @@
 package com.teamawsome.awsomeeat.Admin;
 
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.EditText;
 
 
-
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Source;
 import com.teamawsome.awsomeeat.Adapters.CategoryListRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Adapters.FoodListRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Adapters.RestaurantRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Model.Category;
 import com.teamawsome.awsomeeat.Model.Food;
 import com.teamawsome.awsomeeat.Model.Restaurant;
+import com.teamawsome.awsomeeat.R;
+
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Future;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class FirestoreMain extends AppCompatActivity {
@@ -40,7 +51,7 @@ public class FirestoreMain extends AppCompatActivity {
 
     private Restaurant restaurant;
 
-    private Food food;
+    private Food food = new Food();
 
     private FirestoreMain () {
 
@@ -62,12 +73,23 @@ public class FirestoreMain extends AppCompatActivity {
         }
 
         //Lägger till i vaurkorg
-        public void addToCart () {
+        public void addToCart (String amountOfDish, Food food) {
 
-        }
+            Map<String, Object> order = new HashMap<>();
+            order.put("amount", amountOfDish);
+            order.put("name", food.getName());
+            order.put("price", food.getPrice());
+            order.put("userId", "12345");
+
+            db.collection("Cart")
+                    .add(order);
+
+
+    }
 
     //    public RestaurantAdmin ()
 
+        //Hämtar en lista på alla restauranger
         public void getRestaurantList(RestaurantRecyclerViewAdapter adapter){
 
             db.collection("restaurants").addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -95,7 +117,7 @@ public class FirestoreMain extends AppCompatActivity {
 
         }
 
-    //Hämtar en lista på alla matkategorier som finns att välja på i vald restaurang.
+         //Hämtar en lista på alla matkategorier som finns att välja på i vald restaurang.
         public void getCategoriesForRestaurant(CategoryListRecyclerViewAdapter adapter, String restaurantId){
 
 
@@ -129,6 +151,7 @@ public class FirestoreMain extends AppCompatActivity {
                     });
 
         }
+
 
         //Hämtar vald restaurangs meny.
         public void getRestaurantMenu (FoodListRecyclerViewAdapter adapter, String restaurantId) {
@@ -201,6 +224,24 @@ public class FirestoreMain extends AppCompatActivity {
                         }
                     });
 
+
+        }
+
+        //Hämta en maträtt ur FoodsListan
+
+        public Food getSelectedFoodItem(String foodId, Food currentfood){
+
+
+            db.collection("Foods").document(foodId)
+                    .get()
+                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            food = documentSnapshot.toObject(Food.class);
+                        }
+                    });
+
+            return currentfood;
 
         }
 

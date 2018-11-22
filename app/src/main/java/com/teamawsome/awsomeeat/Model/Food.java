@@ -16,9 +16,9 @@ public class Food {
     @Exclude
     private String MenuId;
     public String Category;
-
-
     private String id;
+
+
     public Food() {
 
     }

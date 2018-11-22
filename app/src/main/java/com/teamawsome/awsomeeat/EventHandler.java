@@ -34,6 +34,14 @@ public class EventHandler {
                 .commit();
         }
 
+
+    public static void openCartFragment(View v){
+        fragment = new CartFragment();
+        openFragment(fragment, v);
+
+    }
+
+
     public static void openCartFragment(View v, String id){
         fragment = new CartFragment();
         openFragment(fragment, v, id);
@@ -52,6 +60,11 @@ public class EventHandler {
 
     }
 
+    public static void openRestaurantListFragment(View v){
+        fragment = new RestaurantListFragment();
+        openFragment(fragment, v);
+    }
+
 
     public static void openRestaurantListFragment(View v, String id){
         fragment = new RestaurantListFragment();
@@ -65,6 +78,11 @@ public class EventHandler {
 
     public static void openFoodCategoryFragment(View v){
         fragment = new FoodCategoryFragment();
+        openFragment(fragment, v);
+    }
+
+    public static void openFoodDetailFragment(View v){
+        fragment = new FoodDetailFragment();
         openFragment(fragment, v);
     }
 
