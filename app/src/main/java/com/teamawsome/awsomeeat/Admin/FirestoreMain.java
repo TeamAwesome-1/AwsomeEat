@@ -3,6 +3,8 @@ package com.teamawsome.awsomeeat.Admin;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -10,6 +12,8 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.teamawsome.awsomeeat.Adapters.RestaurantRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Model.Restaurant;
+import com.teamawsome.awsomeeat.Model.User;
+
 import android.widget.EditText;
 
 import java.util.ArrayList;
@@ -30,6 +34,7 @@ public class FirestoreMain extends AppCompatActivity {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     private Restaurant restaurant;
+    private User user;
 
     private FirestoreMain () {
 
@@ -46,6 +51,18 @@ public class FirestoreMain extends AppCompatActivity {
                                     .add(restaurant);
 
 
+
+        }
+
+        public void setUserAdress(String adress, String uid){
+            //FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            //String id = user.getUid();
+
+            // userModel = new User(adress, id);
+
+            user = new User(adress, uid);
+            db.collection("user2")
+                    .add(user);
 
         }
 

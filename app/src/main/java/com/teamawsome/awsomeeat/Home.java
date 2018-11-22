@@ -192,7 +192,7 @@ public class Home extends AppCompatActivity
 
         } else if (id == R.id.nav_log_out) {
 
-            //logout
+            //Logout
             FirebaseAuth.getInstance().signOut();
             Intent signIn= new Intent(Home.this,SignIn.class);
             signIn.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -220,8 +220,5 @@ public class Home extends AppCompatActivity
         }else{
             Log.d(TAG, "user is authenticated");
         }
-
-
-
     }
 }

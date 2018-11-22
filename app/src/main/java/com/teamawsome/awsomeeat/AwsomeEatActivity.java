@@ -15,18 +15,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.teamawsome.awsomeeat.Fragments.CartFragment;
 import com.teamawsome.awsomeeat.Fragments.FoodListFragment;
 import com.teamawsome.awsomeeat.Fragments.MenuListFragment;
 import com.teamawsome.awsomeeat.Fragments.RestaurantListFragment;
+import com.teamawsome.awsomeeat.Fragments.userFragment;
 
 public class AwsomeEatActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
-
+    private static final String TAG = "User";
     private String extraInformation;
 
     public String getExtraInformation() {
@@ -45,9 +49,6 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //Hellåååå Testing testing
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -63,7 +64,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.fragmentinsertlayout, restaurantListFragment);
         fragmentTransaction.commit();
-        //test
+
     }
 
     @Override
@@ -93,12 +94,12 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        Fragment fragment;
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.refresh) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -130,8 +131,19 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.fragmentinsertlayout, fragment);
             fragmentTransaction.commit();
-        } else if (id == R.id.nav_log_out) {
-
+        } else if (id == R.id.edit_profile){
+            fragment = new userFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragmentinsertlayout, fragment);
+            fragmentTransaction.commit();
+        }
+        else if (id == R.id.nav_log_out) {
+            //Logout
+            FirebaseAuth.getInstance().signOut();
+            Intent signIn= new Intent(AwsomeEatActivity.this,SignIn.class);
+            signIn.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(signIn);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -139,6 +151,27 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
         return true;
     }
 
+    private void checkAuthState(){
+        Log.d(TAG,"checkAuthState");
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if(user == null){
+            Log.d(TAG, "user is null, sent back to login");
+
+            Intent intent = new Intent(AwsomeEatActivity.this, SignIn.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+        }else{
+            Log.d(TAG, "user is authenticated");
+        }
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkAuthState();
+    }
 
 }
 

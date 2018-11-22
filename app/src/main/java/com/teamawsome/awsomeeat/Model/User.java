@@ -1,6 +1,27 @@
 package com.teamawsome.awsomeeat.Model;
 
+import com.google.firebase.firestore.Exclude;
+
 public class User {
+    public String uid;
+    public String adress;
+    @Exclude
+    public String id;
+
+
+    public User(){
+
+    }
+
+    public User(String adress, String uid) {
+        this.adress = adress;
+        this.uid = uid;
+    }
+
+
+
+
+    /*
     private String Name;
     private String Password;
     private String Phone;
@@ -39,4 +60,5 @@ public class User {
     public void setPassword(String password) {
         Password = password;
     }
+    */
 }
