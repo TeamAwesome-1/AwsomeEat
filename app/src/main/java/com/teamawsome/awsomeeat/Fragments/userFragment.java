@@ -53,26 +53,30 @@ public class userFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        setTexttoView(dbAdress(), R.id.displayUserAdress);
+        //setTexttoView(dbAdress(), R.id.displayUserAdress);
+        setTexttoView(getUserName(), R.id.editName);
+        setTexttoView(getUserEmail(), R.id.displayEmail);
         getActivity().findViewById(R.id.buttonUpdateInfo).setOnClickListener(this::sendDB);
     }
 
+    /*
     private String dbAdress() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
 
 
     }
-
+*/
     private void sendDB(View view){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-            firestoreMain.setUserAdress(getinput(), user.getUid());
+            firestoreMain.setUserAdress(getinput(R.id.editAdress), user.getUid());
+            setUserDetails(getinput(R.id.editName));
         }
     }
 
-    private String getinput(){
-        adressText = getView().findViewById(R.id.editAdress);
+    private String getinput(int displayId){
+        adressText = getView().findViewById(displayId);
         return adressText.getText().toString();
     }
 
@@ -81,12 +85,12 @@ public class userFragment extends Fragment {
         display.setText(text);
     }
 
-    private void setUserDetails(){
+    private void setUserDetails(String name){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         if (user != null){
             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                    .setDisplayName("Test").build();
+                    .setDisplayName(name).build();
 
             user.updateProfile(profileUpdates)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -100,6 +104,24 @@ public class userFragment extends Fragment {
                         }
                     });
         }
+    }
+
+    private String getUserName(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String name = "";
+        if (user != null){
+            name = user.getDisplayName();
+        }
+        return name;
+    }
+
+    private String getUserEmail(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String email = "";
+        if (user != null){
+            email = user.getEmail();
+        }
+        return email;
     }
 
     private void getUserDetails(){
