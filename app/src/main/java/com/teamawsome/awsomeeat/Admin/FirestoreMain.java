@@ -171,16 +171,15 @@ public class FirestoreMain extends AppCompatActivity {
                                     Category category = dc.getDocument().toObject(Category.class);
                                     category.setId(id);
                                     adapter.addCategoryItem(category);
-                                } else if (dc.getType() == DocumentChange.Type.MODIFIED) {
 
-                                    //TODO make method for modifying category
+                                } else if (dc.getType() == DocumentChange.Type.MODIFIED) {
                                     String id = dc.getDocument().getId();
                                     Category category = dc.getDocument().toObject(Category.class);
-                                    //adapter.modifyItem(id, category);
+                                    adapter.modifyItem(id, category);
+
                                 } else if (dc.getType() == DocumentChange.Type.REMOVED) {
                                     String id = dc.getDocument().getId();
-                                    //TODO make method for removing category
-                                    //adapter.removeItem(id);
+                                    adapter.removeMenuItem(id);
                                 }
                             }
                         }

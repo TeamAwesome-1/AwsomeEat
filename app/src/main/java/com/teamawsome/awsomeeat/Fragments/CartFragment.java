@@ -188,6 +188,7 @@ public class CartFragment extends Fragment {
         return true;
     }
 
+
     private void deleteCart(int position) {
 
         adapter.removeOrderListItem(position);
