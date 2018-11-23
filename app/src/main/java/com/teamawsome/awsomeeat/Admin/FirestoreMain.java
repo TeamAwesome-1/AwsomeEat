@@ -17,11 +17,13 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Source;
+import com.teamawsome.awsomeeat.Adapters.CartRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Adapters.CategoryListRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Adapters.FoodListRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Adapters.RestaurantRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Model.Category;
 import com.teamawsome.awsomeeat.Model.Food;
+import com.teamawsome.awsomeeat.Model.Order;
 import com.teamawsome.awsomeeat.Model.Restaurant;
 import com.teamawsome.awsomeeat.R;
 
@@ -67,19 +69,10 @@ public class FirestoreMain extends AppCompatActivity {
                             db.collection("restaurants")
                                     .add(restaurant);
 
-
-
-
         }
 
         //Lägger till i vaurkorg
-        public void addToCart (String amountOfDish, Food food) {
-
-            Map<String, Object> order = new HashMap<>();
-            order.put("amount", amountOfDish);
-            order.put("name", food.getName());
-            order.put("price", food.getPrice());
-            order.put("userId", "12345");
+        public void addToCart (Order order) {
 
             db.collection("Cart")
                     .add(order);
@@ -88,6 +81,44 @@ public class FirestoreMain extends AppCompatActivity {
     }
 
     //    public RestaurantAdmin ()
+
+
+        public void getCartList(CartRecyclerViewAdapter adapter, String userId){
+
+            db.collection("Cart").whereEqualTo("userId", userId)
+                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                    if (e != null) {
+                        return;
+                    }
+
+                    for (DocumentChange dc : queryDocumentSnapshots.getDocumentChanges()) {
+                        if (dc.getType() == DocumentChange.Type.ADDED) {
+
+                            String id = dc.getDocument().getId();
+                            Order order = dc.getDocument().toObject(Order.class);
+                            order.setProductId(id);
+                            adapter.addItem(order);
+
+                        } else if (dc.getType() == DocumentChange.Type.REMOVED) {
+                            String id = dc.getDocument().getId();
+                            adapter.removeOrderListItem(id);
+
+                        } else if (dc.getType() == DocumentChange.Type.MODIFIED) {
+
+                            String id = dc.getDocument().getId();
+                            Order order = dc.getDocument().toObject(Order.class);
+                            adapter.modifyOrderListItem(id, order);
+                    }
+                    }
+
+                }
+            });
+
+
+
+        }
 
         //Hämtar en lista på alla restauranger
         public void getRestaurantList(RestaurantRecyclerViewAdapter adapter){
@@ -101,14 +132,19 @@ public class FirestoreMain extends AppCompatActivity {
 
                     for (DocumentChange dc : queryDocumentSnapshots.getDocumentChanges()) {
                         if (dc.getType() == DocumentChange.Type.ADDED) {
-
                             String id = dc.getDocument().getId();
                             Restaurant restaurant = dc.getDocument().toObject(Restaurant.class);
-                            restaurant.id = id;
+                            restaurant.setId(id);
                             adapter.addItem(restaurant);
                         } else if (dc.getType() == DocumentChange.Type.REMOVED) {
                             String id = dc.getDocument().getId();
                             adapter.removeResturant(id);
+                        }else if (dc.getType() == DocumentChange.Type.MODIFIED) {
+
+                            String id = dc.getDocument().getId();
+                            Restaurant restaurant = dc.getDocument().toObject(Restaurant.class);
+                            restaurant.setId(id);
+                            adapter.modifyRestaurant(id, restaurant);
                         }
                     }
 
@@ -224,24 +260,6 @@ public class FirestoreMain extends AppCompatActivity {
                         }
                     });
 
-
-        }
-
-        //Hämta en maträtt ur FoodsListan
-
-        public Food getSelectedFoodItem(String foodId, Food currentfood){
-
-
-            db.collection("Foods").document(foodId)
-                    .get()
-                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                        @Override
-                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-                            food = documentSnapshot.toObject(Food.class);
-                        }
-                    });
-
-            return currentfood;
 
         }
 

@@ -47,12 +47,16 @@ public class RestaurantViewHolder extends RecyclerView.ViewHolder implements Vie
     public void setData(Restaurant restaurantInfo) {
         restaurantListNameView.setText(restaurantInfo.name);
         restaurantListAdressView.setText(restaurantInfo.adress);
-        itemId = restaurantInfo.id;
+        itemId = restaurantInfo.getId();
         PictureHandler.setPictureFromUrl(restaurantInfo.pictureUrl, restaurantListImageView);
     }
 
     @Override
     public void onClick(View v) {
+
+        //TODO replace userId /sandra
+        idHolder.setUserId("12345Sandra");
+
 
         //Save id for the restaurant that was clicked on
         idHolder.setRestaurantId(itemId);

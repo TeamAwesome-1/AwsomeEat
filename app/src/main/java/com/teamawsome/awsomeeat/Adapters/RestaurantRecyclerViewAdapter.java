@@ -56,7 +56,7 @@ public class RestaurantRecyclerViewAdapter extends RecyclerView.Adapter<Restaura
     }
 
     public void removeListItem(int position) {
-        if (position > 0 && position < restaurantsList.size()) {
+        if (position >= 0 && position < restaurantsList.size()) {
             restaurantsList.remove(position);
             this.notifyItemRemoved(position);
         }
@@ -64,7 +64,7 @@ public class RestaurantRecyclerViewAdapter extends RecyclerView.Adapter<Restaura
 
     public void removeResturant(String id){
             for (int i = 0; i < restaurantsList.size(); i++) {
-                if (restaurantsList.get(i).equals(id)){
+                if (restaurantsList.get(i).getId().equals(id)){
                     removeListItem(i);
                     return;
                 }
@@ -72,5 +72,15 @@ public class RestaurantRecyclerViewAdapter extends RecyclerView.Adapter<Restaura
             }
         }
 
+    public void modifyRestaurant(String id, Restaurant restaurant) {
+
+        for (int i = 0; i < restaurantsList.size(); i++) {
+            if (restaurantsList.get(i).getId().equals(id)) {
+                restaurantsList.set(i, restaurant);
+                this.notifyItemChanged(i);
+                return;
+            }
+        }
     }
+}
 

@@ -4,6 +4,17 @@ import com.teamawsome.awsomeeat.Model.Food;
 
 public class idHolder {
 
+    private static String userId;
+
+
+    public static String getUserId() {
+        return userId;
+    }
+
+    public static void setUserId(String userId) {
+        idHolder.userId = userId;
+    }
+
     private static String restaurantId;
     private static String categoryId;
     private static String foodId;

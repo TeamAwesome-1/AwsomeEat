@@ -94,7 +94,9 @@ public class FoodDetailFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 String amount = numberButton.getNumber();
-                firestoreMain.addToCart(amount, currentFood);
+                Order order = new Order(foodId,currentFood.getName(),amount,currentFood.getPrice(), idHolder.getUserId());
+
+                firestoreMain.addToCart(order);
                 Toast.makeText(getContext(), getString(R.string.added_to_cart_toast), Toast.LENGTH_SHORT).show();
 
             }
