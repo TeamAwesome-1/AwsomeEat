@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.teamawsome.awsomeeat.Admin.FirestoreMain;
 import com.teamawsome.awsomeeat.Model.User;
@@ -26,7 +27,7 @@ import com.teamawsome.awsomeeat.R;
 
 public class userFragment extends Fragment {
     private static final String TAG = "User";
-    private FirestoreMain firestoreMain;
+    private static FirestoreMain firestoreMain;
     private FirebaseFirestore db;
     private User userModel;
     private EditText adressText;
@@ -52,10 +53,14 @@ public class userFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         //setTexttoView(dbAdress(), R.id.displayUserAdress);
         setTexttoView(getUserName(), R.id.editName);
         setTexttoView(getUserEmail(), R.id.displayEmail);
+        firestoreMain.getUserAdress();
+        Log.d(TAG, "Adress from userfragment: " + firestoreMain.getAdress());
+        Log.d(TAG, "Uid: " + firestoreMain.getUid());
+        setTexttoView(firestoreMain.getAdress(), R.id.editAdress);
         getActivity().findViewById(R.id.buttonUpdateInfo).setOnClickListener(this::sendDB);
     }
 

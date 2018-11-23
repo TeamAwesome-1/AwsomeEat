@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.teamawsome.awsomeeat.Admin.FirestoreMain;
 import com.teamawsome.awsomeeat.Fragments.CartFragment;
 import com.teamawsome.awsomeeat.Fragments.FoodListFragment;
 import com.teamawsome.awsomeeat.Fragments.MenuListFragment;
@@ -32,7 +33,8 @@ import com.teamawsome.awsomeeat.Fragments.userFragment;
 public class AwsomeEatActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private static final String TAG = "User";
     private String extraInformation;
-
+    private static FirestoreMain firestoreMain;
+    FirebaseUser user;
     public String getExtraInformation() {
         return extraInformation;
     }
@@ -45,7 +47,9 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        firestoreMain = FirestoreMain.getInstance();
+        firestoreMain.getUserAdress();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

@@ -9,13 +9,34 @@ public class User {
     public String id;
 
 
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public String getAdress() {
+        return adress;
+    }
+
+    public void setAdress(String adress) {
+        this.adress = adress;
+    }
+
     public User(){
+
 
     }
 
     public User(String adress, String uid) {
         this.adress = adress;
         this.uid = uid;
+    }
+
+    public User(String adress){
+        this.adress = adress;
     }
 
 
