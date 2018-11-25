@@ -51,7 +51,7 @@ public class FoodListViewHolder extends RecyclerView.ViewHolder implements View.
 
     @Override
     public void onClick(View view) {
-        idHolder.categoryId = itemId;
+        idHolder.setCategoryId(itemId);
         EventHandler.openFoodListFragment(view);
     }
 }

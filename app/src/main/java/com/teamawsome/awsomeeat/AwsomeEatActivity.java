@@ -19,23 +19,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.teamawsome.awsomeeat.Fragments.CartFragment;
 import com.teamawsome.awsomeeat.Fragments.FoodListFragment;
 import com.teamawsome.awsomeeat.Fragments.MenuListFragment;
 import com.teamawsome.awsomeeat.Fragments.RestaurantListFragment;
+import com.teamawsome.idHolder;
 
 public class AwsomeEatActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
-    private String extraInformation;
 
-    public String getExtraInformation() {
-        return extraInformation;
-    }
-
-    public void setExtraInformation(String extraInformation) {
-        this.extraInformation = extraInformation;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +39,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //Hellåååå Testing testing
+
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -72,8 +66,10 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
             @Override
             public void onDrawerStateChanged(int i) {
-               //TODO Insert "insert-restaurant-button" here for admin.
-                navigationView.getMenu().add("test");
+               //TODO Insert "insert-restaurant-button" here for admin.something like this:
+               /* if (Admin is inlogged){
+                    navigationView.getMenu().add("test");
+                }*/
             }
         });
 
@@ -85,7 +81,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.fragmentinsertlayout, restaurantListFragment);
         fragmentTransaction.commit();
-        //test
+
     }
 
     @Override
@@ -133,30 +129,31 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         Fragment fragment;
-        if (id == R.id.nav_view) {
-
-        } else if (id == R.id.nav_menu) {
+        if (id == R.id.nav_menu) {
             //Handle what happens when "menu" is pressed in navigationbar
-            //TODO Change navigation between fragments to eventBus
-            fragment = new MenuListFragment();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.add(R.id.fragmentinsertlayout, fragment);
-            fragmentTransaction.commit();
+            if(idHolder.getRestaurantId()!= null){
+                EventHandler.openFoodListFragment(getCurrentFocus());
+            }else{
+                Toast.makeText(this, getString(R.string.choose_an_restaurant), Toast.LENGTH_SHORT).show();
+            }
 
         } else if (id == R.id.nav_orders) {
+            //Handle what happens when "orders" is pressed in navigationbar
 
         } else if (id == R.id.nav_cart) {
-
+            //Handle what happens when "cart" is pressed in navigationbar
             fragment = new CartFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.fragmentinsertlayout, fragment);
             fragmentTransaction.commit();
+
         } else if (id == R.id.nav_log_out) {
+            //Handle what happens when "logout" is pressed in navigationbar
 
         }
 
+        //Closes the drawer after an item has been selected
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

@@ -4,9 +4,7 @@ package com.teamawsome.awsomeeat.Fragments;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -17,17 +15,12 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.teamawsome.awsomeeat.Adapters.CartAdapter;
-import com.teamawsome.awsomeeat.Cart;
+import com.teamawsome.awsomeeat.Adapters.CartRecyclerViewAdapter;
+import com.teamawsome.awsomeeat.Admin.FirestoreMain;
 import com.teamawsome.awsomeeat.Common.Common;
-import com.teamawsome.awsomeeat.Database.Database;
 import com.teamawsome.awsomeeat.Model.Order;
-import com.teamawsome.awsomeeat.Model.Request;
 import com.teamawsome.awsomeeat.R;
-
+import com.teamawsome.idHolder;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,17 +31,12 @@ import javax.annotation.Nullable;
 
 public class CartFragment extends Fragment {
     RecyclerView recyclerView;
-    RecyclerView.LayoutManager layoutManager;
-
-    FirebaseDatabase database;
-    DatabaseReference requests;
-
     TextView txtTotalPrice;
     Button btnPlace;
+    List<Order> cartList = new ArrayList<>();
+    CartRecyclerViewAdapter adapter;
+    FirestoreMain firestoreMain = FirestoreMain.getInstance();
 
-    List<Order> cart = new ArrayList<>();
-
-    CartAdapter adapter;
 
     public CartFragment() {
 
@@ -60,19 +48,15 @@ public class CartFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view  = inflater.inflate(R.layout.fragment_cart, container, false);
 
-        //Firebase
-        database= FirebaseDatabase.getInstance();
-        requests=database.getReference("Requests") ;
 
         //Init
         recyclerView = (RecyclerView)view.findViewById(R.id.listCart);
-        recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
-
         txtTotalPrice = (TextView)view.findViewById(R.id.total);
         btnPlace = view.findViewById(R.id.btnPlaceOrder);
 
+        //set the adapter for the recyclerview
+        adapter = new CartRecyclerViewAdapter(cartList);
+        recyclerView.setAdapter(adapter);
 
 
     return view;
@@ -81,13 +65,28 @@ public class CartFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        recyclerView.setAdapter(adapter);
+        //check if list already contains orders
+        if(cartList.size()==0) {
+            firestoreMain.getCartList(adapter, idHolder.getUserId());
+        }
 
-        loadListFood();
+        //TODO pricecalculation/Sandra
+        //calculate total amount + currency
+       /*int total= 0;
+        for(Order order: cartList)
+            total+=(Integer.parseInt( order.getPrice()))*(Integer.parseInt(order.getQuantity()));
+        Locale locale = new Locale("en","SE");
+        NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
+
+        txtTotalPrice.setText(fmt.format(total));*/
+
+
 
         btnPlace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(cart.size() > 0)
+                if(cartList.size() > 0)
                     showAlertDialog();
                 else
                     Toast.makeText(getContext(), "Cart is empty!", Toast.LENGTH_SHORT).show();
@@ -96,8 +95,10 @@ public class CartFragment extends Fragment {
     }
 
 
+
+
     private void showAlertDialog() {
-        if (cart.size() <= 0)  //checking if cart is empty or not
+        if (cartList.size() <= 0)  //checking if cart is empty or not
         {
             Toast.makeText(getContext(), "Add some items to cart !", Toast.LENGTH_SHORT).show();
 
@@ -121,11 +122,12 @@ public class CartFragment extends Fragment {
 
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    if (edtAddress.getText().toString().length() == 0 || edtAddress.getText().toString().matches("")) {
+                  /*  if (edtAddress.getText().toString().length() == 0 || edtAddress.getText().toString().matches("")) {
                         Toast.makeText(getContext(), "Address can't be left blank!", Toast.LENGTH_SHORT).show();
                         return;
                     } else {
 
+                       //TODO make new methods for gaining currentuserinformation from firestore!
                         //create new request
                         Request request = new Request(
                                 Common.currentUser.getPhone(),
@@ -138,11 +140,13 @@ public class CartFragment extends Fragment {
                         //using  System.CurrentMilli to key
                         requests.child(String.valueOf(System.currentTimeMillis()))
                                 .setValue(request);
+
+
                         //delete cart
                         new Database(getContext()).cleanCart();
                         Toast.makeText(getContext(), "Order placed succesfully!", Toast.LENGTH_SHORT).show();
                         getActivity().getSupportFragmentManager().popBackStack();
-                    }
+                    }*/
 
                 }
             });
@@ -164,19 +168,16 @@ public class CartFragment extends Fragment {
 
 
     private void loadListFood() {
-        cart = new Database(getContext()).getCarts();
-        adapter = new CartAdapter(cart,getContext());
-        adapter.notifyDataSetChanged();
-        recyclerView.setAdapter(adapter);
 
-        //calculate total amount + currency
+
+       /* //calculate total amount + currency
         int total= 0;
         for(Order order:cart)
             total+=(Integer.parseInt( order.getPrice()))*(Integer.parseInt(order.getQuantity()));
         Locale locale = new Locale("en","SE");
         NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
 
-        txtTotalPrice.setText(fmt.format(total));
+        txtTotalPrice.setText(fmt.format(total));*/
 
     }
 
@@ -187,9 +188,12 @@ public class CartFragment extends Fragment {
         return true;
     }
 
+
     private void deleteCart(int position) {
 
-        //remove item at List<Order>
+        adapter.removeOrderListItem(position);
+
+       /* //remove item at List<Order>
         cart.remove(position);
         //delete old data from SQLite
         new Database(getContext()).cleanCart();
@@ -197,7 +201,7 @@ public class CartFragment extends Fragment {
         for (Order item:cart)
             new Database(getContext()).addToCart(item);
         //refresh
-        loadListFood();
+        loadListFood();*/
 
     }
 }

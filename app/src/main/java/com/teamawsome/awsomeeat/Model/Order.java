@@ -6,15 +6,25 @@ public class Order {
     private String ProductName;
     private String Price;
     private String Quantity;
+    private String UserId;
 
     public Order() {
     }
 
-    public Order(String productId, String productName, String quantity,String price ) {
+    public Order(String productId, String productName, String quantity,String price, String userId ) {
         ProductId = productId;
         ProductName = productName;
         Quantity = quantity;
         Price = price;
+        UserId = userId;
+    }
+
+    public String getUserId() {
+        return UserId;
+    }
+
+    public void setUserId(String userId) {
+        UserId = userId;
     }
 
     public String getProductId() {

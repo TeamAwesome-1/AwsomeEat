@@ -6,7 +6,7 @@
             android:id="@+id/nav_menu"
             android:icon="@drawable/ic_restaurant_menu_black_24dp"
 
-            android:title="Menu" />
+            android:title="@string/menu_homedrawer" />
         <item
             android:id="@+id/nav_cart"
             android:icon="@drawable/ic_shopping_cart_black_24dp"

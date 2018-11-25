@@ -36,6 +36,36 @@ public class CategoryListRecyclerViewAdapter extends RecyclerView.Adapter<FoodLi
     public void addCategoryItem(Category categoryItem){
         categoryList.add(categoryItem);
         this.notifyItemInserted(categoryList.size()-1);
+
+
+    }
+
+
+    public void modifyItem(String id, Category category) {
+        for (int i = 0; i < categoryList.size(); i++) {
+            if (categoryList.get(i).getId().equals(id)) {
+                categoryList.set(i, category);
+                this.notifyItemChanged(i);
+                return;
+            }
+        }
+    }
+
+
+    public void removeMenuItem(int position) {
+        if (position > 0 && position < categoryList.size()) {
+            categoryList.remove(position);
+            this.notifyItemRemoved(position);
+        }
+    }
+
+    public void removeMenuItem(String id){
+        for (int i = 0; i < categoryList.size(); i++) {
+            if (categoryList.get(i).getId().equals(id)){
+                removeMenuItem(i);
+                return;
+            }
+        }
     }
 
     @Override

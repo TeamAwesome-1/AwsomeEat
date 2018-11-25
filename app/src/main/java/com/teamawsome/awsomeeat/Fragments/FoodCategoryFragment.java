@@ -39,8 +39,8 @@ public class FoodCategoryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_food_category, container, false);
 
         //Get the id for the restaurant user pressed
-        if(idHolder.restaurantId != null) {
-            restaurantId= idHolder.restaurantId;
+        if(idHolder.getRestaurantId() != null) {
+            restaurantId= idHolder.getRestaurantId();
         }
 
         recyclerView = view.findViewById(R.id.recycler_menu);

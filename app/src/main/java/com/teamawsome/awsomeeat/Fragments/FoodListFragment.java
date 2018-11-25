@@ -48,11 +48,11 @@ public class FoodListFragment extends Fragment {
         adapter = new FoodListRecyclerViewAdapter(itemList);
 
         //Get info about which category user pressed and for which restaurant
-        if(idHolder.categoryId != null) {
-            categoryId = idHolder.categoryId;
+        if(idHolder.getCategoryId() != null) {
+            categoryId = idHolder.getCategoryId();
         }
-        if(idHolder.restaurantId != null) {
-            restaurantId = idHolder.restaurantId;
+        if(idHolder.getRestaurantId() != null) {
+            restaurantId = idHolder.getRestaurantId();
         }
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_food);
@@ -67,10 +67,20 @@ public class FoodListFragment extends Fragment {
 
         if (Common.isNetworkAvailable(getContext())){
             //Load Foodlist for a specific category to the choosen restaurant
-            firestoreMain.getMenuForRestaurantCategory(adapter, restaurantId, categoryId);
+            if(restaurantId != null && categoryId != null) {
+                if(itemList.size()==0) {
+                    firestoreMain.getMenuForRestaurantCategory(adapter, restaurantId, categoryId);
+                }
+            }else if(categoryId == null) {
+                if (itemList.size() == 0) {
+                    firestoreMain.getRestaurantMenu(adapter, restaurantId);
+                    Toast.makeText(getContext(), "Whole foodlist for restaurant is displayed", Toast.LENGTH_SHORT).show();
+                }
+            }
         }
         else
         {
+
             Toast.makeText(getContext(), "Please check your Internet Connection!", Toast.LENGTH_SHORT).show();
         }
 

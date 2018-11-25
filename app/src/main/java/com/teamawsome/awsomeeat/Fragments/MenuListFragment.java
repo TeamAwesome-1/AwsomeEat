@@ -52,12 +52,12 @@ public class MenuListFragment extends Fragment {
         View view = inflater.inflate(R.layout.menufragment_layout, container, false);
         adapter = new FoodListRecyclerViewAdapter(itemList);
         db= FirebaseFirestore.getInstance();
-        if(idHolder.categoryId != null) {
-            CategoryId = idHolder.categoryId;
+        if(idHolder.getCategoryId() != null) {
+            CategoryId = idHolder.getCategoryId();
         }
 
-        if(idHolder.restaurantId != null) {
-            restaurantId = idHolder.restaurantId;
+        if(idHolder.getRestaurantId() != null) {
+            restaurantId = idHolder.getRestaurantId();
         }
 
         RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.menulist);

@@ -7,7 +7,7 @@ public class Restaurant {
     public String adress;
     public String pictureUrl;
     @Exclude
-    public String id;
+    private String id;
 
     public Restaurant(){
         
@@ -17,6 +17,14 @@ public class Restaurant {
         this.name = name;
         this.adress = adress;
        // this.pictureUrl = pictureUrl;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
 
