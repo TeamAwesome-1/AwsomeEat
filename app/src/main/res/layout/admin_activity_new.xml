@@ -30,6 +30,28 @@
         app:tabTextColor="@color/tableText"
         app:tabIndicator="@color/tabindicator"
         />
+
+    <Button
+        android:id="@+id/addNewRestButton"
+        style="@style/FirebaseUI.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_new_restaurant" />
+
+    <Button
+        android:id="@+id/editRestButton"
+        style="@style/FirebaseUI.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/edit_menu" />
+
+    <Button
+        android:id="@+id/searchRestButton"
+        style="@style/FirebaseUI.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/search_restaurant" />
+
     <android.support.v4.view.ViewPager
         android:layout_width="match_parent"
         android:layout_height="match_parent"

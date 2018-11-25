@@ -8,6 +8,7 @@ import android.widget.EditText;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -54,6 +55,8 @@ public class FirestoreMain extends AppCompatActivity {
     private Restaurant restaurant;
 
     private Food food = new Food();
+
+    private CollectionReference foods = db.collection("foods");
 
     private FirestoreMain () {
 
@@ -265,6 +268,7 @@ public class FirestoreMain extends AppCompatActivity {
 
         //Söker efter en maträtt
         public void searchFood () {
+
 
 
         }

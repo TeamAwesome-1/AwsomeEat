@@ -9,6 +9,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="choose_an_restaurant">Please choose an restaurant first!</string>
@@ -16,4 +17,8 @@
     <string name="added_to_cart_toast">Added to Cart</string>
     <string name="Continue_shopping_button">Continue Shopping</string>
     <string name="go_to_cart_button">Go to cart</string>
+    <string name="add_new_restaurant">Add new restaurant</string>
+    <string name="edit_menu">Edit the menu in a restaurant</string>
+    <string name="search_restaurant">Search for a restaurant</string>
+
 </resources>
