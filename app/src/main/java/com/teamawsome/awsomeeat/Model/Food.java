@@ -24,18 +24,18 @@ public class Food {
     }
 
     public Food(String name, String image, String description, String price, String discount, String menuId, String category ) {
-        Name = name;
-        Image = image;
-        Description = description;
-        Price = price;
-        Discount= discount;
-        MenuId = menuId;
-        Category = category;
+        this.Name = name;
+        this.Image = image;
+        this.Description = description;
+        this.Price = price;
+        this.Discount= discount;
+        this.MenuId = menuId;
+        this.Category = category;
 
     }
 
     public Food(String name, String category) {
-        Name = name;
+        this.Name = name;
         this.Category = category;
     }
 

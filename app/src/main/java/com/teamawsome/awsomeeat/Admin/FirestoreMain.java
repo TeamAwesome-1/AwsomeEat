@@ -218,7 +218,7 @@ public class FirestoreMain extends AppCompatActivity {
 
 
         }
-
+        //Lägger till en ny maträtt i "Foods" collection.
         public void addFood (String name, String category) {
         food = new Food(name, category);
         //food.Category = category;
