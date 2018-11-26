@@ -20,6 +20,12 @@
             android:title="Orders" />
 
         <item
+            android:id="@+id/edit_profile"
+            android:icon="@drawable/ic_key"
+
+            android:title="Edit Profile" />
+
+        <item
             android:id="@+id/nav_log_out"
             android:icon="@drawable/ic_exit_to_app_black_24dp"
 

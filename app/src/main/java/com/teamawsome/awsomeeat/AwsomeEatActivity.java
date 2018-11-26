@@ -15,27 +15,43 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.teamawsome.awsomeeat.Admin.FirestoreMain;
 import com.teamawsome.awsomeeat.Fragments.CartFragment;
 import com.teamawsome.awsomeeat.Fragments.FoodListFragment;
 import com.teamawsome.awsomeeat.Fragments.MenuListFragment;
 import com.teamawsome.awsomeeat.Fragments.RestaurantListFragment;
+import com.teamawsome.awsomeeat.Fragments.userFragment;
 import com.teamawsome.idHolder;
 
 public class AwsomeEatActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+    private static final String TAG = "User";
+    private String extraInformation;
+    private static FirestoreMain firestoreMain;
+    FirebaseUser user;
+    public String getExtraInformation() {
+        return extraInformation;
+    }
 
-
+    public void setExtraInformation(String extraInformation) {
+        this.extraInformation = extraInformation;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        firestoreMain = FirestoreMain.getInstance();
+        firestoreMain.getUserAdress();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -58,7 +74,6 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
             public void onDrawerOpened(@NonNull View view) {
 
             }
-
             @Override
             public void onDrawerClosed(@NonNull View view) {
 
@@ -122,14 +137,15 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
 
 
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         Fragment fragment;
-        if (id == R.id.nav_menu) {
+        if (id == R.id.nav_view) {
+
+        } else if (id == R.id.nav_menu) {
             //Handle what happens when "menu" is pressed in navigationbar
             if(idHolder.getRestaurantId()!= null){
                 EventHandler.openFoodListFragment(getCurrentFocus());
@@ -147,10 +163,19 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.fragmentinsertlayout, fragment);
             fragmentTransaction.commit();
-
-        } else if (id == R.id.nav_log_out) {
-            //Handle what happens when "logout" is pressed in navigationbar
-
+        } else if (id == R.id.edit_profile){
+            fragment = new userFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragmentinsertlayout, fragment);
+            fragmentTransaction.commit();
+        }
+        else if (id == R.id.nav_log_out) {
+            //Logout
+            FirebaseAuth.getInstance().signOut();
+            Intent signIn= new Intent(AwsomeEatActivity.this,SignIn.class);
+            signIn.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(signIn);
         }
 
         //Closes the drawer after an item has been selected
@@ -159,6 +184,27 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
         return true;
     }
 
+    private void checkAuthState(){
+        Log.d(TAG,"checkAuthState");
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if(user == null){
+            Log.d(TAG, "user is null, sent back to login");
+
+            Intent intent = new Intent(AwsomeEatActivity.this, SignIn.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+        }else{
+            Log.d(TAG, "user is authenticated");
+        }
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkAuthState();
+    }
 
 }
 
