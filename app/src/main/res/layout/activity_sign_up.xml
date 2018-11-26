@@ -54,7 +54,6 @@
             android:hint="Email"
             android:inputType="textEmailAddress"
 
-            android:text="r_bruer@hotmail.com"
             android:textColor="@android:color/white"
             android:textColorHint="@android:color/white"
             android:textSize="20sp"
@@ -73,7 +72,6 @@
             android:hint="Password"
 
             android:inputType="textPassword"
-            android:text="123"
             android:textColor="@android:color/white"
             android:textColorHint="@android:color/white"
             android:textSize="20sp"
@@ -92,7 +90,6 @@
             android:hint=" Confirm Password"
 
             android:inputType="textPassword"
-            android:text="123"
             android:textColor="@android:color/white"
             android:textColorHint="@android:color/white"
             android:textSize="20sp"
