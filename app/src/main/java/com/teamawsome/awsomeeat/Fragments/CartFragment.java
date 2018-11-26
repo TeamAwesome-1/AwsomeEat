@@ -15,6 +15,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.teamawsome.awsomeeat.Adapters.CartRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Admin.FirestoreMain;
 import com.teamawsome.awsomeeat.Common.Common;
@@ -36,7 +39,7 @@ public class CartFragment extends Fragment {
     List<Order> cartList = new ArrayList<>();
     CartRecyclerViewAdapter adapter;
     FirestoreMain firestoreMain = FirestoreMain.getInstance();
-
+    FirebaseUser user;
 
     public CartFragment() {
 
@@ -65,10 +68,11 @@ public class CartFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        user = FirebaseAuth.getInstance().getCurrentUser();
         recyclerView.setAdapter(adapter);
         //check if list already contains orders
         if(cartList.size()==0) {
-            firestoreMain.getCartList(adapter, idHolder.getUserId());
+            firestoreMain.getCartList(adapter, user.getUid());
         }
 
         //TODO pricecalculation/Sandra

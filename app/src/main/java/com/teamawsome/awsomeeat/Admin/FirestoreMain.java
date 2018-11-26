@@ -142,7 +142,7 @@ public class FirestoreMain extends AppCompatActivity {
                             uid = document.getString("uid");
                             //if (uid.equals(user)){
                                 String adress2 = document.getString("adress");
-                                setAdress(adress2); // Blir null
+                                setAdress(adress2);
                                 Log.d("User", "UserAdress: " + adress2); // adress2 skriver ut adressen från databasen i loggen
 
                             //}

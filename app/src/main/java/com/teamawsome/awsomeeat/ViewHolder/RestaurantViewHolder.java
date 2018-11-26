@@ -1,18 +1,13 @@
 package com.teamawsome.awsomeeat.ViewHolder;
 
-import android.os.Bundle;
+
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
+
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.teamawsome.awsomeeat.EventHandler;
-import com.teamawsome.awsomeeat.Fragments.FoodCategoryFragment;
-import com.teamawsome.awsomeeat.Fragments.MenuListFragment;
-import com.teamawsome.awsomeeat.Interface.ItemClickListener;
 import com.teamawsome.awsomeeat.PictureHandler;
 import com.teamawsome.awsomeeat.R;
 import com.teamawsome.awsomeeat.Model.Restaurant;
@@ -53,10 +48,6 @@ public class RestaurantViewHolder extends RecyclerView.ViewHolder implements Vie
 
     @Override
     public void onClick(View v) {
-
-        //TODO replace userId /sandra
-        idHolder.setUserId("12345Sandra");
-
 
         //Save id for the restaurant that was clicked on
         idHolder.setRestaurantId(itemId);

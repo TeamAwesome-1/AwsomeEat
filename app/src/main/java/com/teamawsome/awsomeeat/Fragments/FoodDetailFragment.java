@@ -14,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,7 +26,6 @@ import com.teamawsome.awsomeeat.Admin.FirestoreMain;
 import com.teamawsome.awsomeeat.Common.Common;
 import com.teamawsome.awsomeeat.Database.Database;
 import com.teamawsome.awsomeeat.EventHandler;
-import com.teamawsome.awsomeeat.FoodDetail;
 import com.teamawsome.awsomeeat.Model.Food;
 import com.teamawsome.awsomeeat.Model.Order;
 import com.teamawsome.awsomeeat.PictureHandler;
@@ -48,6 +49,7 @@ public class FoodDetailFragment extends Fragment {
     String foodId;
     Food currentFood;
     FirestoreMain firestoreMain = FirestoreMain.getInstance();
+    FirebaseUser user;
 
     public FoodDetailFragment() {
 
@@ -94,7 +96,8 @@ public class FoodDetailFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 String amount = numberButton.getNumber();
-                Order order = new Order(foodId,currentFood.getName(),amount,currentFood.getPrice(), idHolder.getUserId());
+                user = FirebaseAuth.getInstance().getCurrentUser();
+                Order order = new Order(foodId,currentFood.getName(),amount,currentFood.getPrice(), user.getUid());
 
                 firestoreMain.addToCart(order);
                 Toast.makeText(getContext(), getString(R.string.added_to_cart_toast), Toast.LENGTH_SHORT).show();
