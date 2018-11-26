@@ -36,7 +36,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
     private static final String TAG = "User";
     private String extraInformation;
     private static FirestoreMain firestoreMain;
-    FirebaseUser user;
+    private FirebaseUser user;
     public String getExtraInformation() {
         return extraInformation;
     }
