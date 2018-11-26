@@ -64,6 +64,8 @@ public class FirestoreMain extends AppCompatActivity {
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+    private CollectionReference userCollection = db.collection("user2");
+
     private Restaurant restaurant;
     private static User user;
     FirebaseUser dbUser;
@@ -91,6 +93,8 @@ public class FirestoreMain extends AppCompatActivity {
     }
 
     public String adress;
+
+
 
     public UserInformation getUserInformation() {
         Log.d("User", "userInformation: " + userInformation);
