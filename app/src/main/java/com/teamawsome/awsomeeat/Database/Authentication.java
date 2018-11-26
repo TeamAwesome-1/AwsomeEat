@@ -1,5 +1,7 @@
 package com.teamawsome.awsomeeat.Database;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -14,6 +16,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.teamawsome.awsomeeat.Model.User;
+import com.teamawsome.awsomeeat.SignIn;
 
 public class Authentication extends AppCompatActivity {
 
@@ -130,7 +133,7 @@ public class Authentication extends AppCompatActivity {
         // userModel = new User(adress, id);
         dbUser = FirebaseAuth.getInstance().getCurrentUser();
         user = new User(adress, uid);
-        userCollection.document(dbUser.getUid()).set(user);
+        userCollection.document(currentUser.getUid()).set(user);
 
     }
 
@@ -202,6 +205,27 @@ public class Authentication extends AppCompatActivity {
             String properties = "uid: " + uid + " name " + name + " email " + email;
 
             Log.d(TAG, "Userdetails: " + properties);
+        }
+    }
+
+    public void loadAuthData(Activity activity){
+        checkAuthState(activity);
+        getUserAdress();
+        checkAdminState();
+    }
+
+    private void checkAuthState(Activity activity){
+        Log.d(TAG,"checkAuthState");
+
+        if(currentUser == null){
+            Log.d(TAG, "user is null, sent back to login");
+
+            Intent intent = new Intent(activity, SignIn.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+        }else{
+            Log.d(TAG, "user is authenticated");
         }
     }
 

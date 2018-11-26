@@ -35,10 +35,10 @@ public class User {
         this.adress = adress;
     }
 
-    public User(){
-
+    public User() {
 
     }
+
 
     public User(String adress, String uid) {
         this.adress = adress;
@@ -46,8 +46,9 @@ public class User {
         this.admin = false;
     }
 
-    public User(String adress){
-        this.adress = adress;
+    public User(String uid){
+        this.uid = uid;
+        this.admin = false;
     }
 
 
