@@ -22,22 +22,25 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.teamawsome.awsomeeat.Admin.FirestoreMain;
+import com.teamawsome.awsomeeat.Database.Authentication;
 import com.teamawsome.awsomeeat.Model.User;
 import com.teamawsome.awsomeeat.R;
 
 public class userFragment extends Fragment {
     private static final String TAG = "User";
-    private static FirestoreMain firestoreMain;
+    //private static FirestoreMain firestoreMain;
+    private static Authentication authentication;
     private FirebaseFirestore db;
     private User userModel;
     private EditText adressText;
     private TextView display;
-    private String adress = "test 123";
+    //private String adress = "test 123";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        firestoreMain = FirestoreMain.getInstance();
+        //firestoreMain = FirestoreMain.getInstance();
+        authentication = Authentication.getInstance();
     }
 
     @Override
@@ -53,30 +56,24 @@ public class userFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        //FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         //setTexttoView(dbAdress(), R.id.displayUserAdress);
-        setTexttoView(getUserName(), R.id.editName);
-        setTexttoView(getUserEmail(), R.id.displayEmail);
-        firestoreMain.getUserAdress();
-        Log.d(TAG, "Adress from userfragment: " + firestoreMain.getAdress());
-        Log.d(TAG, "Uid: " + firestoreMain.getUid());
-        setTexttoView(firestoreMain.getAdress(), R.id.editAdress);
+        setTexttoView(authentication.getUserName(), R.id.editName);
+        setTexttoView(authentication.getUserEmail(), R.id.displayEmail);
+       // firestoreMain.getUserAdress();
+        //firestoreMain.checkAdminState();
+        Log.d(TAG, "Adress from userfragment: " + authentication.getAdress());
+        Log.d(TAG, "Uid: " + authentication.getUid());
+        setTexttoView(authentication.getAdress(), R.id.editAdress);
         getActivity().findViewById(R.id.buttonUpdateInfo).setOnClickListener(this::sendDB);
     }
 
-    /*
-    private String dbAdress() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-
-
-    }
-*/
     private void sendDB(View view){
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            firestoreMain.setUserAdress(getinput(R.id.editAdress), user.getUid());
-            setUserDetails(getinput(R.id.editName));
+       // FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (authentication.getCurrentUser() != null) {
+            authentication.setUserAdress(getinput(R.id.editAdress), authentication.getCurrentUser().getUid());
+            //setUserDetails(getinput(R.id.editName));
+            authentication.setUserDetails(getinput(R.id.editName));
         }
     }
 

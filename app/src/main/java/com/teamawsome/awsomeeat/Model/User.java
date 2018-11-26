@@ -3,8 +3,18 @@ package com.teamawsome.awsomeeat.Model;
 import com.google.firebase.firestore.Exclude;
 
 public class User {
-    public String uid;
-    public String adress;
+    private String uid;
+    private String adress;
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
+
+    private boolean admin;
     @Exclude
     public String id;
 
@@ -33,6 +43,7 @@ public class User {
     public User(String adress, String uid) {
         this.adress = adress;
         this.uid = uid;
+        this.admin = false;
     }
 
     public User(String adress){

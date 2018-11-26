@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.teamawsome.awsomeeat.Admin.FirestoreMain;
+import com.teamawsome.awsomeeat.Database.Authentication;
 import com.teamawsome.awsomeeat.Fragments.CartFragment;
 import com.teamawsome.awsomeeat.Fragments.RestaurantListFragment;
 import com.teamawsome.awsomeeat.Fragments.userFragment;
@@ -34,6 +35,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
     private static final String TAG = "User";
     private String extraInformation;
     private static FirestoreMain firestoreMain;
+    private static Authentication authentication;
     private FirebaseUser user;
     public String getExtraInformation() {
         return extraInformation;
@@ -49,7 +51,9 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
         setContentView(R.layout.activity_home);
         user = FirebaseAuth.getInstance().getCurrentUser();
         firestoreMain = FirestoreMain.getInstance();
-        firestoreMain.getUserAdress();
+        authentication = Authentication.getInstance();
+        authentication.getUserAdress();
+        //firestoreMain.getUserAdress();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

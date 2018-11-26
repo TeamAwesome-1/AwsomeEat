@@ -64,48 +64,7 @@ public class FirestoreMain extends AppCompatActivity {
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    private CollectionReference userCollection = db.collection("user2");
-
     private Restaurant restaurant;
-    private static User user;
-    FirebaseUser dbUser;
-
-    public String getUid() {
-        return uid;
-    }
-
-    private String uid;
-
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public String getAdress() {
-        return adress;
-    }
-
-    public void setAdress(String adress) {
-        this.adress = adress;
-    }
-
-    public String adress;
-
-
-
-    public UserInformation getUserInformation() {
-        Log.d("User", "userInformation: " + userInformation);
-        return userInformation;
-    }
-
-    public void setUserInformation(UserInformation userInformation) {
-        this.userInformation = userInformation;
-    }
-
-    UserInformation userInformation;
 
     private Food food = new Food();
 
@@ -127,59 +86,6 @@ public class FirestoreMain extends AppCompatActivity {
 
 
 
-        }
-
-        public void getUserAdress(){
-            dbUser = FirebaseAuth.getInstance().getCurrentUser();
-            DocumentReference docRef = db.collection("user2").document(dbUser.getUid());
-
-            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot document = task.getResult();
-                        if (document != null) {
-                            uid = document.getString("uid");
-                            //if (uid.equals(user)){
-                                String adress2 = document.getString("adress");
-                                setAdress(adress2);
-                                Log.d("User", "UserAdress: " + adress2); // adress2 skriver ut adressen från databasen i loggen
-
-                            //}
-                        }
-                }
-                }
-            });
-        }
-
-        public void setUserAdress(String adress, String uid){
-            //FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            //String id = user.getUid();
-
-            // userModel = new User(adress, id);
-            dbUser = FirebaseAuth.getInstance().getCurrentUser();
-            user = new User(adress, uid);
-            userCollection.document(dbUser.getUid()).set(user);
-
-        }
-
-        public void setUserId(String name){
-            dbUser = FirebaseAuth.getInstance().getCurrentUser();
-            if (dbUser != null){
-                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                        .setDisplayName(name).build();
-
-                dbUser.updateProfile(profileUpdates)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()){
-                                    Log.d("User", "onComplete: User name: " + dbUser.getDisplayName());
-
-                                }
-                            }
-                        });
-            }
         }
 
         //Lägger till i vaurkorg
