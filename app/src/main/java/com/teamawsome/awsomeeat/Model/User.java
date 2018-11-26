@@ -5,19 +5,9 @@ import com.google.firebase.firestore.Exclude;
 public class User {
     private String uid;
     private String adress;
-
-    public boolean isAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
-    }
-
-    private boolean admin;
+    private boolean admin = false;
     @Exclude
     public String id;
-
 
     public String getUid() {
         return uid;
@@ -39,6 +29,14 @@ public class User {
 
     }
 
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
+
 
     public User(String adress, String uid) {
         this.adress = adress;
@@ -46,9 +44,9 @@ public class User {
         this.admin = false;
     }
 
-    public User(String uid){
+    public User(String uid, boolean admin){
         this.uid = uid;
-        this.admin = false;
+        this.admin = admin;
     }
 
 

@@ -26,7 +26,7 @@ public class Authentication extends AppCompatActivity {
     public static Authentication getInstance() { return Authentication;
     }
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference userCollection = db.collection("user2");
+    private CollectionReference userCollection = db.collection("User");
     private static User user;
 
     public FirebaseUser getCurrentUser() {
@@ -83,7 +83,7 @@ public class Authentication extends AppCompatActivity {
 
     public void checkAdminState(){
         dbUser = FirebaseAuth.getInstance().getCurrentUser();
-        DocumentReference docRef = db.collection("user2").document(dbUser.getUid());
+        DocumentReference docRef = db.collection("User").document(dbUser.getUid());
 
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -105,7 +105,7 @@ public class Authentication extends AppCompatActivity {
 
     public void getUserAdress(){
         dbUser = FirebaseAuth.getInstance().getCurrentUser();
-        DocumentReference docRef = db.collection("user2").document(dbUser.getUid());
+        DocumentReference docRef = db.collection("User").document(dbUser.getUid());
 
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -124,6 +124,11 @@ public class Authentication extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void setAdminDB(boolean b){
+        user = new User(currentUser.getUid(), b);
+        userCollection.document(currentUser.getUid()).set(user);
     }
 
     public void setUserAdress(String adress, String uid){
@@ -208,10 +213,11 @@ public class Authentication extends AppCompatActivity {
         }
     }
 
-    public void loadAuthData(Activity activity){
-        checkAuthState(activity);
-        getUserAdress();
-        checkAdminState();
+    public void loadAuthData(){
+        setAdminDB(false);
+        //getUserAdress();
+        //checkAdminState();
+
     }
 
     private void checkAuthState(Activity activity){
