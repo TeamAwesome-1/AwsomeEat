@@ -53,7 +53,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
         user = FirebaseAuth.getInstance().getCurrentUser();
         firestoreMain = FirestoreMain.getInstance();
         authentication = Authentication.getInstance();
-        authentication.getUserAdress();
+        authentication.loadAuthData();
         //firestoreMain.getUserAdress();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
