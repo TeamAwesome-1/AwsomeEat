@@ -2,9 +2,7 @@ package com.teamawsome.awsomeeat;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -13,13 +11,11 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,9 +30,8 @@ import com.teamawsome.idHolder;
 public class AwsomeEatActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private static final String TAG = "User";
     private String extraInformation;
-    private static FirestoreMain firestoreMain;
-    private static Authentication authentication;
-    private FirebaseUser user;
+    private static FirestoreMain firestoreMain = FirestoreMain.getInstance();
+    private static Authentication authentication = Authentication.getInstance();
     public String getExtraInformation() {
         return extraInformation;
     }
@@ -49,15 +44,10 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        firestoreMain = FirestoreMain.getInstance();
-        authentication = Authentication.getInstance();
         authentication.loadAuthData();
         //firestoreMain.getUserAdress();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -186,26 +176,10 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
         return true;
     }
 
-    private void checkAuthState(){
-        Log.d(TAG,"checkAuthState");
-
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        if(user == null){
-            Log.d(TAG, "user is null, sent back to login");
-
-            Intent intent = new Intent(AwsomeEatActivity.this, SignIn.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-            finish();
-        }else{
-            Log.d(TAG, "user is authenticated");
-        }
-    }
     @Override
     protected void onResume() {
         super.onResume();
-        checkAuthState();
+        authentication.checkAuthState(AwsomeEatActivity.this);
     }
 
 }

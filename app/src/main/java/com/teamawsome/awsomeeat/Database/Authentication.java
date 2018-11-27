@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -21,23 +22,21 @@ import com.teamawsome.awsomeeat.SignIn;
 public class Authentication extends AppCompatActivity {
 
     private static final Authentication Authentication = new Authentication();
-    private static final String TAG = "user";
-
-    public static Authentication getInstance() { return Authentication;
-    }
+    private static final String TAG = "User";
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference userCollection = db.collection("User");
     private static User user;
+    private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+    private FirebaseUser dbUser;
+    public String adress;
+    private boolean admin;
+
+    public static Authentication getInstance() { return Authentication;
+    }
 
     public FirebaseUser getCurrentUser() {
         return currentUser;
     }
-
-    private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-    FirebaseUser dbUser;
-    public String adress;
-
-    private boolean admin;
 
     public void setAdmin(boolean admin) {
         this.admin = admin;
@@ -46,7 +45,6 @@ public class Authentication extends AppCompatActivity {
     public boolean isAdmin(){
         return admin;
     }
-
 
     public String getUid() {
         return uid;
@@ -220,7 +218,7 @@ public class Authentication extends AppCompatActivity {
 
     }
 
-    private void checkAuthState(Activity activity){
+    public void checkAuthState(Activity activity){
         Log.d(TAG,"checkAuthState");
 
         if(currentUser == null){
@@ -233,6 +231,22 @@ public class Authentication extends AppCompatActivity {
         }else{
             Log.d(TAG, "user is authenticated");
         }
+    }
+
+    private void sendResetPassword(Activity activity){
+        FirebaseAuth.getInstance().sendPasswordResetEmail(FirebaseAuth.getInstance().getCurrentUser().getEmail())
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()){
+                            Log.d(TAG, "onComplete: Reset Password Link sent");
+                            Toast.makeText(activity, "Sent Reset Password Link to Email", Toast.LENGTH_SHORT).show();
+                        }else {
+                            Log.d(TAG, "onComplete: No User with that email");
+                            Toast.makeText(activity, "No user with that email", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 
 }

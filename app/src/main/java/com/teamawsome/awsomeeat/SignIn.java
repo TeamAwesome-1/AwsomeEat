@@ -17,14 +17,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.rengwuxian.materialedittext.MaterialEditText;
-import com.teamawsome.awsomeeat.Model.User;
-import com.teamawsome.awsomeeat.Common.Common;
 
 public class SignIn extends AppCompatActivity {
     private EditText edtEmail,edtPassword;
@@ -43,11 +36,6 @@ public class SignIn extends AppCompatActivity {
 
         // FIREBASE
         setupFirebaseAuth();
-
-        /*
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference table_user= database.getReference("User");
-        */
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,52 +63,6 @@ public class SignIn extends AppCompatActivity {
                 }else{
                     Toast.makeText(SignIn.this, "You didn't enter email & password!", Toast.LENGTH_SHORT).show();
                 }
-
-
-
-
-
-
-
-
-
-/*
-
-                table_user.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                        //CHecking the use names from the database ...if use exists or not !
-                        //Get User Information
-                        if(dataSnapshot.child(edtEmail.getText().toString()).exists())
-                        {
-                            mDialog.dismiss();
-                            User user = dataSnapshot.child(edtEmail.getText().toString()).getValue(User.class);
-                            user.setPhone(edtEmail.getText().toString());
-
-                            if (user.getPassword().equals(edtPassword.getText().toString())) {
-                                Intent homeIntent = new Intent(SignIn.this,Home.class);
-                                Common.currentUser=user;
-                                startActivity(homeIntent);
-                                finish();
-                            } else {
-                                Toast.makeText(SignIn.this, "Wrong Phone number or Password", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-
-
-                        else
-                        {
-                            mDialog.dismiss();
-                            Toast.makeText(SignIn.this,"User Doesnt exists in the database" ,Toast.LENGTH_LONG).show();
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });*/
             }
         });
         }
