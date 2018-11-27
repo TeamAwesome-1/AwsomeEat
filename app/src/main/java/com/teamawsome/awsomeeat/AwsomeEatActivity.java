@@ -26,6 +26,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.teamawsome.awsomeeat.Admin.FirestoreMain;
 import com.teamawsome.awsomeeat.Database.Authentication;
+import com.teamawsome.awsomeeat.Fragments.AdminMainFragment;
 import com.teamawsome.awsomeeat.Fragments.CartFragment;
 import com.teamawsome.awsomeeat.Fragments.RestaurantListFragment;
 import com.teamawsome.awsomeeat.Fragments.userFragment;
@@ -83,10 +84,11 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
             @Override
             public void onDrawerStateChanged(int i) {
-               //TODO Insert "insert-restaurant-button" here for admin.something like this:
-               /* if (Admin is inlogged){
-                    navigationView.getMenu().add("test");
-                }*/
+               //TODO kolla på detta:
+               if (authentication.isAdmin()){
+                    MenuItem admin = findViewById(R.id.admin);
+                    admin.setVisible(true);
+                }
             }
         });
 
@@ -178,6 +180,14 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
             Intent signIn= new Intent(AwsomeEatActivity.this,SignIn.class);
             signIn.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(signIn);
+        }
+
+        else if (id == R.id.admin) {
+            fragment = new AdminMainFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragmentinsertlayout, fragment);
+            fragmentTransaction.commit();
         }
 
         //Closes the drawer after an item has been selected
