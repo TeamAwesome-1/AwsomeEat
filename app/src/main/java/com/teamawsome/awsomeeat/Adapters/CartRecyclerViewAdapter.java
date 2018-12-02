@@ -30,7 +30,12 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartViewHolder
 
         }
 
-        @Nonnull
+    public List<Order> getOrderList() {
+        return orderList;
+    }
+
+
+    @Nonnull
         @Override
         public CartViewHolder onCreateViewHolder( ViewGroup viewGroup, int viewType) {
 
@@ -59,6 +64,11 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartViewHolder
             this.notifyItemInserted(orderList.size()-1);
         }
 
+
+        public void clearList(){
+            orderList.clear();
+            this.notifyDataSetChanged();
+        }
 
         public void removeOrderListItem(int position){
             if(position >= 0 && position < orderList.size()){

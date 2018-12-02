@@ -23,5 +23,10 @@
     <string name="add_new_restaurant">Add new restaurant</string>
     <string name="edit_menu">Edit the menu in a restaurant</string>
     <string name="search_restaurant">Search for a restaurant</string>
+    <string name="Order_placed_successfully">Order placed succesfully!</string>
+    <string name="no">NO</string>
+    <string name="place_order">Place order</string>
+    <string name="do_you_want_to_place_order">Do you want to place your order?</string>
+    <string name="Yes">YES</string>
 
 </resources>

@@ -1,16 +1,22 @@
 package com.teamawsome.awsomeeat.ViewHolder;
 
+import android.content.DialogInterface;
 import android.graphics.Color;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.teamawsome.awsomeeat.Common.Common;
 import com.teamawsome.awsomeeat.Interface.ItemClickListener;
 import com.teamawsome.awsomeeat.Model.Order;
+import com.teamawsome.awsomeeat.Model.Request;
 import com.teamawsome.awsomeeat.R;
 
 import java.text.NumberFormat;
@@ -18,8 +24,8 @@ import java.util.Locale;
 
 public class CartViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnCreateContextMenuListener {
 
-        public TextView txt_cart_name, txt_price;
-        public ImageView img_cart_count;
+        private TextView txt_cart_name, txt_price;
+        private ImageView img_cart_count;
         public ItemClickListener itemClickListener;
         private String itemId;
 
@@ -48,10 +54,9 @@ public class CartViewHolder extends RecyclerView.ViewHolder implements View.OnCl
             img_cart_count.setImageDrawable(drawable);
             Locale locale = new Locale("en","SE");
             NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
-
             //TODO ordeitem needs to have a price registred (=not null) for this to work/ Sandra
-            /*int price = (Integer.parseInt(orderInfo.getPrice()))*(Integer.parseInt(orderInfo.getQuantity()));
-            txt_price.setText(fmt.format(price));*/
+            int price = (Integer.parseInt(orderInfo.getPrice()))*(Integer.parseInt(orderInfo.getQuantity()));
+            txt_price.setText(fmt.format(price));
 
             txt_cart_name.setText(orderInfo.getProductName());
 
@@ -60,6 +65,9 @@ public class CartViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
          @Override
         public void onClick(View view) {
+
+
+
 
          }
 

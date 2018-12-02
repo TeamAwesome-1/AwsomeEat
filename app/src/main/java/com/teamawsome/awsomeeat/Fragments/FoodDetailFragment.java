@@ -47,6 +47,7 @@ public class FoodDetailFragment extends Fragment {
     Button goToCartButton;
     ElegantNumberButton numberButton;
     String foodId;
+    String restaurantId;
     Food currentFood;
     FirestoreMain firestoreMain = FirestoreMain.getInstance();
     FirebaseUser user;
@@ -85,7 +86,7 @@ public class FoodDetailFragment extends Fragment {
 
         //set id for the fooditem selected from foodlist
         foodId = idHolder.getFoodId();
-
+        restaurantId = idHolder.getRestaurantId();
         //get the Food-item selected in the foodlist.
         currentFood = idHolder.getSeletedFood();
         displayInformationAboutFood(currentFood);
@@ -97,7 +98,7 @@ public class FoodDetailFragment extends Fragment {
             public void onClick(View view) {
                 String amount = numberButton.getNumber();
                 user = FirebaseAuth.getInstance().getCurrentUser();
-                Order order = new Order(foodId,currentFood.getName(),amount,currentFood.getPrice(), user.getUid());
+                Order order = new Order(restaurantId,foodId,currentFood.getName(),amount,currentFood.getPrice(), user.getUid());
 
                 firestoreMain.addToCart(order);
                 Toast.makeText(getContext(), getString(R.string.added_to_cart_toast), Toast.LENGTH_SHORT).show();

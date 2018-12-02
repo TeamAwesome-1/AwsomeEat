@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.EditText;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -86,6 +87,8 @@ public class FirestoreMain extends AppCompatActivity {
 
 
 
+
+
         }
 
         //Lägger till i vaurkorg
@@ -115,7 +118,7 @@ public class FirestoreMain extends AppCompatActivity {
 
                             String id = dc.getDocument().getId();
                             Order order = dc.getDocument().toObject(Order.class);
-                            order.setProductId(id);
+                            order.setDocumentId(id);
                             adapter.addItem(order);
 
                         } else if (dc.getType() == DocumentChange.Type.REMOVED) {
@@ -301,7 +304,37 @@ public class FirestoreMain extends AppCompatActivity {
         }
 
 
+    public void addToOrders(List<Order> cartList) {
+
+        for (int i = 0; i < cartList.size(); i++) {
+            db.collection("Orders")
+                    .add(cartList.get(i));
+        }
+
+
     }
+
+    public void clearCart(List<Order> cartList){
+        for (int i = 0; i < cartList.size(); i++) {
+            Order order = cartList.get(i);
+            String document  = order.getDocumentId();
+            db.collection("Cart").document(document)
+                    .delete()
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.i("sandra", "onSuccess: Delete successfull");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.i("sandra", "onFailure: Delete failed ");
+                        }
+                    });
+        }
+    }
+}
 
 
 
