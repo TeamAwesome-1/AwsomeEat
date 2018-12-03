@@ -20,7 +20,7 @@
             android:id="@+id/imageView3"
             android:layout_width="206dp"
             android:layout_height="195dp"
-            android:src="@drawable/foodlogo" />
+            android:src="@drawable/newfoodlogo" />
 
     </LinearLayout>
 
@@ -35,11 +35,13 @@
         <Button
             android:id="@+id/btnSignUp"
             android:text="Sign Up"
-            android:textColor="@android:color/white"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
+            android:background="@drawable/buttonshape"
+            android:drawableLeft="@drawable/signupicon"
+
             />
 
 
@@ -51,6 +53,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
+            android:background="@drawable/buttonshape"
+            android:drawableLeft="@drawable/loginicon"
             />
 
 

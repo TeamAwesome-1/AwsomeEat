@@ -69,6 +69,7 @@
     <Button
         android:id="@+id/btnSignIn"
         android:text="Sign In"
+        android:background="@drawable/buttonshape"
         android:textColor="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -85,7 +86,7 @@
         android:layout_above="@+id/linearLayout"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="22dp"
-        android:src="@drawable/login" />
+        android:src="@drawable/signinimage" />
 
 
 </RelativeLayout>

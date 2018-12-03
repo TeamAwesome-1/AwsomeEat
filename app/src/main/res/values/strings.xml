@@ -28,5 +28,6 @@
     <string name="place_order">Place order</string>
     <string name="do_you_want_to_place_order">Do you want to place your order?</string>
     <string name="Yes">YES</string>
+    <string name="update_dish">Update dish</string>
 
 </resources>

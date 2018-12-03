@@ -26,6 +26,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.teamawsome.awsomeeat.Admin.FirestoreMain;
 import com.teamawsome.awsomeeat.Database.Authentication;
+import com.teamawsome.awsomeeat.Fragments.AdminMainFragment;
 import com.teamawsome.awsomeeat.Fragments.CartFragment;
 import com.teamawsome.awsomeeat.Fragments.RestaurantListFragment;
 import com.teamawsome.awsomeeat.Fragments.userFragment;
@@ -40,7 +41,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
     public String getExtraInformation() {
         return extraInformation;
     }
-
+    private int count=0;
     public void setExtraInformation(String extraInformation) {
         this.extraInformation = extraInformation;
     }
@@ -83,11 +84,33 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
             @Override
             public void onDrawerStateChanged(int i) {
-               //TODO Insert "insert-restaurant-button" here for admin.something like this:
-               /* if (Admin is inlogged){
-                    navigationView.getMenu().add("test");
-                }*/
+                //TODO kolla på detta
+                navigationView.getMenu().findItem(i);
+                if (authentication.isAdmin() && count==0) {
+                    count++;
+                    navigationView.getMenu().add(0, 10, 7, "Admin");
+                    navigationView.getMenu().findItem(10).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            return true;
+                        }
+
+                    });
+
+                }
             }
+
+
+               /* MenuItem admin = findViewById(R.id.admin);
+                admin.setVisible(false);
+               if (authentication.isAdmin()) {
+                   admin.setVisible(true);
+                   return;
+               }
+                 else if (!authentication.isAdmin()){
+
+               }
+            }*/
         });
 
 
@@ -178,6 +201,14 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
             Intent signIn= new Intent(AwsomeEatActivity.this,SignIn.class);
             signIn.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(signIn);
+        }
+
+        else if (id == R.id.admin) {
+            fragment = new AdminMainFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragmentinsertlayout, fragment);
+            fragmentTransaction.commit();
         }
 
         //Closes the drawer after an item has been selected

@@ -71,7 +71,7 @@ public class FirestoreMain extends AppCompatActivity {
 
     private Restaurant restaurant;
 
-    private Food food = new Food();
+    private Food food;
 
     private CollectionReference foods = db.collection("foods");
 
@@ -84,10 +84,10 @@ public class FirestoreMain extends AppCompatActivity {
 
         //Lägg till ny restaurang.
 
-        public void addRestaurant (String restaurantName, String restaurantAdress) {
+        public void addRestaurant (String restaurantName, String restaurantAdress, String phoneNumber) {
 
 
-                  restaurant = new Restaurant(restaurantName, restaurantAdress);
+                  restaurant = new Restaurant(restaurantName, restaurantAdress, phoneNumber);
                             db.collection("restaurants")
                                     .add(restaurant);
 
@@ -308,6 +308,11 @@ public class FirestoreMain extends AppCompatActivity {
         //food.Category = category;
         db.collection("Foods").add(food);
         }
+
+      public void changeFood(Food food ) {
+        DocumentReference foods = db.collection("Foods").document(food.getId());
+          foods.set(food);
+    }
 
 
     public void addToOrders(List<Order> cartList) {

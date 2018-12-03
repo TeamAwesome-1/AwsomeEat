@@ -23,9 +23,11 @@ public class AdminMainActivity extends AppCompatActivity {
         tableLayout= (TabLayout) findViewById(R.id.tablayout_id);
         appBarLayout=(AppBarLayout) findViewById(R.id.appbarid);
         viewPager=(ViewPager) findViewById(R.id.viewPager);
+
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+
         adapter.AddFragment(new FragmentAddDish(),"Add Dish");
-        adapter.AddFragment(new FragmentAddResturant(),"Add Resturant");
+        adapter.AddFragment(new FragmentAddRestaurant(),"Add Resturant");
 
         viewPager.setAdapter(adapter);
         tableLayout.setupWithViewPager(viewPager);
