@@ -87,7 +87,7 @@ dishPriceEdit.setText(dishPriceEdit.getText());
 
     food.setName(dishNameEdit.getText().toString());
     food.setPrice(dishPriceEdit.getText().toString());
-    food.setMenuId(food.getId());
+    food.setRestaurantId(food.getId());
 
     changeItem();
 
