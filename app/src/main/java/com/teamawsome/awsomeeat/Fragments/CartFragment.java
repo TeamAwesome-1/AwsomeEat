@@ -53,7 +53,7 @@ public class CartFragment extends Fragment {
         btnPlace = view.findViewById(R.id.btnPlaceOrder);
         user = FirebaseAuth.getInstance().getCurrentUser();
         //set the adapter for the recyclerview
-        adapter = new CartRecyclerViewAdapter(cartList);
+        adapter = new CartRecyclerViewAdapter(cartList, txtTotalPrice);
         recyclerView.setAdapter(adapter);
 
         return view;
@@ -69,10 +69,10 @@ public class CartFragment extends Fragment {
 
         //TODO fix pricecalculation /Sandra
         //Calculate the total price of the cartitems
-        Locale locale = new Locale("en", "SE");
+        /*Locale locale = new Locale("en", "SE");
         NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
         price = getTotalPrice();
-        txtTotalPrice.setText(fmt.format(price));
+        txtTotalPrice.setText(fmt.format(price));*/
 
 
         //Set clicklistener for the placeOrderButton
@@ -148,7 +148,7 @@ public class CartFragment extends Fragment {
 
     }
 
-    public int getTotalPrice() {
+   /* public int getTotalPrice() {
 
         int total= 0;
         for (int i = 0; i < adapter.getItemCount(); i++) {
@@ -156,7 +156,7 @@ public class CartFragment extends Fragment {
             total += (Integer.parseInt(order.getPrice())) * (Integer.parseInt(order.getQuantity()));
         }
         return total;
-    }
+    }*/
 
 
    public void onStop() {

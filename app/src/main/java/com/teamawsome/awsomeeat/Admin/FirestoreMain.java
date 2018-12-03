@@ -218,7 +218,7 @@ public class FirestoreMain extends AppCompatActivity {
         public void getRestaurantMenu (FoodListRecyclerViewAdapter adapter, String restaurantId) {
 
 
-            db.collection("Foods").whereArrayContains("restaurantId", restaurantId)
+            db.collection("Foods").whereEqualTo("restaurantId", restaurantId)
                     .addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
                         public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
@@ -255,7 +255,7 @@ public class FirestoreMain extends AppCompatActivity {
          public void getMenuForRestaurantCategory(FoodListRecyclerViewAdapter adapter, String restaurantId, String categoryId){
 
 
-         listenerRegistration = db.collection("Foods").whereArrayContains("restaurantId", restaurantId).whereEqualTo("Category", categoryId)
+         listenerRegistration = db.collection("Foods").whereEqualTo("restaurantId", restaurantId).whereEqualTo("Category", categoryId)
                     .addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
                         public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
