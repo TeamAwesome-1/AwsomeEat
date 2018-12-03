@@ -54,10 +54,6 @@ public class RestaurantViewHolder extends RecyclerView.ViewHolder implements Vie
     @Override
     public void onClick(View v) {
 
-        //TODO replace userId /sandra
-        idHolder.setUserId("12345Sandra");
-
-
         //Save id for the restaurant that was clicked on
         idHolder.setRestaurantId(itemId);
 
