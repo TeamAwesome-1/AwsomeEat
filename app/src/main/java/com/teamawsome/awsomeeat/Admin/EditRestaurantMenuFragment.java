@@ -23,7 +23,7 @@ import com.teamawsome.idHolder;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EditRestaurantMenuFragment extends Fragment {
+public class EditRestaurantMenuFragment extends Fragment implements View.OnClickListener {
     private FirestoreMain firestoreMain = FirestoreMain.getInstance();
     View view;
     CollectionReference foods;
@@ -31,8 +31,23 @@ public class EditRestaurantMenuFragment extends Fragment {
     private EditText dishNameEdit;
    private EditText dishPriceEdit;
     private Button updateDish;
+    private Button newDish;
+    private FoodListRecyclerViewAdapter adapter;
+    private LayoutInflater inflater;
 
+    @Override
+    public void onClick(View v) {
 
+        switch (v.getId()) {
+            case R.id.addNewDishButton:
+    addNewDish(v);
+    break;
+            case R.id.updateDishButton:
+    setUpdateDish1(v);
+    break;
+
+        }
+    }
 
     public EditRestaurantMenuFragment() {
         // Required empty public constructor
@@ -49,9 +64,9 @@ public class EditRestaurantMenuFragment extends Fragment {
         dishNameEdit = view.findViewById(R.id.dishName);
         dishPriceEdit = view.findViewById(R.id.price);
 
-       // dishNameEdit.setText(food.getName());
-       // dishPriceEdit.setText(food.getPrice());
+
         Button updateDish = view.findViewById(R.id.updateDishButton);
+
 
    //TODO: Göra det möjligt att uppdatera food objekt ifrån Collection "Foods".
      //TODO:   använd food objektet.
@@ -66,14 +81,20 @@ public class EditRestaurantMenuFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getActivity().findViewById(R.id.updateDishButton).setOnClickListener(this::setUpdateDish1);
+
+
 
         ImageView dishPic = view.findViewById(R.id.picDish);
         food = idHolder.getSeletedFood();
         dishNameEdit.setText(food.getName());
         dishPriceEdit.setText(food.getPrice());
         PictureHandler.setPictureFromUrl(food.getImage(), dishPic);
-    }
+        newDish = view.findViewById(R.id.addNewDishButton);
+
+        }
+
+
+
 
 
 
@@ -87,7 +108,7 @@ dishPriceEdit.setText(dishPriceEdit.getText());
 
     food.setName(dishNameEdit.getText().toString());
     food.setPrice(dishPriceEdit.getText().toString());
-    food.setMenuId(food.getId());
+    food.setRestaurantId(idHolder.getRestaurantId());
 
     changeItem();
 
@@ -99,13 +120,22 @@ dishPriceEdit.setText(dishPriceEdit.getText());
     }
 
     public void changeItem () {
-       FoodListRecyclerViewAdapter adapter = new FoodListRecyclerViewAdapter ();
+        adapter = new FoodListRecyclerViewAdapter ();
 
         adapter.modifyItem(food.getId(), food);
         adapter.notifyDataSetChanged();
         firestoreMain.changeFood(food);
     }
+
+    public void addNewDish (View view) {
+       EventHandler.openAddishFragment(view);
+
+
+            }
+
     }
+
+
 
 
 

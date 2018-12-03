@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.teamawsome.awsomeeat.Admin.EditRestaurantMenuFragment;
+import com.teamawsome.awsomeeat.Admin.FragmentAddDish;
 import com.teamawsome.awsomeeat.Admin.FragmentAddRestaurant;
 
 import com.teamawsome.awsomeeat.Fragments.CartFragment;
@@ -101,5 +102,10 @@ public class EventHandler {
     public static void openEditRestaurantMenuFragment(View view) {
         fragment = new EditRestaurantMenuFragment();
         openFragment(fragment, view);
+    }
+
+    public static void openAddishFragment (View v) {
+        fragment = new FragmentAddDish();
+        openFragment(fragment, v);
     }
 }
