@@ -1,5 +1,6 @@
 package com.teamawsome.awsomeeat.Admin;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.teamawsome.awsomeeat.AwsomeEatActivity;
 import com.teamawsome.awsomeeat.R;
 
 public class AdminMain extends AppCompatActivity {
@@ -36,6 +38,7 @@ public class AdminMain extends AppCompatActivity {
         restaurantAdress = findViewById(R.id.restaurantAdress);
         Button submitFood = findViewById(R.id.submitFoodButton);
         Button submitRestaurant = findViewById(R.id.submit);
+        Button admin = findViewById(R.id.admin);
         foodCategory = findViewById(R.id.foodCategory);
         submitRestaurant.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,7 +47,15 @@ public class AdminMain extends AppCompatActivity {
                 restaurantAdress1 = restaurantAdress.getText().toString();
                 restaurantAdress.setText(restaurantAdress1);
                 restaurantName.setText(restaurantName1);
-                firestoreMain.addRestaurant(restaurantName1, restaurantAdress1);
+              //  firestoreMain.addRestaurant(restaurantName1, restaurantAdress1);
+            }
+        });
+
+        admin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity(new Intent(getApplication(), AdminMainActivity.class));
             }
         });
 

@@ -52,7 +52,7 @@ public class Food {
     }
 
     public void setName(String name) {
-        Name = name;
+        this.Name = name;
     }
 
    public String getImage() {

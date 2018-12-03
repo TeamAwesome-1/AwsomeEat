@@ -41,7 +41,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
     public String getExtraInformation() {
         return extraInformation;
     }
-
+    private int count=0;
     public void setExtraInformation(String extraInformation) {
         this.extraInformation = extraInformation;
     }
@@ -84,12 +84,33 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
             @Override
             public void onDrawerStateChanged(int i) {
-               //TODO kolla på detta:
-               if (authentication.isAdmin()){
-                    MenuItem admin = findViewById(R.id.admin);
-                    admin.setVisible(true);
+                //TODO kolla på detta
+                navigationView.getMenu().findItem(i);
+                if (authentication.isAdmin() && count==0) {
+                    count++;
+                    navigationView.getMenu().add(0, 10, 7, "Admin");
+                    navigationView.getMenu().findItem(10).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            return true;
+                        }
+
+                    });
+
                 }
             }
+
+
+               /* MenuItem admin = findViewById(R.id.admin);
+                admin.setVisible(false);
+               if (authentication.isAdmin()) {
+                   admin.setVisible(true);
+                   return;
+               }
+                 else if (!authentication.isAdmin()){
+
+               }
+            }*/
         });
 
 

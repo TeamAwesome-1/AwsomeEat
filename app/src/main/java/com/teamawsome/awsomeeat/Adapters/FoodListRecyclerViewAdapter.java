@@ -13,8 +13,10 @@ import com.teamawsome.awsomeeat.ViewHolder.FoodViewHolder;
 import java.util.List;
 
 public class FoodListRecyclerViewAdapter extends RecyclerView.Adapter<FoodViewHolder> {
-    List<Food> list;
+    public static List<Food> list;
+    public FoodListRecyclerViewAdapter() {
 
+    }
 
     public FoodListRecyclerViewAdapter(List<Food> list){
         this.list = list;
