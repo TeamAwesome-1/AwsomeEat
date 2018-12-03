@@ -1,5 +1,6 @@
 package com.teamawsome.awsomeeat;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,12 +16,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.teamawsome.awsomeeat.Common.Common;
+import com.teamawsome.awsomeeat.Database.Authentication;
 
 public class SignUp extends AppCompatActivity {
 
     private MaterialEditText edtRoll,edtName,edtPassword,edtConfirmPassword;
+    private static Authentication authentication = Authentication.getInstance();
     private Button btnSignUp;
-    private FirebaseAuth mAuth;
+   // private FirebaseAuth mAuth;
     private static final String TAG = "Register";
 
     @Override
@@ -36,7 +39,7 @@ public class SignUp extends AppCompatActivity {
         btnSignUp = (Button) findViewById(R.id.btnSignUp);
 
         //Initialize Firebase
-        mAuth = FirebaseAuth.getInstance();
+        //mAuth = FirebaseAuth.getInstance();
 
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
@@ -46,17 +49,18 @@ public class SignUp extends AppCompatActivity {
 
 
                 if(Common.isNetworkAvailable(getBaseContext())) {
-                    /*
-                    if (!isEmpty(edtName.getText().toString()))
+
+                    if (!edtName.getText().toString().isEmpty())
                         Toast.makeText(SignUp.this, "Email can not be empty!", Toast.LENGTH_SHORT).show();
-*/
-                    if (edtPassword.getText().toString().trim().length() < 3)
-                        Toast.makeText(SignUp.this, "Password must have atleast 8 characters!", Toast.LENGTH_SHORT).show();
+
+                    if (edtPassword.getText().toString().trim().length() < 6)
+                        Toast.makeText(SignUp.this, "Password must have atleast 6 characters!", Toast.LENGTH_SHORT).show();
                     else if (!(edtPassword.getText().toString()).equals(edtConfirmPassword.getText().toString()))
                         Toast.makeText(SignUp.this, "Passwords do not match!", Toast.LENGTH_SHORT).show();
                     else {
-                        registerEmail(edtName.getText().toString(), edtPassword.getText().toString());
-
+                        authentication.registerEmail(edtName.getText().toString(), edtPassword.getText().toString(), SignUp.this);
+                        //registerEmail(edtName.getText().toString(), edtPassword.getText().toString());
+                        Toast.makeText(SignUp.this, "Registration succeed!", Toast.LENGTH_SHORT).show();
                     }
             }
         }
@@ -75,27 +79,6 @@ public class SignUp extends AppCompatActivity {
     }
     */
 
-    private void registerEmail(String email, String password){
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                           // updateUI(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(SignUp.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                           // updateUI(null);
-                        }
 
-                        // ...
-                    }
-                });
 
-    }
 }

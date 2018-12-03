@@ -18,17 +18,18 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.rengwuxian.materialedittext.MaterialEditText;
+import com.teamawsome.awsomeeat.Database.Authentication;
 
 public class SignIn extends AppCompatActivity {
     private EditText edtEmail,edtPassword;
     private Button btnSignIn;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private static Authentication authentication = Authentication.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
-
         edtPassword = (MaterialEditText)findViewById(R.id.edtPassword);
         edtEmail = (MaterialEditText)findViewById(R.id.edtEmail);
         btnSignIn = (Button)findViewById(R.id.btnSignIn);
@@ -83,6 +84,13 @@ public class SignIn extends AppCompatActivity {
                 }
             }
         };
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        FirebaseAuth.getInstance().signOut();
     }
 
     @Override

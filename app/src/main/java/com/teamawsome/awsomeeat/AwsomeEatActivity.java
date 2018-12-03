@@ -1,5 +1,8 @@
 package com.teamawsome.awsomeeat;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -32,6 +35,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
     private String extraInformation;
     private static FirestoreMain firestoreMain = FirestoreMain.getInstance();
     private static Authentication authentication = Authentication.getInstance();
+    private FirebaseAuth mAuth;
     public String getExtraInformation() {
         return extraInformation;
     }
@@ -44,7 +48,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        authentication.loadAuthData();
+        //authentication.loadAuthData();
         //firestoreMain.getUserAdress();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -164,10 +168,14 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
         }
         else if (id == R.id.nav_log_out) {
             //Logout
+            //authentication.getmAuth().signOut();
             FirebaseAuth.getInstance().signOut();
-            Intent signIn= new Intent(AwsomeEatActivity.this,SignIn.class);
+            Intent signIn= new Intent(AwsomeEatActivity.this,MainActivity.class);
             signIn.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(signIn);
+            finish();
+
+
         }
 
         //Closes the drawer after an item has been selected
