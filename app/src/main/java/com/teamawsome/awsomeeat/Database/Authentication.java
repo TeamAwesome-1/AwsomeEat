@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,18 +36,32 @@ public class Authentication extends AppCompatActivity {
     public String adress;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private boolean admin;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
+    public void signIn(String email, String password){
+       mAuth.signInWithEmailAndPassword(email,
+                password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
 
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getBaseContext(), "Login failed!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     public void registerEmail(String email, String password, Activity activity){
         mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            //FirebaseUser user = mAuth.getCurrentUser();
                             //authentication.loadAuthData();
                             Intent intent = new Intent(activity, AwsomeEatActivity.class);
                             startActivity(intent);
@@ -67,7 +82,21 @@ public class Authentication extends AppCompatActivity {
 
     }
 
-
+    public void setupFirebaseAuth(Activity activity){
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (currentUser != null){
+                    Log.d("Login", "onAuthStateChanged: signed_in: " + currentUser.getUid());
+                    Intent intent = new Intent(activity, AwsomeEatActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else{
+                    Log.d("Login", "onAuthStateChanged: signed_out");
+                }
+            }
+        };
+    }
 
 
 
@@ -88,7 +117,7 @@ public class Authentication extends AppCompatActivity {
         return mAuthListener;
     }
 
-    private FirebaseAuth.AuthStateListener mAuthListener;
+
 
     public FirebaseAuth getmAuth() {
         return mAuth;
@@ -314,24 +343,6 @@ public class Authentication extends AppCompatActivity {
                 });
     }
 
-    public void setupFirebaseAuth(Activity activity){
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null){
-                    Log.d("Login", "onAuthStateChanged: signed_in: " + user.getUid());
-                    Intent intent = new Intent(activity, AwsomeEatActivity.class);
-                    startActivity(intent);
-                    finish();
-
-                }else{
-                    Log.d("Login", "onAuthStateChanged: signed_out");
-                }
-            }
-        };
-    }
-
     public void addStateListener(){
         mAuth.addAuthStateListener(mAuthListener);
     }
@@ -343,7 +354,7 @@ public class Authentication extends AppCompatActivity {
     }
 
     public void logOut (){
-        FirebaseAuth.getInstance().signOut();
+        mAuth.signOut();
         Log.d(TAG, "Signed out:");
     }
 

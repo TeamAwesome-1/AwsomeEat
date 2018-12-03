@@ -169,7 +169,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
         else if (id == R.id.nav_log_out) {
             //Logout
             //authentication.getmAuth().signOut();
-            FirebaseAuth.getInstance().signOut();
+            authentication.logOut();
             Intent signIn= new Intent(AwsomeEatActivity.this,MainActivity.class);
             signIn.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(signIn);

@@ -36,7 +36,7 @@ public class SignIn extends AppCompatActivity {
 
 
         // FIREBASE
-        setupFirebaseAuth();
+        authentication.setupFirebaseAuth(SignIn.this);
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,20 +47,9 @@ public class SignIn extends AppCompatActivity {
                 if (!edtEmail.getText().toString().isEmpty() &&
                         !edtPassword.getText().toString().isEmpty()){
                     Log.d("Login", "OnClick: attempting to authenticate.");
-                    mDialog.show();
-                    FirebaseAuth.getInstance().signInWithEmailAndPassword(edtEmail.getText().toString(),
-                            edtPassword.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            mDialog.hide();
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(SignIn.this, "Login failed!", Toast.LENGTH_SHORT).show();
-                            mDialog.hide();
-                        }
-                    });
+                    //mDialog.show();
+                    authentication.signIn(edtEmail.getText().toString(), edtPassword.getText().toString());
+                    //mDialog.hide();
                 }else{
                     Toast.makeText(SignIn.this, "You didn't enter email & password!", Toast.LENGTH_SHORT).show();
                 }
@@ -68,6 +57,7 @@ public class SignIn extends AppCompatActivity {
         });
         }
 
+        /*
     private void setupFirebaseAuth(){
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -85,25 +75,18 @@ public class SignIn extends AppCompatActivity {
             }
         };
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        FirebaseAuth.getInstance().signOut();
-    }
+    */
 
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseAuth.getInstance().addAuthStateListener(mAuthListener);
+        authentication.addStateListener();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        if (mAuthListener != null){
-            FirebaseAuth.getInstance().removeAuthStateListener(mAuthListener);
+        authentication.removeStateListener();
         }
     }
-}
+
