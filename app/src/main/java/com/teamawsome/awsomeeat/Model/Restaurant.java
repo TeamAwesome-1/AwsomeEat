@@ -6,6 +6,7 @@ public class Restaurant {
     public String name;
     public String adress;
     public String pictureUrl;
+    public String phoneNumber;
     @Exclude
     private String id;
 
@@ -13,9 +14,11 @@ public class Restaurant {
         
     }
 
-    public Restaurant(String name, String adress) {
+    public Restaurant(String name, String adress, String phoneNumber) {
         this.name = name;
         this.adress = adress;
+        this.phoneNumber = phoneNumber;
+
        // this.pictureUrl = pictureUrl;
     }
 

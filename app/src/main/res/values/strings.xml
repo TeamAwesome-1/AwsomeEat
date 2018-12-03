@@ -23,5 +23,6 @@
     <string name="add_new_restaurant">Add new restaurant</string>
     <string name="edit_menu">Edit the menu in a restaurant</string>
     <string name="search_restaurant">Search for a restaurant</string>
+    <string name="update_dish">Update dish</string>
 
 </resources>

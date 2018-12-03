@@ -25,6 +25,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Admin.AdminMain" />
+        <activity android:name=".Admin.AdminMainActivity" />
 
     </application>
 

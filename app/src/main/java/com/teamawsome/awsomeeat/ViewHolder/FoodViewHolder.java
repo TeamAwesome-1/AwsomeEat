@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.teamawsome.awsomeeat.Database.Authentication;
 import com.teamawsome.awsomeeat.EventHandler;
 import com.teamawsome.awsomeeat.Interface.ItemClickListener;
 import com.teamawsome.awsomeeat.Model.Food;
@@ -14,7 +16,7 @@ import com.teamawsome.awsomeeat.R;
 import com.teamawsome.idHolder;
 
 public class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
+    private Authentication auth = Authentication.getInstance();
     private TextView food_name;
     private ImageView food_image;
     private String itemId;
@@ -50,6 +52,10 @@ public class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
         idHolder.setFoodId(itemId);
         idHolder.setSeletedFood(food);
-        EventHandler.openFoodDetailFragment(view);
+
+      // if (auth.isAdmin()) {
+        EventHandler.openEditRestaurantMenuFragment(view);
+      // }
+     //   EventHandler.openFoodDetailFragment(view);
     }
 }
