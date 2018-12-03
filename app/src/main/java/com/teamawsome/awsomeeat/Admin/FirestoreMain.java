@@ -26,6 +26,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Source;
@@ -53,6 +54,9 @@ import java.util.concurrent.Future;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+
+//TODO Förenkla metoderna och undvik återupprepning av kod. /Sandra
+
 public class FirestoreMain extends AppCompatActivity {
     private int count = 0;
 
@@ -70,6 +74,8 @@ public class FirestoreMain extends AppCompatActivity {
     private Food food = new Food();
 
     private CollectionReference foods = db.collection("foods");
+
+    private ListenerRegistration listenerRegistration;
 
     private FirestoreMain () {
 
@@ -105,7 +111,7 @@ public class FirestoreMain extends AppCompatActivity {
 
         public void getCartList(CartRecyclerViewAdapter adapter, String userId){
 
-            db.collection("Cart").whereEqualTo("userId", userId)
+        listenerRegistration= db.collection("Cart").whereEqualTo("userId", userId)
                     .addSnapshotListener(new EventListener<QuerySnapshot>() {
                 @Override
                 public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
@@ -249,7 +255,7 @@ public class FirestoreMain extends AppCompatActivity {
          public void getMenuForRestaurantCategory(FoodListRecyclerViewAdapter adapter, String restaurantId, String categoryId){
 
 
-         db.collection("Foods").whereArrayContains("restaurantId", restaurantId).whereEqualTo("Category", categoryId)
+         listenerRegistration = db.collection("Foods").whereArrayContains("restaurantId", restaurantId).whereEqualTo("Category", categoryId)
                     .addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
                         public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
@@ -323,16 +329,20 @@ public class FirestoreMain extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            Log.i("sandra", "onSuccess: Delete successfull");
+                            Log.i("AwesomeEat", "onSuccess: Delete successfull");
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Log.i("sandra", "onFailure: Delete failed ");
+                            Log.i("AwesomeEat", "onFailure: Delete failed ");
                         }
                     });
         }
+    }
+
+    public void detachSnapShotListener(){
+        listenerRegistration.remove();
     }
 }
 

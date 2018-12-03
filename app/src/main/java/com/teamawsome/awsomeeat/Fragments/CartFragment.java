@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.teamawsome.awsomeeat.Adapters.CartRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Admin.FirestoreMain;
 import com.teamawsome.awsomeeat.Model.Order;
@@ -46,7 +47,6 @@ public class CartFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view  = inflater.inflate(R.layout.fragment_cart, container, false);
 
-
         //Init
         recyclerView = (RecyclerView)view.findViewById(R.id.listCart);
         txtTotalPrice = (TextView)view.findViewById(R.id.total);
@@ -67,7 +67,7 @@ public class CartFragment extends Fragment {
         //Load Cartlist from firestore
         firestoreMain.getCartList(adapter, user.getUid());
 
-        //TODO fix pricecalculation /SAndra
+        //TODO fix pricecalculation /Sandra
         //Calculate the total price of the cartitems
         Locale locale = new Locale("en", "SE");
         NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
@@ -157,6 +157,13 @@ public class CartFragment extends Fragment {
         }
         return total;
     }
+
+
+   public void onStop() {
+       super.onStop();
+       firestoreMain.detachSnapShotListener();
+   }
+
 
 
 }

@@ -15,7 +15,7 @@ public class Food {
     private String Discount;
     @Exclude
     private String MenuId;
-    public String Category;
+    private String Category;
     private String id;
 
 
