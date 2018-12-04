@@ -19,6 +19,7 @@ public class Food {
     private String id;
 
 
+
     public Food() {
 
     }
@@ -34,9 +35,11 @@ public class Food {
 
     }
 
-    public Food(String name, String category) {
+    public Food(String name, String category, String restaurantId, String Category) {
         this.Name = name;
         this.Category = category;
+        this.restaurantId = restaurantId;
+        this.Category = Category;
     }
 
     public String getId() {

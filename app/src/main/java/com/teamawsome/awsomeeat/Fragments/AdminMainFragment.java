@@ -3,6 +3,7 @@ package com.teamawsome.awsomeeat.Fragments;
 
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -50,6 +51,8 @@ public class AdminMainFragment extends Fragment {
                 EventHandler.openRestaurantListFragment(v);
             }
         });
+
+
 
         tableLayout= (TabLayout) view.findViewById(R.id.tablayout_id);
         appBarLayout=(AppBarLayout) view.findViewById(R.id.appbarid);

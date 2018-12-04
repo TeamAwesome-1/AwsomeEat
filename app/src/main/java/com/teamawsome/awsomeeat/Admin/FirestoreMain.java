@@ -1,55 +1,27 @@
 package com.teamawsome.awsomeeat.Admin;
 
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.util.Log;
-import android.widget.EditText;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.Source;
 import com.teamawsome.awsomeeat.Adapters.CartRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Adapters.CategoryListRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Adapters.FoodListRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Adapters.RestaurantRecyclerViewAdapter;
-import com.teamawsome.awsomeeat.Database.UserInformation;
 import com.teamawsome.awsomeeat.Model.Category;
 import com.teamawsome.awsomeeat.Model.Food;
 import com.teamawsome.awsomeeat.Model.Order;
 import com.teamawsome.awsomeeat.Model.Restaurant;
-import com.teamawsome.awsomeeat.Model.User;
-import com.teamawsome.awsomeeat.R;
-
-import android.widget.EditText;
-import android.widget.Toast;
+import com.teamawsome.idHolder;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.Future;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class FirestoreMain extends AppCompatActivity {
@@ -69,6 +41,8 @@ public class FirestoreMain extends AppCompatActivity {
     private Food food;
 
     private CollectionReference foods = db.collection("foods");
+
+
 
     private FirestoreMain () {
 
@@ -294,9 +268,9 @@ public class FirestoreMain extends AppCompatActivity {
 
         }
         //Lägger till en ny maträtt i "Foods" collection.
-        public void addFood (String name, String category) {
-        food = new Food(name, category);
-        //food.Category = category;
+        public void addFood (String name, String price, String Category) {
+        food = new Food(name, price, idHolder.getRestaurantId(), Category);
+
         db.collection("Foods").add(food);
         }
 

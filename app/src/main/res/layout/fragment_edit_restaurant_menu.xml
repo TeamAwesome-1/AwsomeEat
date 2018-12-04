@@ -17,16 +17,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout">
+
         <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/food_name"
-            android:hint="Food Name"
+            android:id="@+id/dishName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="@android:color/holo_blue_bright"
-            android:textColor="@android:color/holo_blue_bright"
-            android:textSize="15sp"
             android:drawableLeft="@drawable/ic_room_service_black_24dp"
+            android:hint="Food Name"
             android:inputType="text"
+            android:textColor="@android:color/holo_blue_bright"
+            android:textColorHint="@android:color/holo_blue_bright"
+            android:textSize="15sp"
             app:met_baseColor="@android:color/black"
             app:met_floatingLabel="highlight"
             app:met_primaryColor="@android:color/holo_red_light"
@@ -58,11 +59,11 @@
             android:textSize="15sp" />
 
         <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/food_price_edittext"
+            android:id="@+id/price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="price"
             android:drawableLeft="@drawable/ic_attach_money_black_24dp"
+            android:hint="price"
             android:inputType="number"
             android:textColor="@android:color/black"
             android:textColorHint="@android:color/holo_blue_bright"

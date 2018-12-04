@@ -83,7 +83,7 @@ public class AdminMain extends AppCompatActivity {
             public void onClick(View v) {
                 addDish1 = addDish.getText().toString();
                 addDish.setText(addDish1);
-                firestoreMain.addFood(addDish1, category);
+              //  firestoreMain.addFood(addDish1, category, restaurantId);
             }
         });
 

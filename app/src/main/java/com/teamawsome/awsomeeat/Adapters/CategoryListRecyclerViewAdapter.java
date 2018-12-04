@@ -1,9 +1,12 @@
 package com.teamawsome.awsomeeat.Adapters;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.teamawsome.awsomeeat.EventHandler;
 import com.teamawsome.awsomeeat.Model.Category;
 import com.teamawsome.awsomeeat.R;
 import com.teamawsome.awsomeeat.ViewHolder.FoodListViewHolder;
@@ -12,7 +15,8 @@ import java.util.List;
 public class CategoryListRecyclerViewAdapter extends RecyclerView.Adapter<FoodListViewHolder> {
 
     List<Category> categoryList;
-
+    View view;
+    FloatingActionButton addnewDish;
 
     public CategoryListRecyclerViewAdapter (List<Category> categoryList){
         this.categoryList = categoryList;
@@ -24,6 +28,13 @@ public class CategoryListRecyclerViewAdapter extends RecyclerView.Adapter<FoodLi
     public FoodListViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.menu_item, viewGroup, false);
+        addnewDish = view.findViewById(R.id.addNewDishButton);
+        addnewDish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventHandler.openAddishFragment(view);
+            }
+        });
         return new FoodListViewHolder(view);
     }
 
@@ -67,6 +78,7 @@ public class CategoryListRecyclerViewAdapter extends RecyclerView.Adapter<FoodLi
             }
         }
     }
+
 
     @Override
     public int getItemCount() {

@@ -3,6 +3,7 @@ package com.teamawsome.awsomeeat.Admin;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.firebase.firestore.CollectionReference;
 import com.teamawsome.awsomeeat.Adapters.FoodListRecyclerViewAdapter;
@@ -31,7 +33,7 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
     private EditText dishNameEdit;
    private EditText dishPriceEdit;
     private Button updateDish;
-    private Button newDish;
+    private FloatingActionButton newDish;
     private FoodListRecyclerViewAdapter adapter;
     private LayoutInflater inflater;
 
@@ -64,7 +66,7 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
         dishNameEdit = view.findViewById(R.id.dishName);
         dishPriceEdit = view.findViewById(R.id.price);
 
-
+        newDish = view.findViewById(R.id.addNewDishButton);
         Button updateDish = view.findViewById(R.id.updateDishButton);
 
 
@@ -84,11 +86,11 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
 
 
 
-        ImageView dishPic = view.findViewById(R.id.picDish);
+       // ImageView dishPic = view.findViewById(R.id.picDish);
         food = idHolder.getSeletedFood();
         dishNameEdit.setText(food.getName());
         dishPriceEdit.setText(food.getPrice());
-        PictureHandler.setPictureFromUrl(food.getImage(), dishPic);
+      //  PictureHandler.setPictureFromUrl(food.getImage(), dishPic);
         newDish = view.findViewById(R.id.addNewDishButton);
 
         }
@@ -103,8 +105,8 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
 
         public void setUpdateDish1 (View v){
 
-dishNameEdit.setText(dishNameEdit.getText());
-dishPriceEdit.setText(dishPriceEdit.getText());
+ dishNameEdit.setText(dishNameEdit.getText());
+ dishPriceEdit.setText(dishPriceEdit.getText());
 
     food.setName(dishNameEdit.getText().toString());
     food.setPrice(dishPriceEdit.getText().toString());
@@ -127,8 +129,8 @@ dishPriceEdit.setText(dishPriceEdit.getText());
         firestoreMain.changeFood(food);
     }
 
-    public void addNewDish (View view) {
-       EventHandler.openAddishFragment(view);
+    public void addNewDish (View v) {
+       EventHandler.openAddishFragment(v);
 
 
             }
