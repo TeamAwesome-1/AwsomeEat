@@ -5,7 +5,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center">
+    android:gravity="center"
+    android:background="@color/fbutton_color_silver">
 
 
 
@@ -27,10 +28,9 @@
             android:inputType="text"
             android:textColor="@color/fui_bgEmail"
             android:textColorHint="@android:color/holo_blue_bright"
-            android:textSize="20sp"
+            android:textSize="25sp"
             app:met_baseColor="@color/fbutton_color_alizarin"
             app:met_floatingLabel="highlight"
-            app:met_minCharacters="8"
             app:met_primaryColor="@android:color/holo_red_light"
             app:met_singleLineEllipsis="true" />
 
@@ -43,7 +43,7 @@
             android:inputType="textPostalAddress"
             android:textColor="@android:color/holo_orange_dark"
             android:textColorHint="@android:color/holo_blue_bright"
-            android:textSize="20sp"
+            android:textSize="25sp"
             app:met_baseColor="@color/fbutton_color_alizarin"
             app:met_floatingLabel="highlight"
             app:met_maxCharacters="9"
@@ -60,7 +60,7 @@
             android:inputType="textPhonetic"
             android:textColor="@android:color/holo_orange_dark"
             android:textColorHint="@android:color/holo_blue_bright"
-            android:textSize="20sp"
+            android:textSize="25sp"
             app:met_baseColor="@color/fbutton_color_alizarin"
             app:met_floatingLabel="highlight"
             app:met_maxCharacters="9"
@@ -72,11 +72,11 @@
             android:id="@+id/resturantCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Category"
             android:drawableLeft="@drawable/ic_subject_black_24dp"
             android:inputType="text"
-            app:met_baseColor="@android:color/black"
-            android:textSize="15sp" />
+            android:text="Category"
+            android:textSize="25sp"
+            app:met_baseColor="@android:color/black" />
 
 
         <android.support.v7.widget.AppCompatSpinner
