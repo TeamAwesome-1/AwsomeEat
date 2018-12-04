@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
+    android:background="@color/fbutton_color_silver"
 
     >
 
@@ -24,12 +25,11 @@
             android:layout_height="wrap_content"
             android:textColorHint="@android:color/holo_blue_bright"
             android:textColor="@android:color/holo_blue_bright"
-            android:textSize="15sp"
+            android:textSize="20sp"
             android:drawableLeft="@drawable/ic_room_service_black_24dp"
             android:inputType="text"
             app:met_baseColor="@android:color/black"
             app:met_floatingLabel="highlight"
-            app:met_minCharacters="8"
             app:met_primaryColor="@android:color/holo_red_light"
             app:met_singleLineEllipsis="true" />
         <TextView
@@ -41,7 +41,7 @@
             android:inputType="text"
             app:met_baseColor="@android:color/black"
             android:textColorHint="@android:color/black"
-            android:textSize="15sp" />
+            android:textSize="20sp" />
         <android.support.v7.widget.AppCompatSpinner
             android:id="@+id/spinner"
             android:layout_width="match_parent"
@@ -56,7 +56,7 @@
             android:inputType="text"
             app:met_baseColor="@android:color/black"
             android:textColorHint="@android:color/black"
-            android:textSize="15sp" />
+            android:textSize="20sp" />
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/food_price_edittext"
@@ -67,7 +67,7 @@
             android:inputType="number"
             android:textColor="@android:color/black"
             android:textColorHint="@android:color/holo_blue_bright"
-            android:textSize="15sp"
+            android:textSize="20sp"
             app:met_baseColor="@android:color/black"
             app:met_floatingLabel="highlight"
             app:met_maxCharacters="9"
@@ -84,7 +84,7 @@
             android:inputType="text"
             app:met_baseColor="@android:color/black"
             android:textColorHint="@android:color/black"
-            android:textSize="15sp" />
+            android:textSize="20sp" />
 
         <android.support.v7.widget.AppCompatSpinner
             android:id="@+id/spinner_resturantName"
