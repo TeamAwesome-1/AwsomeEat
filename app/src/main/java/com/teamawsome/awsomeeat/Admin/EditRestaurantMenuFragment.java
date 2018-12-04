@@ -63,8 +63,8 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
         view=inflater.inflate(R.layout.fragment_edit_restaurant_menu,container,false);
 
 
-        dishNameEdit = view.findViewById(R.id.dishName);
-        dishPriceEdit = view.findViewById(R.id.price);
+        dishNameEdit = view.findViewById(R.id.food_name);
+        dishPriceEdit = view.findViewById(R.id.food_price_edittext);
 
        // dishNameEdit.setText(food.getName());
        // dishPriceEdit.setText(food.getPrice());
