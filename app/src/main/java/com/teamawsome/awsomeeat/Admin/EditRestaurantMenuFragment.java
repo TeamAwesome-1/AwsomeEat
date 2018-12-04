@@ -63,11 +63,11 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
         view=inflater.inflate(R.layout.fragment_edit_restaurant_menu,container,false);
 
 
-        dishNameEdit = view.findViewById(R.id.dishName);
-        dishPriceEdit = view.findViewById(R.id.price);
+        dishNameEdit = view.findViewById(R.id.food_name);
+        dishPriceEdit = view.findViewById(R.id.food_price_edittext);
 
         newDish = view.findViewById(R.id.addNewDishButton);
-        Button updateDish = view.findViewById(R.id.updateDishButton);
+        updateDish = view.findViewById(R.id.updateDishButton);
 
 
    //TODO: Göra det möjligt att uppdatera food objekt ifrån Collection "Foods".
@@ -93,6 +93,7 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
       //  PictureHandler.setPictureFromUrl(food.getImage(), dishPic);
         newDish = view.findViewById(R.id.addNewDishButton);
 
+        updateDish.setOnClickListener(v -> setUpdateDish1(v));
         }
 
 
