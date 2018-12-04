@@ -53,8 +53,8 @@ public class EditRestaurantMenuFragment extends Fragment {
        // dishPriceEdit.setText(food.getPrice());
         Button updateDish = view.findViewById(R.id.updateDishButton);
 
-   //TODO: Göra det möjligt att uppdatera food objekt ifrån Collection "Foods".
-     //TODO:   använd food objektet.
+   //TODO: Göra det möjligt att uppdatera food objekt ifrån Collection "Foods"./Tommy
+     //TODO:   använd food objektet./Tommy
     //    public void imageClicked () {
       //  dishPic.setImageResource();
        // }

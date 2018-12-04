@@ -55,7 +55,7 @@ public class Food {
         this.Name = name;
     }
 
-   public String getImage() {
+    public String getImage() {
         return Image;
     }
 

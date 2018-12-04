@@ -84,7 +84,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
             @Override
             public void onDrawerStateChanged(int i) {
-                //TODO kolla på detta
+                //TODO kolla på detta. Hur gömma adminknappen/Shahin
                 navigationView.getMenu().findItem(i);
                 if (authentication.isAdmin() && count==0) {
                     count++;

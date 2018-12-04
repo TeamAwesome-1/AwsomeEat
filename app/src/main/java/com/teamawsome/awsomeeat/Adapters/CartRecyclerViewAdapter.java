@@ -86,7 +86,7 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartViewHolder
 
         public void removeOrderListItem(String id){
             for (int i = 0; i <orderList.size() ; i++) {
-                if(orderList.get(i).getProductId().equals(id)){
+                if(orderList.get(i).getDocumentId().equals(id)){
                     removeOrderListItem(i);
                 }
             }

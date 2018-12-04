@@ -67,13 +67,6 @@ public class CartFragment extends Fragment {
         //Load Cartlist from firestore
         firestoreMain.getCartList(adapter, user.getUid());
 
-        //TODO fix pricecalculation /Sandra
-        //Calculate the total price of the cartitems
-        /*Locale locale = new Locale("en", "SE");
-        NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
-        price = getTotalPrice();
-        txtTotalPrice.setText(fmt.format(price));*/
-
 
         //Set clicklistener for the placeOrderButton
         btnPlace.setOnClickListener(new View.OnClickListener() {
@@ -86,8 +79,6 @@ public class CartFragment extends Fragment {
             }
         });
     }
-
-
 
 
     private void showAlertDialog() {
@@ -148,17 +139,7 @@ public class CartFragment extends Fragment {
 
     }
 
-   /* public int getTotalPrice() {
-
-        int total= 0;
-        for (int i = 0; i < adapter.getItemCount(); i++) {
-            Order order = adapter.getOrderList().get(i);
-            total += (Integer.parseInt(order.getPrice())) * (Integer.parseInt(order.getQuantity()));
-        }
-        return total;
-    }*/
-
-
+   @Override
    public void onStop() {
        super.onStop();
        firestoreMain.detachSnapShotListener();

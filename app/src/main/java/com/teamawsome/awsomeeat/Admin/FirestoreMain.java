@@ -294,14 +294,13 @@ public class FirestoreMain extends AppCompatActivity {
 
 
         }
-
-
         //Rensar listan med restauranger.
         public void clearRestaurants (FirebaseFirestore db, RestaurantRecyclerViewAdapter adapter) {
 
 
 
         }
+
         //Lägger till en ny maträtt i "Foods" collection.
         public void addFood (String name, String category) {
         food = new Food(name, category);
@@ -325,24 +324,28 @@ public class FirestoreMain extends AppCompatActivity {
 
     }
 
+    public void clearCartItem ( String documentId){
+        db.collection("Cart").document(documentId)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.i("AwesomeEat", "onSuccess: Delete successfull");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.i("AwesomeEat", "onFailure: Delete failed ");
+                    }
+                });
+    }
+
     public void clearCart(List<Order> cartList){
         for (int i = 0; i < cartList.size(); i++) {
             Order order = cartList.get(i);
             String document  = order.getDocumentId();
-            db.collection("Cart").document(document)
-                    .delete()
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Log.i("AwesomeEat", "onSuccess: Delete successfull");
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.i("AwesomeEat", "onFailure: Delete failed ");
-                        }
-                    });
+            clearCartItem(document);
         }
     }
 
