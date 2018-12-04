@@ -2,12 +2,27 @@ package com.teamawsome.awsomeeat.Admin;
 
 import android.support.v7.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.teamawsome.awsomeeat.Adapters.CartRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Adapters.CategoryListRecyclerViewAdapter;
@@ -23,6 +38,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Nullable;
+
+
+//TODO Förenkla metoderna och undvik återupprepning av kod. /Sandra
 
 public class FirestoreMain extends AppCompatActivity {
     private int count = 0;
@@ -42,7 +60,7 @@ public class FirestoreMain extends AppCompatActivity {
 
     private CollectionReference foods = db.collection("foods");
 
-
+    private ListenerRegistration listenerRegistration;
 
     private FirestoreMain () {
 
@@ -57,6 +75,8 @@ public class FirestoreMain extends AppCompatActivity {
                   restaurant = new Restaurant(restaurantName, restaurantAdress, phoneNumber);
                             db.collection("restaurants")
                                     .add(restaurant);
+
+
 
 
 
@@ -76,7 +96,7 @@ public class FirestoreMain extends AppCompatActivity {
 
         public void getCartList(CartRecyclerViewAdapter adapter, String userId){
 
-            db.collection("Cart").whereEqualTo("userId", userId)
+        listenerRegistration= db.collection("Cart").whereEqualTo("userId", userId)
                     .addSnapshotListener(new EventListener<QuerySnapshot>() {
                 @Override
                 public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
@@ -89,7 +109,7 @@ public class FirestoreMain extends AppCompatActivity {
 
                             String id = dc.getDocument().getId();
                             Order order = dc.getDocument().toObject(Order.class);
-                            order.setProductId(id);
+                            order.setDocumentId(id);
                             adapter.addItem(order);
 
                         } else if (dc.getType() == DocumentChange.Type.REMOVED) {
@@ -183,7 +203,7 @@ public class FirestoreMain extends AppCompatActivity {
         public void getRestaurantMenu (FoodListRecyclerViewAdapter adapter, String restaurantId) {
 
 
-            db.collection("Foods").whereArrayContains("restaurantId", restaurantId)
+            db.collection("Foods").whereEqualTo("restaurantId", restaurantId)
                     .addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
                         public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
@@ -220,7 +240,7 @@ public class FirestoreMain extends AppCompatActivity {
          public void getMenuForRestaurantCategory(FoodListRecyclerViewAdapter adapter, String restaurantId, String categoryId){
 
 
-         db.collection("Foods").whereEqualTo("restaurantId", restaurantId).whereEqualTo("Category", categoryId)
+         listenerRegistration = db.collection("Foods").whereEqualTo("restaurantId", restaurantId).whereEqualTo("Category", categoryId)
                     .addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
                         public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
@@ -267,6 +287,7 @@ public class FirestoreMain extends AppCompatActivity {
 
 
         }
+
         //Lägger till en ny maträtt i "Foods" collection.
         public void addFood (String name, String price, String Category) {
         food = new Food(name, price, idHolder.getRestaurantId(), Category);
@@ -280,7 +301,45 @@ public class FirestoreMain extends AppCompatActivity {
     }
 
 
+    public void addToOrders(List<Order> cartList) {
+
+        for (int i = 0; i < cartList.size(); i++) {
+            db.collection("Orders")
+                    .add(cartList.get(i));
+        }
+
+
     }
+
+    public void clearCartItem ( String documentId){
+        db.collection("Cart").document(documentId)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.i("AwesomeEat", "onSuccess: Delete successfull");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.i("AwesomeEat", "onFailure: Delete failed ");
+                    }
+                });
+    }
+
+    public void clearCart(List<Order> cartList){
+        for (int i = 0; i < cartList.size(); i++) {
+            Order order = cartList.get(i);
+            String document  = order.getDocumentId();
+            clearCartItem(document);
+        }
+    }
+
+    public void detachSnapShotListener(){
+        listenerRegistration.remove();
+    }
+}
 
 
 

@@ -17,7 +17,7 @@ import com.teamawsome.awsomeeat.Fragments.RestaurantListFragment;
 
 public class EventHandler {
 
-    //TODO Check if all methods are neccessary
+    //TODO Check if all methods are neccessary/Sandra
     private static Fragment fragment;
 
     private static void openFragment(Fragment fragment, View v, String id){

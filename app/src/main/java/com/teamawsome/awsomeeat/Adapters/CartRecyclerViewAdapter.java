@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.teamawsome.awsomeeat.Model.Food;
@@ -23,14 +24,24 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartViewHolder
 
 
         private List<Order> orderList;
+        private TextView total_price;
+        private int totalPrice;
+        private Locale locale;
+        private NumberFormat fmt;
 
-
-        public CartRecyclerViewAdapter(List<Order> list) {
+        public CartRecyclerViewAdapter(List<Order> list, TextView total_price) {
             this.orderList = list;
-
+            this.total_price = total_price;
+            locale = new Locale("en", "SE");
+            fmt = NumberFormat.getCurrencyInstance(locale);
         }
 
-        @Nonnull
+        public List<Order> getOrderList() {
+            return orderList;
+        }
+
+
+    @Nonnull
         @Override
         public CartViewHolder onCreateViewHolder( ViewGroup viewGroup, int viewType) {
 
@@ -56,9 +67,15 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartViewHolder
 
         public void addItem(Order orderListItem){
             orderList.add(orderListItem);
+            setTotalPrice();
             this.notifyItemInserted(orderList.size()-1);
         }
 
+
+        public void clearList(){
+            orderList.clear();
+            this.notifyDataSetChanged();
+        }
 
         public void removeOrderListItem(int position){
             if(position >= 0 && position < orderList.size()){
@@ -69,7 +86,7 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartViewHolder
 
         public void removeOrderListItem(String id){
             for (int i = 0; i <orderList.size() ; i++) {
-                if(orderList.get(i).getProductId().equals(id)){
+                if(orderList.get(i).getDocumentId().equals(id)){
                     removeOrderListItem(i);
                 }
             }
@@ -84,6 +101,15 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartViewHolder
                         return;
                     }
                 }
+            }
+
+            private void setTotalPrice(){
+                int totalPrice = 0;
+                for (int i = 0; i < getItemCount(); i++) {
+                    Order order = orderList.get(i);
+                    totalPrice += (Integer.parseInt(order.getPrice())) * (Integer.parseInt(order.getQuantity()));
+                }
+                total_price.setText(fmt.format(totalPrice));
             }
 
 

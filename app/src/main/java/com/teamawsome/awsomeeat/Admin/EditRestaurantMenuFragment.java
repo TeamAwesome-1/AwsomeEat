@@ -63,12 +63,12 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
         view=inflater.inflate(R.layout.fragment_edit_restaurant_menu,container,false);
 
 
-        dishNameEdit = view.findViewById(R.id.food_name);
-        dishPriceEdit = view.findViewById(R.id.food_price_edittext);
+        dishNameEdit = view.findViewById(R.id.dishName);
+        dishPriceEdit = view.findViewById(R.id.price);
 
-        newDish = view.findViewById(R.id.addNewDishButton);
-        updateDish = view.findViewById(R.id.updateDishButton);
-
+       // dishNameEdit.setText(food.getName());
+       // dishPriceEdit.setText(food.getPrice());
+        Button updateDish = view.findViewById(R.id.updateDishButton);
 
    //TODO: Göra det möjligt att uppdatera food objekt ifrån Collection "Foods".
      //TODO:   använd food objektet.
