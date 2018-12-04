@@ -38,6 +38,7 @@
             android:clickable="true"
             android:focusable="true"
             android:onClick="addNewDish"
+            android:visibility="gone"
             app:srcCompat="@drawable/fui_idp_button_background_email" />
     </RelativeLayout>
 </android.support.v7.widget.CardView>

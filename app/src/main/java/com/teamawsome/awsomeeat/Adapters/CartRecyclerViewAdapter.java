@@ -104,7 +104,7 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartViewHolder
             }
 
             private void setTotalPrice(){
-                int totalPrice = 0;
+                 totalPrice = 0;
                 for (int i = 0; i < getItemCount(); i++) {
                     Order order = orderList.get(i);
                     totalPrice += (Integer.parseInt(order.getPrice())) * (Integer.parseInt(order.getQuantity()));
