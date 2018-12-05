@@ -34,12 +34,13 @@ import com.teamawsome.idHolder;
 
 import org.w3c.dom.Text;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class FoodDetailFragment extends Fragment {
 
 
-    TextView food_name, food_price, food_description;
+    TextView food_name, food_price, food_description, price_annotation;
     ImageView food_image;
     CollapsingToolbarLayout collapsingToolbarLayout;
     FloatingActionButton btnCart;
@@ -47,6 +48,7 @@ public class FoodDetailFragment extends Fragment {
     Button goToCartButton;
     ElegantNumberButton numberButton;
     String foodId;
+    String restaurantId;
     Food currentFood;
     FirestoreMain firestoreMain = FirestoreMain.getInstance();
     FirebaseUser user;
@@ -64,6 +66,7 @@ public class FoodDetailFragment extends Fragment {
         //Init view
         numberButton = (ElegantNumberButton) view.findViewById(R.id.number_button);
         btnCart = (FloatingActionButton) view.findViewById(R.id.btnCart);
+        price_annotation = view.findViewById(R.id.price_annotation);
         food_description = (TextView) view.findViewById(R.id.food_description);
         food_name = (TextView) view.findViewById(R.id.food_name);
         food_price = (TextView) view.findViewById(R.id.food_price);
@@ -85,7 +88,7 @@ public class FoodDetailFragment extends Fragment {
 
         //set id for the fooditem selected from foodlist
         foodId = idHolder.getFoodId();
-
+        restaurantId = idHolder.getRestaurantId();
         //get the Food-item selected in the foodlist.
         currentFood = idHolder.getSeletedFood();
         displayInformationAboutFood(currentFood);
@@ -97,7 +100,7 @@ public class FoodDetailFragment extends Fragment {
             public void onClick(View view) {
                 String amount = numberButton.getNumber();
                 user = FirebaseAuth.getInstance().getCurrentUser();
-                Order order = new Order(foodId,currentFood.getName(),amount,currentFood.getPrice(), user.getUid());
+                Order order = new Order(restaurantId,foodId,currentFood.getName(),amount,currentFood.getPrice(), user.getUid());
 
                 firestoreMain.addToCart(order);
                 Toast.makeText(getContext(), getString(R.string.added_to_cart_toast), Toast.LENGTH_SHORT).show();
@@ -135,9 +138,18 @@ public class FoodDetailFragment extends Fragment {
         PictureHandler.setPictureFromUrl(currentFood.getImage(), food_image);
         //Set the rest of the information
         collapsingToolbarLayout.setTitle(currentFood.getName());
-        food_price.setText(currentFood.getPrice());
         food_name.setText(currentFood.getName());
         food_description.setText(currentFood.getDescription());
+
+        //Checks if a price is set for the fooditem and if it only contains numbers
+       if(currentFood.getPrice()!= null && currentFood.getPrice().matches("[0-9]+")) {
+            food_price.setText(currentFood.getPrice());
+        }else{
+            currentFood.setPrice("0");
+            food_price.setText(currentFood.getPrice());
+            price_annotation.setVisibility(View.VISIBLE);
+
+        }
 
     }
 

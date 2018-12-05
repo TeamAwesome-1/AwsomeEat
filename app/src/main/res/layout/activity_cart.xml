@@ -41,7 +41,7 @@
 
                 <TextView
                     android:id="@+id/total"
-                    android:text="500 "
+                    android:text=""
                     android:textSize="22sp"
                     android:textColor="@android:color/white"
                     android:layout_width="wrap_content"
@@ -50,6 +50,7 @@
             </LinearLayout>
 
             <Button
+                android:background="@drawable/buttonshape"
                 android:id="@+id/btnPlaceOrder"
                 android:text="Place Order"
                 android:textColor="@android:color/white"

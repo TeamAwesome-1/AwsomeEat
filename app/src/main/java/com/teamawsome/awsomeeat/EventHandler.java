@@ -5,6 +5,10 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.teamawsome.awsomeeat.Admin.EditRestaurantMenuFragment;
+import com.teamawsome.awsomeeat.Admin.FragmentAddDish;
+import com.teamawsome.awsomeeat.Admin.FragmentAddRestaurant;
+
 import com.teamawsome.awsomeeat.Fragments.CartFragment;
 import com.teamawsome.awsomeeat.Fragments.FoodCategoryFragment;
 import com.teamawsome.awsomeeat.Fragments.FoodDetailFragment;
@@ -13,7 +17,7 @@ import com.teamawsome.awsomeeat.Fragments.RestaurantListFragment;
 
 public class EventHandler {
 
-    //TODO Check if all methods are neccessary
+    //TODO Check if all methods are neccessary/Sandra
     private static Fragment fragment;
 
     private static void openFragment(Fragment fragment, View v, String id){
@@ -33,6 +37,11 @@ public class EventHandler {
                 .commit();
         }
 
+
+    public static void openAddRestaurantFragment(View v){
+        fragment = new FragmentAddRestaurant();
+        openFragment(fragment, v);
+    }
 
     public static void openCartFragment(View v){
         fragment = new CartFragment();
@@ -90,4 +99,13 @@ public class EventHandler {
         openFragment(fragment, v, id);
     }
 
+    public static void openEditRestaurantMenuFragment(View view) {
+        fragment = new EditRestaurantMenuFragment();
+        openFragment(fragment, view);
+    }
+
+    public static void openAddishFragment (View v) {
+        fragment = new FragmentAddDish();
+        openFragment(fragment, v);
+    }
 }

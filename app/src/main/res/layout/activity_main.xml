@@ -20,7 +20,7 @@
             android:id="@+id/imageView3"
             android:layout_width="206dp"
             android:layout_height="195dp"
-            android:src="@drawable/foodlogo" />
+            android:src="@drawable/newfoodlogo" />
 
     </LinearLayout>
 
@@ -40,6 +40,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
+            android:background="@drawable/buttonshape"
+            android:drawableLeft="@drawable/signupicon"
+
             />
 
 
@@ -51,6 +54,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
+            android:background="@drawable/buttonshape"
+            android:drawableLeft="@drawable/loginicon"
             />
 
 

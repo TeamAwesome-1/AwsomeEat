@@ -14,12 +14,12 @@ public class idHolder {
     public static void setUserId(String userId) {
         idHolder.userId = userId;
     }
-
     private static String restaurantId;
     private static String categoryId;
     private static String foodId;
 
     private static Food seletedFood;
+
 
     public static Food getSeletedFood() {
         return seletedFood;

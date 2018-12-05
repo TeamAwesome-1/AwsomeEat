@@ -5,11 +5,13 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center">
+    android:gravity="center"
+    android:background="@color/fbutton_color_silver">
 
 
 
     <LinearLayout
+        android:background="@drawable/background"
         android:orientation="vertical"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
@@ -17,33 +19,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout">
+
         <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/resturantName"
-            android:hint="Name of the resturant"
+            android:id="@+id/restaurantName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="@android:color/holo_blue_bright"
-            android:textColor="@android:color/holo_blue_bright"
-            android:textSize="15sp"
             android:drawableLeft="@drawable/ic_restaurantname"
+            android:hint="Name of the resturant"
             android:inputType="text"
-            app:met_baseColor="@android:color/black"
+            android:textColor="@color/fui_bgEmail"
+            android:textColorHint="@android:color/holo_blue_bright"
+            android:textSize="25sp"
+            app:met_baseColor="@android:color/white"
             app:met_floatingLabel="highlight"
-            app:met_minCharacters="8"
             app:met_primaryColor="@android:color/holo_red_light"
             app:met_singleLineEllipsis="true" />
 
         <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/resturantAddress"
+            android:id="@+id/restaurantAdress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Address"
             android:drawableLeft="@drawable/ic_add_location"
+            android:hint="Address"
             android:inputType="textPostalAddress"
             android:textColor="@android:color/holo_orange_dark"
             android:textColorHint="@android:color/holo_blue_bright"
-            android:textSize="15sp"
-            app:met_baseColor="@android:color/black"
+            android:textSize="25sp"
+            app:met_baseColor="@android:color/white"
             app:met_floatingLabel="highlight"
             app:met_maxCharacters="9"
             app:met_primaryColor="@android:color/holo_red_light"
@@ -51,16 +53,16 @@
             app:met_singleLineEllipsis="true" />
 
         <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/resturantPhoneNumber"
+            android:id="@+id/restaurantPhoneNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Phone Number"
             android:drawableLeft="@drawable/ic_local_phone_black_24dp"
+            android:hint="Phone Number"
             android:inputType="textPhonetic"
             android:textColor="@android:color/holo_orange_dark"
             android:textColorHint="@android:color/holo_blue_bright"
-            android:textSize="15sp"
-            app:met_baseColor="@android:color/black"
+            android:textSize="25sp"
+            app:met_baseColor="@android:color/white"
             app:met_floatingLabel="highlight"
             app:met_maxCharacters="9"
             app:met_primaryColor="@android:color/holo_red_light"
@@ -71,11 +73,11 @@
             android:id="@+id/resturantCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Category"
             android:drawableLeft="@drawable/ic_subject_black_24dp"
             android:inputType="text"
-            app:met_baseColor="@android:color/black"
-            android:textSize="15sp" />
+            android:text="Category"
+            android:textSize="25sp"
+            app:met_baseColor="@android:color/white" />
 
 
         <android.support.v7.widget.AppCompatSpinner
@@ -85,15 +87,17 @@
 
         <Button
             android:id="@+id/btnAddRest"
-            android:text="Add Resturant"
-            android:textColor="@android:color/white"
+            style="@style/FirebaseUI.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="6dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
             android:layout_marginLeft="6dp"
             android:layout_marginRight="6dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_marginBottom="6dp"
+            android:background="@drawable/buttonshape"
+            android:text="Add Resturant"
+            android:textColor="@android:color/white" />
 
     </LinearLayout>
 

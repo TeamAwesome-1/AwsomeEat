@@ -15,8 +15,8 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_menu"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="384dp"
+            android:layout_height="567dp"
             android:layout_margin="8dp"
             android:scrollbars="vertical"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"

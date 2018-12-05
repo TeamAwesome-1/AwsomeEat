@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@color/fbutton_color_silver"
+
+    >
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout">
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/food_name"
+            android:hint="Food Name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="@android:color/holo_blue_bright"
+            android:textColor="@android:color/holo_blue_bright"
+            android:textSize="20sp"
+            android:drawableLeft="@drawable/ic_room_service_black_24dp"
+            android:inputType="text"
+            app:met_baseColor="@android:color/black"
+            app:met_floatingLabel="highlight"
+            app:met_primaryColor="@android:color/holo_red_light"
+            app:met_singleLineEllipsis="true" />
+        <TextView
+            android:id="@+id/resturantCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Category"
+            android:drawableLeft="@drawable/ic_subject_black_24dp"
+            android:inputType="text"
+            app:met_baseColor="@android:color/black"
+            android:textColorHint="@android:color/black"
+            android:textSize="20sp" />
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/dish_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Price:"
+            android:drawableLeft="@drawable/ic_attach_money_black_24dp"
+            android:inputType="text"
+            app:met_baseColor="@android:color/black"
+            android:textColorHint="@android:color/black"
+            android:textSize="20sp" />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/food_price_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="price"
+            android:drawableLeft="@drawable/ic_attach_money_black_24dp"
+            android:inputType="number"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/holo_blue_bright"
+            android:textSize="20sp"
+            app:met_baseColor="@android:color/black"
+            app:met_floatingLabel="highlight"
+            app:met_maxCharacters="9"
+            app:met_primaryColor="@android:color/holo_red_light"
+
+            app:met_singleLineEllipsis="true" />
+
+        <TextView
+            android:id="@+id/resturanList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Resturant Name:"
+            android:drawableLeft="@drawable/ic_restaurant_menu_black_24dp"
+            android:inputType="text"
+            app:met_baseColor="@android:color/black"
+            android:textColorHint="@android:color/black"
+            android:textSize="20sp" />
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/spinner_resturantName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+        <Button
+            android:id="@+id/updateDishButton"
+            android:text="Update"
+            android:textColor="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:clickable="true"
+            android:focusable="true"
+            />
+
+
+
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
+

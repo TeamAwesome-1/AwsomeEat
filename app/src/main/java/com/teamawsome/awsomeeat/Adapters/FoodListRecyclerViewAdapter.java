@@ -13,8 +13,10 @@ import com.teamawsome.awsomeeat.ViewHolder.FoodViewHolder;
 import java.util.List;
 
 public class FoodListRecyclerViewAdapter extends RecyclerView.Adapter<FoodViewHolder> {
-    List<Food> list;
+    public static List<Food> list;
+    public FoodListRecyclerViewAdapter() {
 
+    }
 
     public FoodListRecyclerViewAdapter(List<Food> list){
         this.list = list;
@@ -68,5 +70,10 @@ public class FoodListRecyclerViewAdapter extends RecyclerView.Adapter<FoodViewHo
                 return;
             }
         }
+    }
+
+    public void clearList(){
+        list.clear();
+        this.notifyItemRangeRemoved(0, getItemCount());
     }
 }

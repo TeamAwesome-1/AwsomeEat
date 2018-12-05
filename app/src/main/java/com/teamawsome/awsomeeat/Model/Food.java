@@ -14,29 +14,32 @@ public class Food {
     @Exclude
     private String Discount;
     @Exclude
-    private String MenuId;
+    private String restaurantId;
     public String Category;
     private String id;
+
 
 
     public Food() {
 
     }
 
-    public Food(String name, String image, String description, String price, String discount, String menuId, String category ) {
+    public Food(String name, String image, String description, String price, String discount, String restaurantId, String category ) {
         this.Name = name;
         this.Image = image;
         this.Description = description;
         this.Price = price;
         this.Discount= discount;
-        this.MenuId = menuId;
+        this.restaurantId = restaurantId;
         this.Category = category;
 
     }
 
-    public Food(String name, String category) {
+    public Food(String name, String category, String restaurantId, String Category) {
         this.Name = name;
         this.Category = category;
+        this.restaurantId = restaurantId;
+        this.Category = Category;
     }
 
     public String getId() {
@@ -52,7 +55,7 @@ public class Food {
     }
 
     public void setName(String name) {
-        Name = name;
+        this.Name = name;
     }
 
    public String getImage() {
@@ -87,12 +90,12 @@ public class Food {
         Discount = discount;
     }
 
-    public String getMenuId() {
-        return MenuId;
+    public String getRestaurantId() {
+        return restaurantId;
     }
 
-    public void setMenuId(String menuId) {
-        MenuId = menuId;
+    public void setRestaurantId(String restaurantId) {
+        this.restaurantId = restaurantId;
     }
 
 

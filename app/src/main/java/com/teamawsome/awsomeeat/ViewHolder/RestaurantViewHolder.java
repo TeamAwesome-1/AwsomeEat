@@ -1,12 +1,16 @@
 package com.teamawsome.awsomeeat.ViewHolder;
 
-
+import android.os.Bundle;
 import android.support.annotation.NonNull;
-
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.teamawsome.awsomeeat.Database.Authentication;
+
+
 import com.teamawsome.awsomeeat.EventHandler;
 import com.teamawsome.awsomeeat.PictureHandler;
 import com.teamawsome.awsomeeat.R;
@@ -19,6 +23,7 @@ public class RestaurantViewHolder extends RecyclerView.ViewHolder implements Vie
     private final TextView restaurantListAdressView;
     private final ImageView restaurantListImageView;
     private String itemId;
+    private Authentication auth = Authentication.getInstance();
 
 
 
@@ -51,8 +56,16 @@ public class RestaurantViewHolder extends RecyclerView.ViewHolder implements Vie
 
         //Save id for the restaurant that was clicked on
         idHolder.setRestaurantId(itemId);
-        //open next fragment with foodcategories
-        EventHandler.openFoodCategoryFragment(v);
+
+        if(auth.isAdmin()){
+            EventHandler.openFoodListFragment(v);
+
+        }else{
+           // open next fragment with foodcategories
+            EventHandler.openFoodCategoryFragment(v);
+        }
+
+
 
     }
 }

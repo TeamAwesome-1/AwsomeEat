@@ -3,15 +3,26 @@ package com.teamawsome.awsomeeat.Model;
 public class Order {
 
     private String ProductId;
+    private String RestaurantId;
     private String ProductName;
     private String Price;
     private String Quantity;
     private String UserId;
+    private String documentId;
 
     public Order() {
     }
 
-    public Order(String productId, String productName, String quantity,String price, String userId ) {
+    public String getDocumentId() {
+        return documentId;
+    }
+
+    public void setDocumentId(String documentId) {
+        this.documentId = documentId;
+    }
+
+    public Order(String restaurantId, String productId, String productName, String quantity, String price, String userId ) {
+        RestaurantId = restaurantId;
         ProductId = productId;
         ProductName = productName;
         Quantity = quantity;

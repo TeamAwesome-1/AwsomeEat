@@ -3,10 +3,9 @@ package com.teamawsome.awsomeeat.Admin;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.util.Log;
-import android.widget.EditText;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -21,36 +20,29 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.Source;
 import com.teamawsome.awsomeeat.Adapters.CartRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Adapters.CategoryListRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Adapters.FoodListRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Adapters.RestaurantRecyclerViewAdapter;
-import com.teamawsome.awsomeeat.Database.UserInformation;
 import com.teamawsome.awsomeeat.Model.Category;
 import com.teamawsome.awsomeeat.Model.Food;
 import com.teamawsome.awsomeeat.Model.Order;
 import com.teamawsome.awsomeeat.Model.Restaurant;
-import com.teamawsome.awsomeeat.Model.User;
-import com.teamawsome.awsomeeat.R;
-
-import android.widget.EditText;
-import android.widget.Toast;
+import com.teamawsome.idHolder;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.Future;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+
+//TODO Förenkla metoderna och undvik återupprepning av kod. /Sandra
 
 public class FirestoreMain extends AppCompatActivity {
     private int count = 0;
@@ -66,9 +58,11 @@ public class FirestoreMain extends AppCompatActivity {
 
     private Restaurant restaurant;
 
-    private Food food = new Food();
+    private Food food;
 
     private CollectionReference foods = db.collection("foods");
+
+    private ListenerRegistration listenerRegistration;
 
     private FirestoreMain () {
 
@@ -77,12 +71,14 @@ public class FirestoreMain extends AppCompatActivity {
 
         //Lägg till ny restaurang.
 
-        public void addRestaurant (String restaurantName, String restaurantAdress) {
+        public void addRestaurant (String restaurantName, String restaurantAdress, String phoneNumber) {
 
 
-                  restaurant = new Restaurant(restaurantName, restaurantAdress);
+                  restaurant = new Restaurant(restaurantName, restaurantAdress, phoneNumber);
                             db.collection("restaurants")
                                     .add(restaurant);
+
+
 
 
 
@@ -100,9 +96,10 @@ public class FirestoreMain extends AppCompatActivity {
     //    public RestaurantAdmin ()
 
 
+
         public void getCartList(CartRecyclerViewAdapter adapter, String userId){
 
-            db.collection("Cart").whereEqualTo("userId", userId)
+        listenerRegistration= db.collection("Cart").whereEqualTo("userId", userId)
                     .addSnapshotListener(new EventListener<QuerySnapshot>() {
                 @Override
                 public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
@@ -115,8 +112,9 @@ public class FirestoreMain extends AppCompatActivity {
 
                             String id = dc.getDocument().getId();
                             Order order = dc.getDocument().toObject(Order.class);
-                            order.setProductId(id);
+                            order.setDocumentId(id);
                             adapter.addItem(order);
+
 
                         } else if (dc.getType() == DocumentChange.Type.REMOVED) {
                             String id = dc.getDocument().getId();
@@ -140,7 +138,7 @@ public class FirestoreMain extends AppCompatActivity {
         //Hämtar en lista på alla restauranger
         public void getRestaurantList(RestaurantRecyclerViewAdapter adapter){
 
-            db.collection("restaurants").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            listenerRegistration = db.collection("restaurants").addSnapshotListener(new EventListener<QuerySnapshot>() {
                 @Override
                 public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                     if (e != null) {
@@ -174,7 +172,7 @@ public class FirestoreMain extends AppCompatActivity {
         public void getCategoriesForRestaurant(CategoryListRecyclerViewAdapter adapter, String restaurantId){
 
 
-        db.collection("Categories").whereArrayContains("restaurantId", restaurantId)
+            listenerRegistration = db.collection("Categories").whereArrayContains("restaurantId", restaurantId)
                     .addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
                         public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
@@ -209,7 +207,7 @@ public class FirestoreMain extends AppCompatActivity {
         public void getRestaurantMenu (FoodListRecyclerViewAdapter adapter, String restaurantId) {
 
 
-            db.collection("Foods").whereArrayContains("restaurantId", restaurantId)
+            listenerRegistration = db.collection("Foods").whereEqualTo("restaurantId", restaurantId)
                     .addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
                         public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
@@ -246,7 +244,7 @@ public class FirestoreMain extends AppCompatActivity {
          public void getMenuForRestaurantCategory(FoodListRecyclerViewAdapter adapter, String restaurantId, String categoryId){
 
 
-         db.collection("Foods").whereArrayContains("restaurantId", restaurantId).whereEqualTo("Category", categoryId)
+         listenerRegistration = db.collection("Foods").whereEqualTo("restaurantId", restaurantId).whereEqualTo("Category", categoryId)
                     .addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
                         public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
@@ -293,15 +291,59 @@ public class FirestoreMain extends AppCompatActivity {
 
 
         }
+
         //Lägger till en ny maträtt i "Foods" collection.
-        public void addFood (String name, String category) {
-        food = new Food(name, category);
-        //food.Category = category;
+        public void addFood (String name, String price, String Category) {
+        food = new Food(name, price, idHolder.getRestaurantId(), Category);
+
         db.collection("Foods").add(food);
+        }
+
+      public void changeFood(Food food ) {
+        DocumentReference foods = db.collection("Foods").document(food.getId());
+          foods.set(food);
+    }
+
+
+    public void addToOrders(List<Order> cartList) {
+
+        for (int i = 0; i < cartList.size(); i++) {
+            db.collection("Orders")
+                    .add(cartList.get(i));
         }
 
 
     }
+
+    public void clearCartItem ( String documentId){
+        db.collection("Cart").document(documentId)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.i("AwesomeEat", "onSuccess: Delete successfull");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.i("AwesomeEat", "onFailure: Delete failed ");
+                    }
+                });
+    }
+
+    public void clearCart(List<Order> cartList){
+        for (int i = 0; i < cartList.size(); i++) {
+            Order order = cartList.get(i);
+            String document  = order.getDocumentId();
+            clearCartItem(document);
+        }
+    }
+
+    public void detachSnapShotListener(){
+        listenerRegistration.remove();
+    }
+}
 
 
 

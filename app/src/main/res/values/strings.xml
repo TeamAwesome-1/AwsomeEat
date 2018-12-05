@@ -9,7 +9,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="name">Name</string>
     <string name="email">Email</string>
@@ -23,5 +23,17 @@
     <string name="add_new_restaurant">Add new restaurant</string>
     <string name="edit_menu">Edit the menu in a restaurant</string>
     <string name="search_restaurant">Search for a restaurant</string>
+    <string name="Order_placed_successfully">Order placed succesfully!</string>
+    <string name="no">NO</string>
+    <string name="place_order">Place order</string>
+    <string name="do_you_want_to_place_order">Do you want to place your order?</string>
+    <string name="Yes">YES</string>
+    <string name="update_dish">Update dish</string>
+    <string name="edit">Edit</string>
+    <string name="Delete">Delete</string>
+    <string name="do_you_want_to_delete_item">Do you want to delete item from cart?</string>
+    <string name="observe_that_price_might_be_wrong">Observe that the price might be wrong!</string>
+    <string name="exit">Exit</string>
+    <string name="do_you_really_want_to_close_the_app">Do you really want to close the app?</string>
 
 </resources>
