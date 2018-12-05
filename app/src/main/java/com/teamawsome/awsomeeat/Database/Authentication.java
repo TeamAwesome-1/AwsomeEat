@@ -352,6 +352,8 @@ public class Authentication extends AppCompatActivity {
 
     public void logOut (){
         currentUser = null;
+        mAuth = null;
+        setAdress("");
         FirebaseAuth.getInstance().signOut();
         //mAuth = null;
         Log.d(TAG, "Signed out:");

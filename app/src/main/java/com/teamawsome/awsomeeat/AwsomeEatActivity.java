@@ -116,6 +116,8 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
 
         // Starts the fragment shown on first page in app
+
+        // TODO: 
         if (!authentication.isAdmin()){
             fragment = new RestaurantListFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
