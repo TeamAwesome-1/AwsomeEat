@@ -205,7 +205,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
         } else if (id == R.id.nav_menu) {
             //Handle what happens when "menu" is pressed in navigationbar
             if(idHolder.getRestaurantId()!= null){
-                EventHandler.openFoodListFragment(getCurrentFocus());
+                EventHandler.openRestaurantListFragment(getCurrentFocus());
             }else{
                 Toast.makeText(this, getString(R.string.choose_an_restaurant), Toast.LENGTH_SHORT).show();
             }
