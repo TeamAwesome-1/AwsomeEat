@@ -96,6 +96,7 @@ public class FirestoreMain extends AppCompatActivity {
     //    public RestaurantAdmin ()
 
 
+
         public void getCartList(CartRecyclerViewAdapter adapter, String userId){
 
         listenerRegistration= db.collection("Cart").whereEqualTo("userId", userId)
@@ -113,6 +114,7 @@ public class FirestoreMain extends AppCompatActivity {
                             Order order = dc.getDocument().toObject(Order.class);
                             order.setDocumentId(id);
                             adapter.addItem(order);
+
 
                         } else if (dc.getType() == DocumentChange.Type.REMOVED) {
                             String id = dc.getDocument().getId();

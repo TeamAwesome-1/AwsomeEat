@@ -32,5 +32,6 @@
     <string name="edit">Edit</string>
     <string name="Delete">Delete</string>
     <string name="do_you_want_to_delete_item">Do you want to delete item from cart?</string>
+    <string name="observe_that_price_might_be_wrong">Observe that the price might be wrong!</string>
 
 </resources>

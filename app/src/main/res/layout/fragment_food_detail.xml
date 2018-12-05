@@ -104,20 +104,29 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="18dp"
-                            android:layout_marginLeft="5dp"
+                            android:layout_marginStart="5dp"
                             android:layout_marginTop="2dp"
                             android:src="@drawable/ic_attach_money_black_24dp" />
 
                         <TextView
                             android:id="@+id/food_price"
-                            android:layout_width="wrap_content"
+                            android:layout_width="138dp"
                             android:layout_height="match_parent"
-                            android:layout_marginLeft="8dp"
+                            android:layout_marginStart="8dp"
                             android:layout_weight="9"
                             android:text="Food Price"
                             android:textColor="@color/colorPrimary"
                             android:textSize="18sp"
                             android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/price_annotation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/observe_that_price_might_be_wrong"
+                            android:visibility="gone"
+                            tools:text="Priceannotation" />
 
 
                     </LinearLayout>
