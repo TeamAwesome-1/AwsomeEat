@@ -48,15 +48,14 @@ public class userFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Log.d(TAG, "User email: " + authentication.getUserEmail());
-        setTexttoView(authentication.getUserName(), R.id.editName);
-        setTexttoView(authentication.getUserEmail(), R.id.displayEmail);
+       setTexttoView(authentication.getUserName(), R.id.editName);
+       setTexttoView(authentication.getUserEmail(), R.id.displayEmail);
         setTexttoView(authentication.getAdress(), R.id.editAdress);
         getActivity().findViewById(R.id.buttonUpdateInfo).setOnClickListener(this::sendDB);
     }
 
     private void sendDB(View view){
-        if (authentication.getCurrentUser() != null) {
+     if (authentication.getCurrentUser() != null) {
             authentication.setUserAdress(getinput(R.id.editAdress), authentication.getCurrentUser().getUid());
             authentication.setUserDetails(getinput(R.id.editName));
         }
@@ -75,6 +74,6 @@ public class userFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        authentication.checkAuthState(getActivity());
+        //authentication.checkAuthState(getActivity());
     }
 }

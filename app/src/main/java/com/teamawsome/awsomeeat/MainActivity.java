@@ -1,5 +1,6 @@
 package com.teamawsome.awsomeeat;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
@@ -12,19 +13,21 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.teamawsome.awsomeeat.Database.Authentication;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btnSignIn,btnSignUp;
-    TextView txtSlogan;
+    private Button btnSignIn,btnSignUp;
+    private TextView txtSlogan;
     private FirebaseAuth.AuthStateListener mAuthListener;
-
+    private static Authentication authentication = Authentication.getInstance();
+    private final Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setupFirebaseAuth();
+        authentication.setupFirebaseAuth(context);
 
         btnSignIn=(Button) findViewById(R.id.btnSignIn);
         btnSignUp=(Button) findViewById(R.id.btnSignUp);
@@ -79,14 +82,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseAuth.getInstance().addAuthStateListener(mAuthListener);
+        authentication.addStateListener();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        if (mAuthListener != null){
-            FirebaseAuth.getInstance().removeAuthStateListener(mAuthListener);
-        }
+        authentication.removeStateListener();
     }
-    }
+}

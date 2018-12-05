@@ -31,11 +31,11 @@ import com.teamawsome.awsomeeat.Fragments.userFragment;
 import com.teamawsome.idHolder;
 
 public class AwsomeEatActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+
     private static final String TAG = "User";
     private String extraInformation;
     private static FirestoreMain firestoreMain = FirestoreMain.getInstance();
     private static Authentication authentication = Authentication.getInstance();
-    private FirebaseAuth mAuth;
     public String getExtraInformation() {
         return extraInformation;
     }
@@ -49,7 +49,6 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         //authentication.loadAuthData();
-        //firestoreMain.getUserAdress();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -83,7 +82,6 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
                 }*/
             }
         });
-
 
 
         // Starts the fragment shown on first page in app
@@ -168,13 +166,11 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
         }
         else if (id == R.id.nav_log_out) {
             //Logout
-            //authentication.getmAuth().signOut();
+
             authentication.logOut();
-            Intent signIn= new Intent(AwsomeEatActivity.this,MainActivity.class);
+            Intent signIn= new Intent(AwsomeEatActivity.this, MainActivity.class);
             signIn.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(signIn);
-            finish();
-
 
         }
 
@@ -183,11 +179,11 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
+    
     @Override
     protected void onResume() {
         super.onResume();
-        authentication.checkAuthState(AwsomeEatActivity.this);
+        //authentication.checkAuthState(AwsomeEatActivity.this);
     }
 
 }

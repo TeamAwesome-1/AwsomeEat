@@ -1,8 +1,7 @@
 package com.teamawsome.awsomeeat;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
-import android.support.annotation.NonNull;
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,33 +9,25 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.teamawsome.awsomeeat.Database.Authentication;
 
 public class SignIn extends AppCompatActivity {
     private EditText edtEmail,edtPassword;
     private Button btnSignIn;
-    private FirebaseAuth.AuthStateListener mAuthListener;
     private static Authentication authentication = Authentication.getInstance();
+    private final Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+
         edtPassword = (MaterialEditText)findViewById(R.id.edtPassword);
         edtEmail = (MaterialEditText)findViewById(R.id.edtEmail);
         btnSignIn = (Button)findViewById(R.id.btnSignIn);
 
-
-        // FIREBASE
-        authentication.setupFirebaseAuth(SignIn.this);
+        authentication.setupFirebaseAuth(context);
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,35 +38,15 @@ public class SignIn extends AppCompatActivity {
                 if (!edtEmail.getText().toString().isEmpty() &&
                         !edtPassword.getText().toString().isEmpty()){
                     Log.d("Login", "OnClick: attempting to authenticate.");
-                    //mDialog.show();
-                    authentication.signIn(edtEmail.getText().toString(), edtPassword.getText().toString());
-                    //mDialog.hide();
+                    mDialog.show();
+                    authentication.signIn(edtEmail.getText().toString(),
+                            edtPassword.getText().toString());
                 }else{
                     Toast.makeText(SignIn.this, "You didn't enter email & password!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
         }
-
-        /*
-    private void setupFirebaseAuth(){
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null){
-                    Log.d("Login", "onAuthStateChanged: signed_in: " + user.getUid());
-                    Intent intent = new Intent(SignIn.this, AwsomeEatActivity.class);
-                    startActivity(intent);
-                    finish();
-
-                }else{
-                    Log.d("Login", "onAuthStateChanged: signed_out");
-                }
-            }
-        };
-    }
-    */
 
     @Override
     protected void onStart() {
@@ -87,6 +58,5 @@ public class SignIn extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         authentication.removeStateListener();
-        }
     }
-
+}

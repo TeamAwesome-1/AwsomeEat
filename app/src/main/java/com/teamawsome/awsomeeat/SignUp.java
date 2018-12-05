@@ -1,19 +1,10 @@
 package com.teamawsome.awsomeeat;
-
-import android.content.Intent;
-import android.support.annotation.NonNull;
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.teamawsome.awsomeeat.Common.Common;
 import com.teamawsome.awsomeeat.Database.Authentication;
@@ -23,8 +14,8 @@ public class SignUp extends AppCompatActivity {
     private MaterialEditText edtRoll,edtName,edtPassword,edtConfirmPassword;
     private static Authentication authentication = Authentication.getInstance();
     private Button btnSignUp;
-   // private FirebaseAuth mAuth;
     private static final String TAG = "Register";
+    private final Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +49,7 @@ public class SignUp extends AppCompatActivity {
                     else if (!(edtPassword.getText().toString()).equals(edtConfirmPassword.getText().toString()))
                         Toast.makeText(SignUp.this, "Passwords do not match!", Toast.LENGTH_SHORT).show();
                     else {
-                        authentication.registerEmail(edtName.getText().toString(), edtPassword.getText().toString(), SignUp.this);
+                        authentication.registerEmail(edtName.getText().toString(), edtPassword.getText().toString(), context);
                         //registerEmail(edtName.getText().toString(), edtPassword.getText().toString());
                         Toast.makeText(SignUp.this, "Registration succeed!", Toast.LENGTH_SHORT).show();
                     }
@@ -68,17 +59,4 @@ public class SignUp extends AppCompatActivity {
         });
 
     }
-
-    /*
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        //updateUI(currentUser);
-    }
-    */
-
-
-
 }

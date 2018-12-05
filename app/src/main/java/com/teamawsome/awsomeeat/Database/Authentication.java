@@ -1,6 +1,7 @@
 package com.teamawsome.awsomeeat.Database;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -26,23 +27,36 @@ import com.teamawsome.awsomeeat.SignUp;
 
 public class Authentication extends AppCompatActivity {
 
-    private static Authentication Authentication = new Authentication();
+    private static final Authentication Authentication = new Authentication();
     private static final String TAG = "User";
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference userCollection = db.collection("User3");
+    private CollectionReference userCollection = db.collection("User");
     private static User user;
-    private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+    private static FirebaseUser currentUser;
     private FirebaseUser dbUser;
     public String adress;
-    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private static FirebaseAuth mAuth;
     private boolean admin;
+    private boolean openActivity = false;
+
+    public boolean isOpenActivity() {
+        return openActivity;
+    }
+
+    public FirebaseAuth.AuthStateListener getmAuthListener() {
+        return mAuthListener;
+    }
+
     private FirebaseAuth.AuthStateListener mAuthListener;
 
     public void signIn(String email, String password){
-       mAuth.signInWithEmailAndPassword(email,
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(email,
                 password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
+               currentUser = FirebaseAuth.getInstance().getCurrentUser();
+               mAuth = mAuth = FirebaseAuth.getInstance();
+                Log.d(TAG, "OnComplete: " + currentUser.getUid());
 
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -53,9 +67,30 @@ public class Authentication extends AppCompatActivity {
         });
     }
 
-    public void registerEmail(String email, String password, Activity activity){
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
+    public void setupFirebaseAuth(Context context){
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                mAuth = mAuth = FirebaseAuth.getInstance();
+                if (currentUser != null){
+                    getUserAdress();
+                    Log.d(TAG, "onAuthStateChanged: signed_in: " + currentUser.getUid());
+                    openActivity = true;
+                    Intent intent = new Intent(context, AwsomeEatActivity.class);
+                    context.startActivity(intent);
+                    finish();
+
+                }else{
+                    Log.d(TAG, "onAuthStateChanged: signed_out");
+                }
+            }
+        };
+    }
+
+    public void registerEmail(String email, String password, Context context){
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
@@ -63,67 +98,23 @@ public class Authentication extends AppCompatActivity {
                             Log.d(TAG, "createUserWithEmail:success");
                             //FirebaseUser user = mAuth.getCurrentUser();
                             //authentication.loadAuthData();
-                            Intent intent = new Intent(activity, AwsomeEatActivity.class);
-                            startActivity(intent);
+                            currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                            mAuth = FirebaseAuth.getInstance();
+                            Intent intent = new Intent(context, AwsomeEatActivity.class);
+                            context.startActivity(intent);
                             finish();
 
                             // updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(activity, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            // updateUI(null);
+                            Toast.makeText(context, "Authentication failed.",
+                                   Toast.LENGTH_SHORT).show();
                         }
-
-                        // ...
                     }
                 });
 
     }
-
-    public void setupFirebaseAuth(Activity activity){
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if (currentUser != null){
-                    Log.d("Login", "onAuthStateChanged: signed_in: " + currentUser.getUid());
-                    Intent intent = new Intent(activity, AwsomeEatActivity.class);
-                    startActivity(intent);
-                    finish();
-                }else{
-                    Log.d("Login", "onAuthStateChanged: signed_out");
-                }
-            }
-        };
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public FirebaseAuth.AuthStateListener getmAuthListener() {
-        return mAuthListener;
-    }
-
-
-
-    public FirebaseAuth getmAuth() {
-        return mAuth;
-    }
-
-
 
     public static Authentication getInstance() { return Authentication;
     }
@@ -196,8 +187,7 @@ public class Authentication extends AppCompatActivity {
     }
 
     public void getUserAdress(){
-        dbUser = FirebaseAuth.getInstance().getCurrentUser();
-        DocumentReference docRef = db.collection("User").document(dbUser.getUid());
+        DocumentReference docRef = userCollection.document(currentUser.getUid());
 
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -218,21 +208,29 @@ public class Authentication extends AppCompatActivity {
         });
     }
 
+    /*
+
     public void setAdminDB(boolean b){
         user = new User(currentUser.getUid(), b);
         userCollection.document(currentUser.getUid()).set(user);
     }
+
+    */
+
+
 
     public void setUserAdress(String adress, String uid){
         //FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         //String id = user.getUid();
 
         // userModel = new User(adress, id);
-        dbUser = FirebaseAuth.getInstance().getCurrentUser();
+       // dbUser = FirebaseAuth.getInstance().getCurrentUser();
         user = new User(adress, uid);
         userCollection.document(currentUser.getUid()).set(user);
 
     }
+
+
 
     public void setUserId(String name){
         dbUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -306,7 +304,7 @@ public class Authentication extends AppCompatActivity {
     }
 
     public void loadAuthData(){
-        setAdminDB(false);
+        //setAdminDB(false);
         //getUserAdress();
         //checkAdminState();
 
@@ -344,17 +342,21 @@ public class Authentication extends AppCompatActivity {
     }
 
     public void addStateListener(){
-        mAuth.addAuthStateListener(mAuthListener);
+        FirebaseAuth.getInstance().addAuthStateListener(mAuthListener);
     }
 
     public void removeStateListener(){
         if (mAuthListener != null){
-            mAuth.removeAuthStateListener(mAuthListener);
+            FirebaseAuth.getInstance().removeAuthStateListener(mAuthListener);
         }
     }
 
+
+
     public void logOut (){
-        mAuth.signOut();
+        currentUser = null;
+        FirebaseAuth.getInstance().signOut();
+        //mAuth = null;
         Log.d(TAG, "Signed out:");
     }
 
