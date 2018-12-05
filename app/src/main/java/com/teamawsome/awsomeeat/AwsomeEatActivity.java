@@ -110,7 +110,6 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
                    return;
                }
                  else if (!authentication.isAdmin()){
-
                }
             }*/
         });
@@ -153,7 +152,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
-               finish();
+                finish();
             }
         });
 
@@ -205,7 +204,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
         } else if (id == R.id.nav_menu) {
             //Handle what happens when "menu" is pressed in navigationbar
             if(idHolder.getRestaurantId()!= null){
-                EventHandler.openRestaurantListFragment(getCurrentFocus());
+                EventHandler.openFoodListFragment(getCurrentFocus());
             }else{
                 Toast.makeText(this, getString(R.string.choose_an_restaurant), Toast.LENGTH_SHORT).show();
             }
@@ -272,4 +271,3 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
     }
 
 }
-
