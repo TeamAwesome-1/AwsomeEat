@@ -71,4 +71,9 @@ public class FoodListRecyclerViewAdapter extends RecyclerView.Adapter<FoodViewHo
             }
         }
     }
+
+    public void clearList(){
+        list.clear();
+        this.notifyItemRangeRemoved(0, getItemCount());
+    }
 }

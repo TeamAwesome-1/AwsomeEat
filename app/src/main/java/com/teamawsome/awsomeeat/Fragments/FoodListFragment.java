@@ -44,7 +44,7 @@ public class FoodListFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_food_list, container, false);
 
-        //specify the adapter
+        //init the adapter
         adapter = new FoodListRecyclerViewAdapter(itemList);
 
         //Get info about which category user pressed and for which restaurant
@@ -65,26 +65,30 @@ public class FoodListFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if (Common.isNetworkAvailable(getContext())){
             //Load Foodlist for a specific category to the choosen restaurant
             if(restaurantId != null && categoryId != null) {
-                if(itemList.size()==0) {
-                    firestoreMain.getMenuForRestaurantCategory(adapter, restaurantId, categoryId);
-                }
+
+              firestoreMain.getMenuForRestaurantCategory(adapter, restaurantId, categoryId);
+
             }else if(categoryId == null) {
-                if (itemList.size() == 0) {
-                    firestoreMain.getRestaurantMenu(adapter, restaurantId);
-                    Toast.makeText(getContext(), "Whole foodlist for restaurant is displayed", Toast.LENGTH_SHORT).show();
-                }
+              firestoreMain.getRestaurantMenu(adapter, restaurantId);
+              //TODO ta bort /Sandra
+              Toast.makeText(getContext(), "Whole foodlist for restaurant is displayed", Toast.LENGTH_SHORT).show();
+
             }
         }
-        else
-        {
 
-            Toast.makeText(getContext(), "Please check your Internet Connection!", Toast.LENGTH_SHORT).show();
-        }
 
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        //Deletes local list
+        adapter.clearList();
+        firestoreMain.detachSnapShotListener();
     }
+
+
 
 }
 

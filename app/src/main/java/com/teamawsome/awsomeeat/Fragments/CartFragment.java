@@ -142,6 +142,7 @@ public class CartFragment extends Fragment {
    @Override
    public void onStop() {
        super.onStop();
+       adapter.clearList();
        firestoreMain.detachSnapShotListener();
    }
 
