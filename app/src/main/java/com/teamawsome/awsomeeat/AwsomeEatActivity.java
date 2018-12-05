@@ -26,6 +26,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.teamawsome.awsomeeat.Admin.FirestoreMain;
 import com.teamawsome.awsomeeat.Database.Authentication;
 import com.teamawsome.awsomeeat.Fragments.CartFragment;
+import com.teamawsome.awsomeeat.Fragments.EditProfleFragment;
 import com.teamawsome.awsomeeat.Fragments.RestaurantListFragment;
 import com.teamawsome.awsomeeat.Fragments.userFragment;
 import com.teamawsome.idHolder;
@@ -36,6 +37,8 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
     private String extraInformation;
     private static FirestoreMain firestoreMain = FirestoreMain.getInstance();
     private static Authentication authentication = Authentication.getInstance();
+    private final Context context = this;
+
     public String getExtraInformation() {
         return extraInformation;
     }
@@ -48,7 +51,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        //authentication.loadAuthData();
+        authentication.loadAuthData();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -158,7 +161,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
             fragmentTransaction.add(R.id.fragmentinsertlayout, fragment);
             fragmentTransaction.commit();
         } else if (id == R.id.edit_profile){
-            fragment = new userFragment();
+            fragment = new EditProfleFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.fragmentinsertlayout, fragment);
@@ -179,11 +182,11 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-    
+
     @Override
     protected void onResume() {
         super.onResume();
-        //authentication.checkAuthState(AwsomeEatActivity.this);
+        authentication.checkAuthState(context);
     }
 
 }

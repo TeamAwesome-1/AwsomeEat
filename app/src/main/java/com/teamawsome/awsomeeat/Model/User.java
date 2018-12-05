@@ -5,7 +5,7 @@ import com.google.firebase.firestore.Exclude;
 public class User {
     private String uid;
     private String adress;
-    private boolean admin = false;
+    private boolean admin;
     @Exclude
     public String id;
 
@@ -21,7 +21,6 @@ public class User {
     public User(String adress, String uid) {
         this.adress = adress;
         this.uid = uid;
-        this.admin = false;
     }
 
     public String getUid() {

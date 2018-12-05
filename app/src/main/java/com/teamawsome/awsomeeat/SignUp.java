@@ -11,7 +11,7 @@ import com.teamawsome.awsomeeat.Database.Authentication;
 
 public class SignUp extends AppCompatActivity {
 
-    private MaterialEditText edtRoll,edtName,edtPassword,edtConfirmPassword;
+    private MaterialEditText edtName,edtPassword,edtConfirmPassword;
     private static Authentication authentication = Authentication.getInstance();
     private Button btnSignUp;
     private static final String TAG = "Register";
@@ -23,7 +23,6 @@ public class SignUp extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         edtName = (MaterialEditText)findViewById(R.id.edtName);
-        edtRoll = (MaterialEditText)findViewById(R.id.edtRoll);
         edtPassword = (MaterialEditText)findViewById(R.id.edtPassword);
         edtConfirmPassword= (MaterialEditText)findViewById(R.id.edtConfirmPassword);
 

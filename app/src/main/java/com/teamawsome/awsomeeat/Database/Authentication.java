@@ -24,6 +24,7 @@ import com.teamawsome.awsomeeat.MainActivity;
 import com.teamawsome.awsomeeat.Model.User;
 import com.teamawsome.awsomeeat.SignIn;
 import com.teamawsome.awsomeeat.SignUp;
+import com.teamawsome.awsomeeat.SignUpProfileFields;
 
 public class Authentication extends AppCompatActivity {
 
@@ -100,7 +101,7 @@ public class Authentication extends AppCompatActivity {
                             //authentication.loadAuthData();
                             currentUser = FirebaseAuth.getInstance().getCurrentUser();
                             mAuth = FirebaseAuth.getInstance();
-                            Intent intent = new Intent(context, AwsomeEatActivity.class);
+                            Intent intent = new Intent(context, SignUpProfileFields.class);
                             context.startActivity(intent);
                             finish();
 
@@ -165,8 +166,7 @@ public class Authentication extends AppCompatActivity {
     UserInformation userInformation;
 
     public void checkAdminState(){
-        dbUser = FirebaseAuth.getInstance().getCurrentUser();
-        DocumentReference docRef = db.collection("User").document(dbUser.getUid());
+        DocumentReference docRef = userCollection.document(currentUser.getUid());
 
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -216,16 +216,17 @@ public class Authentication extends AppCompatActivity {
     }
 
     */
+    public void editUserAdress(String adress, String uid){
+        user = new User(adress, uid);
+       user.setAdmin(isAdmin());
+        userCollection.document(currentUser.getUid()).set(user);
 
+    }
 
 
     public void setUserAdress(String adress, String uid){
-        //FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        //String id = user.getUid();
-
-        // userModel = new User(adress, id);
-       // dbUser = FirebaseAuth.getInstance().getCurrentUser();
         user = new User(adress, uid);
+        user.setAdmin(false);
         userCollection.document(currentUser.getUid()).set(user);
 
     }
@@ -267,14 +268,12 @@ public class Authentication extends AppCompatActivity {
         return email;
     }
 
-    public void setUserDetails(String name){
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        if (user != null){
+    public void setUserName(String name){
+        if (currentUser != null){
             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                     .setDisplayName(name).build();
 
-            user.updateProfile(profileUpdates)
+            currentUser.updateProfile(profileUpdates)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -289,12 +288,10 @@ public class Authentication extends AppCompatActivity {
     }
 
     public void getUserDetails(){
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        if (user != null){
-            String uid = user.getUid();
-            String name = user.getDisplayName();
-            String email = user.getEmail();
+        if (currentUser != null){
+            String uid = currentUser.getUid();
+            String name = currentUser.getDisplayName();
+            String email = currentUser.getEmail();
 
 
             String properties = "uid: " + uid + " name " + name + " email " + email;
@@ -305,20 +302,20 @@ public class Authentication extends AppCompatActivity {
 
     public void loadAuthData(){
         //setAdminDB(false);
-        //getUserAdress();
-        //checkAdminState();
+        getUserAdress();
+        checkAdminState();
 
     }
 
-    public void checkAuthState(Activity activity){
+    public void checkAuthState(Context context){
         Log.d(TAG,"checkAuthState");
 
         if(currentUser == null){
             Log.d(TAG, "user is null, sent back to login");
 
-            Intent intent = new Intent(activity, MainActivity.class);
+            Intent intent = new Intent(context, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
+            context.startActivity(intent);
             finish();
         }else{
             Log.d(TAG, "user is authenticated, user id: " + currentUser.getUid());

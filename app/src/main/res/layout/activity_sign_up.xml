@@ -28,25 +28,6 @@
         android:id="@+id/linearLayout">
 
         <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/edtRoll"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:drawableLeft="@mipmap/ic_num"
-            android:hint="Phone Number"
-            android:inputType="number"
-
-            android:textColor="@android:color/white"
-            android:textColorHint="@android:color/white"
-            android:textSize="20sp"
-            app:met_baseColor="@android:color/white"
-            app:met_floatingLabel="highlight"
-            app:met_maxCharacters="9"
-            app:met_primaryColor="@android:color/white"
-            app:met_singleLineEllipsis="true"
-
-            />
-
-        <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/edtName"
             android:layout_width="match_parent"
             android:layout_height="80dp"
