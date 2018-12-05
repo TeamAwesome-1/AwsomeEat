@@ -1,5 +1,6 @@
 package com.teamawsome.awsomeeat;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -11,6 +12,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -134,8 +136,38 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
             getSupportFragmentManager().popBackStack();
         }
         else{
-            finish();
+            DisplayExitDialog();
+
         }
+    }
+
+    private void DisplayExitDialog() {
+
+        AlertDialog.Builder alertdialog = new AlertDialog.Builder(this);
+        alertdialog.setTitle(R.string.exit);
+        alertdialog.setMessage(R.string.do_you_really_want_to_close_the_app);
+        alertdialog.setIcon(R.drawable.ic_exit_to_app_black_24dp);
+
+        //Inserts a Yes-button with a clicklistener
+        alertdialog.setPositiveButton(R.string.Yes, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+               finish();
+            }
+        });
+
+        //Inserts a No-button with a clicklistener to the alertdialog
+        alertdialog.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+
+        //displays the alerDialog
+        alertdialog.show();
+
     }
 
     @Override
