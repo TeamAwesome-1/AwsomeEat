@@ -3,6 +3,7 @@ package com.teamawsome.awsomeeat;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -43,6 +44,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
     private static FirestoreMain firestoreMain = FirestoreMain.getInstance();
     private static Authentication authentication = Authentication.getInstance();
     private final Context context = this;
+    private Fragment fragment;
 
     public String getExtraInformation() {
         return extraInformation;
@@ -114,12 +116,19 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
 
         // Starts the fragment shown on first page in app
-        RestaurantListFragment restaurantListFragment = new RestaurantListFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.fragmentinsertlayout, restaurantListFragment);
-        fragmentTransaction.commit();
-
+        if (!authentication.isAdmin()){
+            fragment = new RestaurantListFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.fragmentinsertlayout, fragment);
+            fragmentTransaction.commit();
+        }else{
+            fragment = new AdminMainFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.fragmentinsertlayout, fragment);
+            fragmentTransaction.commit();
+        }
     }
 
     @Override
@@ -195,7 +204,6 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        Fragment fragment;
         if (id == R.id.nav_view) {
 
         } else if (id == R.id.nav_menu) {

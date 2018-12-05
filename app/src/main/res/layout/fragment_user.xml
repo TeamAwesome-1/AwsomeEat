@@ -33,19 +33,7 @@
 
 
 
-    <TextView
-        android:id="@+id/displayEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textSize="20sp"
-        android:text="User:"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileimage"
-        tools:text="Email@email.com" />
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
@@ -88,23 +76,19 @@
         app:layout_constraintHorizontal_bias="0.222"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editName" />
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/editEmail"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/displayEmail"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColorHint="@android:color/holo_blue_bright"
-        android:textColor="@android:color/holo_blue_bright"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:textSize="20sp"
-        app:met_baseColor="@android:color/black"
-        app:met_floatingLabel="highlight"
-        app:met_primaryColor="@android:color/holo_red_light"
-        android:hint="@string/email"
-        android:inputType="textEmailAddress"
+        android:text="User:"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.477"
+        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/displayEmail"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/profileimage"
+        tools:text="Email@email.com" />
     <TextView
         android:id="@+id/textViewAddress"
         android:layout_width="wrap_content"

@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         authentication.setupFirebaseAuth(context);
-
         btnSignIn=(Button) findViewById(R.id.btnSignIn);
         btnSignUp=(Button) findViewById(R.id.btnSignUp);
         txtSlogan = (TextView)findViewById(R.id.txtSlogan);
