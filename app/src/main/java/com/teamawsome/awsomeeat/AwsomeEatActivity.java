@@ -117,7 +117,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
         // Starts the fragment shown on first page in app
 
-        // TODO: 
+        // TODO:
         if (!authentication.isAdmin()){
             fragment = new RestaurantListFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -209,29 +209,13 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
         if (id == R.id.nav_view) {
 
         } else if (id == R.id.nav_menu) {
-            //Handle what happens when "menu" is pressed in navigationbar
-            if(idHolder.getRestaurantId()!= null){
-                EventHandler.openFoodListFragment(getCurrentFocus());
-            }else{
-                Toast.makeText(this, getString(R.string.choose_an_restaurant), Toast.LENGTH_SHORT).show();
-            }
+            EventHandler.openRestaurantListFragment(getCurrentFocus());
 
-        } else if (id == R.id.nav_orders) {
-            //Handle what happens when "orders" is pressed in navigationbar
+        }else if (id == R.id.nav_cart) {
+          EventHandler.openCartFragment(getCurrentFocus());
 
-        } else if (id == R.id.nav_cart) {
-            //Handle what happens when "cart" is pressed in navigationbar
-            fragment = new CartFragment();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.add(R.id.fragmentinsertlayout, fragment);
-            fragmentTransaction.commit();
         } else if (id == R.id.edit_profile){
-            fragment = new EditProfleFragment();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragmentinsertlayout, fragment);
-            fragmentTransaction.commit();
+           EventHandler.openEditProfileFragment(getCurrentFocus());
         }
         else if (id == R.id.nav_log_out) {
             //Logout
@@ -243,11 +227,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
         }
 
         else if (id == R.id.admin) {
-            fragment = new AdminMainFragment();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragmentinsertlayout, fragment);
-            fragmentTransaction.commit();
+            EventHandler.openAdminFragment(getCurrentFocus());
         }
 
         //Closes the drawer after an item has been selected
@@ -260,6 +240,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
     protected void onResume() {
         super.onResume();
         authentication.checkAuthState(context);
+        authentication.loadAuthData();
     }
 
 }
