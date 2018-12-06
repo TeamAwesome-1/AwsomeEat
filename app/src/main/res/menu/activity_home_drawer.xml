@@ -7,31 +7,26 @@
         <item
             android:id="@+id/nav_menu"
             android:icon="@drawable/ic_restaurant_menu_black_24dp"
-            android:title="@string/menu_homedrawer" />
+            android:title="@string/restaurants" />
         <item
             android:id="@+id/nav_cart"
             android:icon="@drawable/ic_shopping_cart_black_24dp"
-            android:title="Cart"/>
-
-        <item
-            android:id="@+id/nav_orders"
-            android:icon="@drawable/ic_key"
-            android:title="Orders"/>
+            android:title="@string/cart"/>
 
         <item
             android:id="@+id/edit_profile"
             android:icon="@drawable/ic_class_black_24dp"
-            android:title="Edit Profile" />
+            android:title="@string/edit_profile" />
 
         <item
             android:id="@+id/nav_log_out"
             android:icon="@drawable/ic_exit_to_app_black_24dp"
-            android:title="Sign Out" />
+            android:title="@string/sign_out" />
 
         <item
             android:id="@+id/admin"
             android:icon="@drawable/common_google_signin_btn_icon_light"
-            android:title="Admin"
+            android:title="@string/admin"
             />
 
 

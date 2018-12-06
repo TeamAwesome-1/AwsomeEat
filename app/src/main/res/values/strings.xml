@@ -36,5 +36,10 @@
     <string name="exit">Exit</string>
     <string name="do_you_really_want_to_close_the_app">Do you really want to close the app?</string>
     <string name="european">European</string>
+    <string name="restaurants">Restaurants</string>
+    <string name="cart">Cart</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="admin">Admin</string>
 
 </resources>

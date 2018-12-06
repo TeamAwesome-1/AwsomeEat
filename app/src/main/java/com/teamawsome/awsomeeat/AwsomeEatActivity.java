@@ -117,7 +117,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
         // Starts the fragment shown on first page in app
 
-        // TODO: 
+        // TODO:
         if (!authentication.isAdmin()){
             fragment = new RestaurantListFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -221,11 +221,24 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
         } else if (id == R.id.nav_cart) {
           EventHandler.openCartFragment(getCurrentFocus());
 
+            fragment = new RestaurantListFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragmentinsertlayout, fragment);
+            fragmentTransaction.commit();
+        }  else if (id == R.id.nav_cart) {
+            //Handle what happens when "cart" is pressed in navigationbar
+            fragment = new CartFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragmentinsertlayout, fragment);
+            fragmentTransaction.commit();
         } else if (id == R.id.edit_profile){
            EventHandler.openEditProfileFragment(getCurrentFocus());
         }
         else if (id == R.id.nav_log_out) {
             //Logout
+
             authentication.logOut();
             Intent signIn= new Intent(AwsomeEatActivity.this, MainActivity.class);
             signIn.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -246,6 +259,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
     protected void onResume() {
         super.onResume();
         authentication.checkAuthState(context);
+        authentication.loadAuthData();
     }
 
 }
