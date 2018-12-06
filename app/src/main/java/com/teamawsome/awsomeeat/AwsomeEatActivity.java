@@ -209,30 +209,11 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
         if (id == R.id.nav_view) {
 
         } else if (id == R.id.nav_menu) {
-            //Handle what happens when "menu" is pressed in navigationbar
-            if(idHolder.getRestaurantId()!= null){
-                EventHandler.openFoodListFragment(getCurrentFocus());
-            }else{
-                Toast.makeText(this, getString(R.string.choose_an_restaurant), Toast.LENGTH_SHORT).show();
-            }
+            EventHandler.openRestaurantListFragment(getCurrentFocus());
 
-        } else if (id == R.id.nav_orders) {
-
-        } else if (id == R.id.nav_cart) {
+        }else if (id == R.id.nav_cart) {
           EventHandler.openCartFragment(getCurrentFocus());
 
-            fragment = new RestaurantListFragment();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragmentinsertlayout, fragment);
-            fragmentTransaction.commit();
-        }  else if (id == R.id.nav_cart) {
-            //Handle what happens when "cart" is pressed in navigationbar
-            fragment = new CartFragment();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragmentinsertlayout, fragment);
-            fragmentTransaction.commit();
         } else if (id == R.id.edit_profile){
            EventHandler.openEditProfileFragment(getCurrentFocus());
         }
