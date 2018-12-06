@@ -18,6 +18,10 @@ import com.teamawsome.awsomeeat.Fragments.FoodDetailFragment;
 import com.teamawsome.awsomeeat.Fragments.FoodListFragment;
 import com.teamawsome.awsomeeat.Fragments.RestaurantListFragment;
 
+/**
+ * A class that handles fragmentransitions and fragmentLifecycle.
+ * Use Eventhandler to open fragments.
+ */
 public class EventHandler {
 
     //TODO Check if all methods are neccessary/Sandra
@@ -46,14 +50,20 @@ public class EventHandler {
         }
     }
 
-    /**
-     * opens restaurantFragment that is also basefragment in app.
-     * @param v
-     */
-    public static void openRestaurantListFragment(View v){
+
+    private static void openBaseFragment(View v){
         AppCompatActivity activity = (AppCompatActivity) v.getContext();
         FragmentManager fm = activity.getSupportFragmentManager();
         fm.popBackStack(BASE_FRAGMENT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
+    }
+
+    /**
+     * Opens the baseFragment-RestaurantListfragment.
+     * @param v- view
+     */
+    public static void openRestaurantListFragment(View v){
+        openBaseFragment(v);
     }
 
     public static void openAddRestaurantFragment(View v){

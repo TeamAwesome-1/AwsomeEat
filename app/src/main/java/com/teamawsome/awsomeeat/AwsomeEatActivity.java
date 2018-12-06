@@ -43,19 +43,10 @@ import com.teamawsome.idHolder;
 
 public class AwsomeEatActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private static final String TAG = "User";
-    private String extraInformation;
     private static FirestoreMain firestoreMain = FirestoreMain.getInstance();
     private static Authentication authentication = Authentication.getInstance();
     private final Context context = this;
     private Fragment fragment;
-
-    public String getExtraInformation() {
-        return extraInformation;
-    }
-    private int count=0;
-    public void setExtraInformation(String extraInformation) {
-        this.extraInformation = extraInformation;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,7 +109,8 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
         // Starts the fragment shown on first page in app
 
-        // TODO: 
+        // TODO:
+
         if (!authentication.isAdmin()){
             fragment = new RestaurantListFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
