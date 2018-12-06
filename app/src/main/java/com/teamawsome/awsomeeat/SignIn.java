@@ -33,7 +33,7 @@ public class SignIn extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 final ProgressDialog mDialog = new ProgressDialog(SignIn.this);
-                mDialog.setMessage("Please Wait");
+                mDialog.setMessage(getString(R.string.please_wait));
 
                 if (!edtEmail.getText().toString().isEmpty() &&
                         !edtPassword.getText().toString().isEmpty()){
@@ -42,7 +42,7 @@ public class SignIn extends AppCompatActivity {
                     authentication.signIn(edtEmail.getText().toString(),
                             edtPassword.getText().toString());
                 }else{
-                    Toast.makeText(SignIn.this, "You didn't enter email & password!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignIn.this, getString(R.string.didnt_enter_email_password), Toast.LENGTH_SHORT).show();
                 }
             }
         });

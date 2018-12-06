@@ -62,6 +62,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         authentication.loadAuthData();
+        authentication.getUserDetails();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -209,17 +210,30 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
         if (id == R.id.nav_view) {
 
         } else if (id == R.id.nav_menu) {
-            EventHandler.openRestaurantListFragment(getCurrentFocus());
-
-        }else if (id == R.id.nav_cart) {
-          EventHandler.openCartFragment(getCurrentFocus());
-
+            //Handle what happens when "menu" is pressed in navigationbar
+            fragment = new RestaurantListFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragmentinsertlayout, fragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        }  else if (id == R.id.nav_cart) {
+            //Handle what happens when "cart" is pressed in navigationbar
+            fragment = new CartFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragmentinsertlayout, fragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
         } else if (id == R.id.edit_profile){
-           EventHandler.openEditProfileFragment(getCurrentFocus());
+            fragment = new EditProfleFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragmentinsertlayout, fragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
         }
         else if (id == R.id.nav_log_out) {
-            //Logout
-
             authentication.logOut();
             Intent signIn= new Intent(AwsomeEatActivity.this, MainActivity.class);
             signIn.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);

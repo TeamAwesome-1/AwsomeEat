@@ -41,16 +41,16 @@ public class SignUp extends AppCompatActivity {
                 if(Common.isNetworkAvailable(getBaseContext())) {
 
                     if (!edtName.getText().toString().isEmpty())
-                        Toast.makeText(SignUp.this, "Email can not be empty!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignUp.this, getString(R.string.not_empty_email), Toast.LENGTH_SHORT).show();
 
                     if (edtPassword.getText().toString().trim().length() < 6)
-                        Toast.makeText(SignUp.this, "Password must have atleast 6 characters!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignUp.this, getString(R.string.at_least_6_characters), Toast.LENGTH_SHORT).show();
                     else if (!(edtPassword.getText().toString()).equals(edtConfirmPassword.getText().toString()))
-                        Toast.makeText(SignUp.this, "Passwords do not match!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignUp.this, getString(R.string.no_match_password), Toast.LENGTH_SHORT).show();
                     else {
                         authentication.registerEmail(edtName.getText().toString(), edtPassword.getText().toString(), context);
                         //registerEmail(edtName.getText().toString(), edtPassword.getText().toString());
-                        Toast.makeText(SignUp.this, "Registration succeed!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignUp.this, getString(R.string.registration_succeeded), Toast.LENGTH_SHORT).show();
                     }
             }
         }

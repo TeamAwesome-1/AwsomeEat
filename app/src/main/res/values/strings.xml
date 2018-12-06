@@ -41,5 +41,13 @@
     <string name="edit_profile">Edit Profile</string>
     <string name="sign_out">Sign Out</string>
     <string name="admin">Admin</string>
+    <string name="not_empty_email">Email can not be empty!</string>
+    <string name="at_least_6_characters">Password must have at least 6 characters!</string>
+    <string name="no_match_password">Passwords do not match!</string>
+    <string name="registration_succeeded">Registration succeeded!</string>
+    <string name="please_wait">Please Wait</string>
+    <string name="didnt_enter_email_password"><![CDATA[You didn\'t enter email & password!]]></string>
+    <string name="must_enter_adress">Must enter adress!</string>
+    <string name="must_enter_name">Must enter name!</string>
 
 </resources>
