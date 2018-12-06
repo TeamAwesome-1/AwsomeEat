@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
@@ -20,8 +23,11 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.teamawsome.awsomeeat.AwsomeEatActivity;
+import com.teamawsome.awsomeeat.Fragments.AdminMainFragment;
+import com.teamawsome.awsomeeat.Fragments.RestaurantListFragment;
 import com.teamawsome.awsomeeat.MainActivity;
 import com.teamawsome.awsomeeat.Model.User;
+import com.teamawsome.awsomeeat.R;
 import com.teamawsome.awsomeeat.SignIn;
 import com.teamawsome.awsomeeat.SignUp;
 import com.teamawsome.awsomeeat.SignUpProfileFields;
@@ -39,6 +45,7 @@ public class Authentication extends AppCompatActivity {
     private static FirebaseAuth mAuth;
     private boolean admin;
     private boolean openActivity = false;
+    private Fragment fragment;
 
     public boolean isOpenActivity() {
         return openActivity;
@@ -78,10 +85,10 @@ public class Authentication extends AppCompatActivity {
                     getUserAdress();
                     Log.d(TAG, "onAuthStateChanged: signed_in: " + currentUser.getUid());
                     openActivity = true;
+
                     Intent intent = new Intent(context, AwsomeEatActivity.class);
                     context.startActivity(intent);
                     finish();
-
                 }else{
                     Log.d(TAG, "onAuthStateChanged: signed_out");
                 }
@@ -347,7 +354,6 @@ public class Authentication extends AppCompatActivity {
             FirebaseAuth.getInstance().removeAuthStateListener(mAuthListener);
         }
     }
-
 
 
     public void logOut (){
