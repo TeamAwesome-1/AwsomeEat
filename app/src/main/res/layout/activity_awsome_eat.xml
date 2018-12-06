@@ -14,7 +14,10 @@
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        />
+        >
+
+    </android.support.v7.widget.Toolbar>
+
 
     <LinearLayout
         android:id="@+id/linearLayout8"
