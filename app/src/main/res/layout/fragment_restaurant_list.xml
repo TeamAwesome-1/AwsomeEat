@@ -7,16 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.RestaurantListFragment">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="@id/constraintLayout"
-        app:layout_constraintEnd_toEndOf="@id/constraintLayout"
-        app:srcCompat="@android:drawable/ic_input_add" />
-
     <FrameLayout
         android:id="@+id/framelayout"
         android:layout_width="match_parent"

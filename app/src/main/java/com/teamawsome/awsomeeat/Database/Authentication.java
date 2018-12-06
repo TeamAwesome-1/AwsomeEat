@@ -1,13 +1,17 @@
 package com.teamawsome.awsomeeat.Database;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
@@ -15,29 +19,110 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.teamawsome.awsomeeat.AwsomeEatActivity;
+import com.teamawsome.awsomeeat.MainActivity;
 import com.teamawsome.awsomeeat.Model.User;
 import com.teamawsome.awsomeeat.SignIn;
+import com.teamawsome.awsomeeat.SignUp;
+import com.teamawsome.awsomeeat.SignUpProfileFields;
 
 public class Authentication extends AppCompatActivity {
 
     private static final Authentication Authentication = new Authentication();
-    private static final String TAG = "user";
-
-    public static Authentication getInstance() { return Authentication;
-    }
+    private static final String TAG = "User";
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference userCollection = db.collection("User");
     private static User user;
+    private static FirebaseUser currentUser;
+    private FirebaseUser dbUser;
+    public String adress;
+    private static FirebaseAuth mAuth;
+    private boolean admin;
+    private boolean openActivity = false;
+
+    public boolean isOpenActivity() {
+        return openActivity;
+    }
+
+    public FirebaseAuth.AuthStateListener getmAuthListener() {
+        return mAuthListener;
+    }
+
+    private FirebaseAuth.AuthStateListener mAuthListener;
+
+    public void signIn(String email, String password){
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(email,
+                password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+               currentUser = FirebaseAuth.getInstance().getCurrentUser();
+               mAuth = mAuth = FirebaseAuth.getInstance();
+                Log.d(TAG, "OnComplete: " + currentUser.getUid());
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getBaseContext(), "Login failed!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void setupFirebaseAuth(Context context){
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                mAuth = mAuth = FirebaseAuth.getInstance();
+                if (currentUser != null){
+                    getUserAdress();
+                    Log.d(TAG, "onAuthStateChanged: signed_in: " + currentUser.getUid());
+                    openActivity = true;
+                    Intent intent = new Intent(context, AwsomeEatActivity.class);
+                    context.startActivity(intent);
+                    finish();
+
+                }else{
+                    Log.d(TAG, "onAuthStateChanged: signed_out");
+                }
+            }
+        };
+    }
+
+    public void registerEmail(String email, String password, Context context){
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "createUserWithEmail:success");
+                            //FirebaseUser user = mAuth.getCurrentUser();
+                            //authentication.loadAuthData();
+                            currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                            mAuth = FirebaseAuth.getInstance();
+                            Intent intent = new Intent(context, SignUpProfileFields.class);
+                            context.startActivity(intent);
+                            finish();
+
+                            // updateUI(user);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                            Toast.makeText(context, "Authentication failed.",
+                                   Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+    }
+
+    public static Authentication getInstance() { return Authentication;
+    }
 
     public FirebaseUser getCurrentUser() {
         return currentUser;
     }
-
-    private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-    FirebaseUser dbUser;
-    public String adress;
-
-    private boolean admin;
 
     public void setAdmin(boolean admin) {
         this.admin = admin;
@@ -46,7 +131,6 @@ public class Authentication extends AppCompatActivity {
     public boolean isAdmin(){
         return admin;
     }
-
 
     public String getUid() {
         return uid;
@@ -82,8 +166,7 @@ public class Authentication extends AppCompatActivity {
     UserInformation userInformation;
 
     public void checkAdminState(){
-        dbUser = FirebaseAuth.getInstance().getCurrentUser();
-        DocumentReference docRef = db.collection("User").document(dbUser.getUid());
+        DocumentReference docRef = userCollection.document(currentUser.getUid());
 
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -104,8 +187,7 @@ public class Authentication extends AppCompatActivity {
     }
 
     public void getUserAdress(){
-        dbUser = FirebaseAuth.getInstance().getCurrentUser();
-        DocumentReference docRef = db.collection("User").document(dbUser.getUid());
+        DocumentReference docRef = userCollection.document(currentUser.getUid());
 
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -126,21 +208,30 @@ public class Authentication extends AppCompatActivity {
         });
     }
 
+    /*
+
     public void setAdminDB(boolean b){
         user = new User(currentUser.getUid(), b);
         userCollection.document(currentUser.getUid()).set(user);
     }
 
-    public void setUserAdress(String adress, String uid){
-        //FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        //String id = user.getUid();
-
-        // userModel = new User(adress, id);
-        dbUser = FirebaseAuth.getInstance().getCurrentUser();
+    */
+    public void editUserAdress(String adress, String uid){
         user = new User(adress, uid);
+       user.setAdmin(isAdmin());
         userCollection.document(currentUser.getUid()).set(user);
 
     }
+
+
+    public void setUserAdress(String adress, String uid){
+        user = new User(adress, uid);
+        user.setAdmin(false);
+        userCollection.document(currentUser.getUid()).set(user);
+
+    }
+
+
 
     public void setUserId(String name){
         dbUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -177,14 +268,12 @@ public class Authentication extends AppCompatActivity {
         return email;
     }
 
-    public void setUserDetails(String name){
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        if (user != null){
+    public void setUserName(String name){
+        if (currentUser != null){
             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                     .setDisplayName(name).build();
 
-            user.updateProfile(profileUpdates)
+            currentUser.updateProfile(profileUpdates)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -199,12 +288,10 @@ public class Authentication extends AppCompatActivity {
     }
 
     public void getUserDetails(){
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        if (user != null){
-            String uid = user.getUid();
-            String name = user.getDisplayName();
-            String email = user.getEmail();
+        if (currentUser != null){
+            String uid = currentUser.getUid();
+            String name = currentUser.getDisplayName();
+            String email = currentUser.getEmail();
 
 
             String properties = "uid: " + uid + " name " + name + " email " + email;
@@ -214,25 +301,62 @@ public class Authentication extends AppCompatActivity {
     }
 
     public void loadAuthData(){
-        setAdminDB(false);
-        //getUserAdress();
-        //checkAdminState();
+        //setAdminDB(false);
+        getUserAdress();
+        checkAdminState();
 
     }
 
-    private void checkAuthState(Activity activity){
+    public void checkAuthState(Context context){
         Log.d(TAG,"checkAuthState");
 
         if(currentUser == null){
             Log.d(TAG, "user is null, sent back to login");
 
-            Intent intent = new Intent(activity, SignIn.class);
+            Intent intent = new Intent(context, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
+            context.startActivity(intent);
             finish();
         }else{
-            Log.d(TAG, "user is authenticated");
+            Log.d(TAG, "user is authenticated, user id: " + currentUser.getUid());
         }
+    }
+
+    private void sendResetPassword(Activity activity){
+        FirebaseAuth.getInstance().sendPasswordResetEmail(FirebaseAuth.getInstance().getCurrentUser().getEmail())
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()){
+                            Log.d(TAG, "onComplete: Reset Password Link sent");
+                            Toast.makeText(activity, "Sent Reset Password Link to Email", Toast.LENGTH_SHORT).show();
+                        }else {
+                            Log.d(TAG, "onComplete: No User with that email");
+                            Toast.makeText(activity, "No user with that email", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+    public void addStateListener(){
+        FirebaseAuth.getInstance().addAuthStateListener(mAuthListener);
+    }
+
+    public void removeStateListener(){
+        if (mAuthListener != null){
+            FirebaseAuth.getInstance().removeAuthStateListener(mAuthListener);
+        }
+    }
+
+
+
+    public void logOut (){
+        currentUser = null;
+        mAuth = null;
+        setAdress("");
+        FirebaseAuth.getInstance().signOut();
+        //mAuth = null;
+        Log.d(TAG, "Signed out:");
     }
 
 }
