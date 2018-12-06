@@ -43,19 +43,10 @@ import com.teamawsome.idHolder;
 
 public class AwsomeEatActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private static final String TAG = "User";
-    private String extraInformation;
     private static FirestoreMain firestoreMain = FirestoreMain.getInstance();
     private static Authentication authentication = Authentication.getInstance();
     private final Context context = this;
     private Fragment fragment;
-
-    public String getExtraInformation() {
-        return extraInformation;
-    }
-    private int count=0;
-    public void setExtraInformation(String extraInformation) {
-        this.extraInformation = extraInformation;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,7 +109,8 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
         // Starts the fragment shown on first page in app
 
-        // TODO: 
+        // TODO:
+
         if (!authentication.isAdmin()){
             fragment = new RestaurantListFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -211,27 +203,12 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
         } else if (id == R.id.nav_menu) {
             //Handle what happens when "menu" is pressed in navigationbar
-            fragment = new RestaurantListFragment();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragmentinsertlayout, fragment);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
-        }  else if (id == R.id.nav_cart) {
+           EventHandler.openRestaurantListFragment(getCurrentFocus());
+        } else if (id == R.id.nav_cart) {
             //Handle what happens when "cart" is pressed in navigationbar
-            fragment = new CartFragment();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragmentinsertlayout, fragment);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
+          EventHandler.openCartFragment(getCurrentFocus());
         } else if (id == R.id.edit_profile){
-            fragment = new EditProfleFragment();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragmentinsertlayout, fragment);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
+          EventHandler.openEditProfileFragment(getCurrentFocus());
         }
         else if (id == R.id.nav_log_out) {
             authentication.logOut();
@@ -239,8 +216,6 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
             signIn.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(signIn);
         }
-
-
         else if (id == R.id.adminItem) {
             EventHandler.openAdminFragment(getCurrentFocus());
         }

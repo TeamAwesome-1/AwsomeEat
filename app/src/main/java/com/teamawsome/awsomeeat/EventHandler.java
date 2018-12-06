@@ -2,6 +2,7 @@ package com.teamawsome.awsomeeat;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
@@ -17,28 +18,53 @@ import com.teamawsome.awsomeeat.Fragments.FoodDetailFragment;
 import com.teamawsome.awsomeeat.Fragments.FoodListFragment;
 import com.teamawsome.awsomeeat.Fragments.RestaurantListFragment;
 
+/**
+ * A class that handles fragmentransitions and fragmentLifecycle.
+ * Use Eventhandler to open fragments.
+ */
 public class EventHandler {
 
     //TODO Check if all methods are neccessary/Sandra
     private static Fragment fragment;
+    private static final String BASE_FRAGMENT_TAG = "baseFragment";
 
-    private static void openFragment(Fragment fragment, View v, String id){
-        Bundle bundle = new Bundle();
-        bundle.putString("CategoryId", id);
-        fragment.setArguments(bundle);
+
+    private static void openFragment(Fragment fragment, View v, String baseFragmentTag){
+
         AppCompatActivity activity = (AppCompatActivity) v.getContext();
         activity.getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragmentinsertlayout, fragment).addToBackStack(null)
+                .replace(R.id.fragmentinsertlayout, fragment).addToBackStack(baseFragmentTag)
                 .commit();
     }
 
+
     private static void openFragment(Fragment fragment, View v){
         AppCompatActivity activity = (AppCompatActivity) v.getContext();
-        activity.getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragmentinsertlayout, fragment).addToBackStack(null)
-                .commit();
-        }
 
+        if(activity.getSupportFragmentManager().findFragmentByTag(BASE_FRAGMENT_TAG) == null){
+            openFragment(fragment, v, BASE_FRAGMENT_TAG);
+        }else {
+            activity.getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragmentinsertlayout, fragment).addToBackStack(null)
+                    .commit();
+        }
+    }
+
+
+    private static void openBaseFragment(View v){
+        AppCompatActivity activity = (AppCompatActivity) v.getContext();
+        FragmentManager fm = activity.getSupportFragmentManager();
+        fm.popBackStack(BASE_FRAGMENT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
+    }
+
+    /**
+     * Opens the baseFragment-RestaurantListfragment.
+     * @param v- view
+     */
+    public static void openRestaurantListFragment(View v){
+        openBaseFragment(v);
+    }
 
     public static void openAddRestaurantFragment(View v){
         fragment = new FragmentAddRestaurant();
@@ -48,57 +74,16 @@ public class EventHandler {
     public static void openCartFragment(View v){
         fragment = new CartFragment();
         openFragment(fragment, v);
-
-    }
-
-
-    public static void openCartFragment(View v, String id){
-        fragment = new CartFragment();
-        openFragment(fragment, v, id);
-
     }
 
     public static void openFoodListFragment(View v){
         fragment = new FoodListFragment();
-        openFragment(fragment, v);
-
-    }
-
-    public static void openFoodListFragment(View v, String id){
-        fragment = new FoodListFragment();
-        openFragment(fragment, v, id);
-
-    }
-
-    public static void openRestaurantListFragment(View v){
-        fragment = new RestaurantListFragment();
-        openFragment(fragment, v);
-    }
-
-
-    public static void openRestaurantListFragment(View v, String id){
-        fragment = new RestaurantListFragment();
-        openFragment(fragment, v, id);
-    }
-
-    public static void openFoodCategoryFragment(View v, String id){
-        fragment = new FoodCategoryFragment();
-        openFragment(fragment, v, id);
-    }
-
-    public static void openFoodCategoryFragment(View v){
-        fragment = new FoodCategoryFragment();
         openFragment(fragment, v);
     }
 
     public static void openFoodDetailFragment(View v){
         fragment = new FoodDetailFragment();
         openFragment(fragment, v);
-    }
-
-    public static void openFoodDetailFragment(View v, String id){
-        fragment = new FoodDetailFragment();
-        openFragment(fragment, v, id);
     }
 
     public static void openEditRestaurantMenuFragment(View view) {

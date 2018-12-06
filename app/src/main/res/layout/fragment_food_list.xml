@@ -127,7 +127,11 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:src="@drawable/ic_orders"
-                app:backgroundTint="@color/fbutton_color_pomegranate" />
+                app:backgroundTint="@color/fbutton_color_pomegranate"
+                app:elevation="6dp"
+                app:pressedTranslationZ="12dp"
+                app:layout_anchorGravity="bottom|right|end"
+                app:useCompatPadding="true"/>
 
 
         </RelativeLayout>
