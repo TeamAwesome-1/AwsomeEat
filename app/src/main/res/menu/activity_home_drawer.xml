@@ -24,9 +24,10 @@
             android:title="@string/sign_out" />
 
         <item
-            android:id="@+id/admin"
+            android:id="@+id/adminItem"
             android:icon="@drawable/common_google_signin_btn_icon_light"
             android:title="@string/admin"
+            android:visible="false"
             />
 
 

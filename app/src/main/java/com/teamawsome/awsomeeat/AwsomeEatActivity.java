@@ -2,6 +2,7 @@ package com.teamawsome.awsomeeat;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,6 +19,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.view.menu.MenuAdapter;
+import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -70,6 +73,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
         drawer.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
             public void onDrawerSlide(@NonNull View view, float v) {
@@ -87,18 +91,14 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
             @Override
             public void onDrawerStateChanged(int i) {
-                //TODO kolla på detta. Hur gömma adminknappen/Shahin
-                navigationView.getMenu().findItem(i);
-                if (authentication.isAdmin() && count==0) {
-                    count++;
-                    navigationView.getMenu().add(0, 10, 7, "Admin");
-                    navigationView.getMenu().findItem(10).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                        @Override
-                        public boolean onMenuItemClick(MenuItem item) {
-                            return true;
-                        }
 
-                    });
+                navigationView.getMenu().findItem(i);
+
+                if (authentication.isAdmin()) {
+                    Menu admin = navigationView.getMenu();
+                    admin.findItem(R.id.adminItem).setVisible(true);
+
+
 
                 }
             }
@@ -118,7 +118,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
         // Starts the fragment shown on first page in app
 
-        // TODO:
+        // TODO: 
         if (!authentication.isAdmin()){
             fragment = new RestaurantListFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -240,7 +240,8 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
             startActivity(signIn);
         }
 
-        else if (id == R.id.admin) {
+
+        else if (id == R.id.adminItem) {
             EventHandler.openAdminFragment(getCurrentFocus());
         }
 

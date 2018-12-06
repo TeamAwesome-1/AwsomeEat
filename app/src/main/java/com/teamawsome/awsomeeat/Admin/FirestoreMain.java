@@ -58,7 +58,7 @@ public class FirestoreMain extends AppCompatActivity {
     public static FirestoreMain getInstance () { return FirestoreMain;
     }
 
-    private List<RestaurantAdmin> itemList = new ArrayList<>();
+
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -124,7 +124,7 @@ public class FirestoreMain extends AppCompatActivity {
 
         }
 
-    //    public RestaurantAdmin ()
+
 
 
 

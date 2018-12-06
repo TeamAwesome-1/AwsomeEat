@@ -38,7 +38,7 @@ public class AdminMain extends AppCompatActivity {
         restaurantAdress = findViewById(R.id.restaurantAdress);
         Button submitFood = findViewById(R.id.submitFoodButton);
         Button submitRestaurant = findViewById(R.id.submit);
-        Button admin = findViewById(R.id.admin);
+        Button admin = findViewById(R.id.adminItem);
         foodCategory = findViewById(R.id.foodCategory);
         submitRestaurant.setOnClickListener(new View.OnClickListener() {
             @Override

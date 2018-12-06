@@ -93,7 +93,7 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
       //  PictureHandler.setPictureFromUrl(food.getImage(), dishPic);
         newDish = view.findViewById(R.id.addNewDishButton);
 
-        updateDish.setOnClickListener(v -> setUpdateDish1(v));
+//        updateDish.setOnClickListener(v -> setUpdateDish1(v));
         }
 
 

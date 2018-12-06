@@ -7,11 +7,10 @@ public class Restaurant {
     public String adress;
     public String pictureUrl;
     public String phoneNumber;
-    @Exclude
-    private String id;
+    public String id;
 
-    public Restaurant(){
-        
+    public Restaurant() {
+
     }
 
     public Restaurant(String name, String adress, String phoneNumber) {
@@ -19,17 +18,17 @@ public class Restaurant {
         this.adress = adress;
         this.phoneNumber = phoneNumber;
 
-       // this.pictureUrl = pictureUrl;
+
     }
 
-    public String getId() {
+    public void setId (String id) {
+        this.id = id;
+    }
+
+    public String getId () {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+
 }
-
-
 
