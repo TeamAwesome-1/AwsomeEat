@@ -40,7 +40,7 @@ public class SignIn extends AppCompatActivity {
                     Log.d("Login", "OnClick: attempting to authenticate.");
                     mDialog.show();
                     authentication.signIn(edtEmail.getText().toString(),
-                            edtPassword.getText().toString());
+                            edtPassword.getText().toString(), context);
                 }else{
                     Toast.makeText(SignIn.this, getString(R.string.didnt_enter_email_password), Toast.LENGTH_SHORT).show();
                 }

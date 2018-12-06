@@ -57,20 +57,20 @@ public class Authentication extends AppCompatActivity {
 
     private FirebaseAuth.AuthStateListener mAuthListener;
 
-    public void signIn(String email, String password){
+    public void signIn(String email, String password, Context context){
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email,
                 password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                currentUser = FirebaseAuth.getInstance().getCurrentUser();
                mAuth = mAuth = FirebaseAuth.getInstance();
-                Log.d(TAG, "OnComplete: " + currentUser.getUid());
+                Log.d(TAG, "OnComplete: ");
 
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getBaseContext(), "Login failed!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Login failed!", Toast.LENGTH_SHORT).show();
             }
         });
     }
