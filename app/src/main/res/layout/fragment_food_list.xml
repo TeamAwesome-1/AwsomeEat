@@ -50,7 +50,7 @@
                 android:layout_marginBottom="4dp"
                 android:clickable="true"
                 android:focusable="true"
-                android:src="@drawable/ic_cartt"
+                android:src="@mipmap/ic_asian_food"
                 app:backgroundTint="@color/fbutton_color_sun_flower" />
 
             <android.support.design.widget.FloatingActionButton
@@ -65,8 +65,8 @@
                 android:layout_toEndOf="@+id/category1_button"
                 android:clickable="true"
                 android:focusable="true"
-                android:src="@drawable/ic_cartt"
-                app:backgroundTint="@color/btnSignIn" />
+                android:src="@mipmap/ic_carrot_round"
+                app:backgroundTint="@color/btnSignActive" />
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/category3_button"
@@ -80,7 +80,7 @@
                 android:layout_toEndOf="@+id/category2_button"
                 android:clickable="true"
                 android:focusable="true"
-                android:src="@drawable/ic_cartt"
+                android:src="@drawable/ic_pizza_24px"
                 app:backgroundTint="@color/fbutton_color_pomegranate" />
 
             <android.support.design.widget.FloatingActionButton
@@ -95,8 +95,8 @@
                 android:layout_toEndOf="@+id/category3_button"
                 android:clickable="true"
                 android:focusable="true"
-                android:src="@color/fbutton_color_wisteria"
-                app:backgroundTint="@color/fbutton_color_wisteria" />
+                android:src="@drawable/ic_swedish"
+                app:backgroundTint="@color/fbutton_color_sun_flower" />
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/category5_button"
@@ -110,7 +110,8 @@
                 android:layout_toEndOf="@+id/category4_button"
                 android:clickable="true"
                 android:focusable="true"
-                android:src="@drawable/logo" />
+                android:src="@drawable/ic_bread"
+                app:backgroundTint="@color/tabindicator" />
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/wholeMenuButton"
@@ -120,12 +121,13 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="7dp"
-                android:layout_marginBottom="4dp"
                 android:layout_marginEnd="15dp"
+                android:layout_marginBottom="4dp"
                 android:layout_toEndOf="@+id/category5_button"
                 android:clickable="true"
                 android:focusable="true"
-                android:src="@drawable/ic_rest" />
+                android:src="@drawable/ic_orders"
+                app:backgroundTint="@color/fbutton_color_pomegranate" />
 
 
         </RelativeLayout>
