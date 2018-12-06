@@ -9,7 +9,9 @@ import com.teamawsome.awsomeeat.Admin.EditRestaurantMenuFragment;
 import com.teamawsome.awsomeeat.Admin.FragmentAddDish;
 import com.teamawsome.awsomeeat.Admin.FragmentAddRestaurant;
 
+import com.teamawsome.awsomeeat.Fragments.AdminMainFragment;
 import com.teamawsome.awsomeeat.Fragments.CartFragment;
+import com.teamawsome.awsomeeat.Fragments.EditProfleFragment;
 import com.teamawsome.awsomeeat.Fragments.FoodCategoryFragment;
 import com.teamawsome.awsomeeat.Fragments.FoodDetailFragment;
 import com.teamawsome.awsomeeat.Fragments.FoodListFragment;
@@ -107,5 +109,15 @@ public class EventHandler {
     public static void openAddishFragment (View v) {
         fragment = new FragmentAddDish();
         openFragment(fragment, v);
+    }
+
+    public static void openEditProfileFragment(View currentFocus) {
+        fragment = new EditProfleFragment();
+        openFragment(fragment, currentFocus);
+    }
+
+    public static void openAdminFragment(View currentFocus) {
+        fragment = new AdminMainFragment();
+        openFragment(fragment, currentFocus);
     }
 }

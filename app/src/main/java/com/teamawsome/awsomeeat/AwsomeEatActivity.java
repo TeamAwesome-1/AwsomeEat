@@ -217,25 +217,15 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
             }
 
         } else if (id == R.id.nav_orders) {
-            //Handle what happens when "orders" is pressed in navigationbar
 
         } else if (id == R.id.nav_cart) {
-            //Handle what happens when "cart" is pressed in navigationbar
-            fragment = new CartFragment();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.add(R.id.fragmentinsertlayout, fragment);
-            fragmentTransaction.commit();
+          EventHandler.openCartFragment(getCurrentFocus());
+
         } else if (id == R.id.edit_profile){
-            fragment = new EditProfleFragment();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragmentinsertlayout, fragment);
-            fragmentTransaction.commit();
+           EventHandler.openEditProfileFragment(getCurrentFocus());
         }
         else if (id == R.id.nav_log_out) {
             //Logout
-
             authentication.logOut();
             Intent signIn= new Intent(AwsomeEatActivity.this, MainActivity.class);
             signIn.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -243,11 +233,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
         }
 
         else if (id == R.id.admin) {
-            fragment = new AdminMainFragment();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragmentinsertlayout, fragment);
-            fragmentTransaction.commit();
+            EventHandler.openAdminFragment(getCurrentFocus());
         }
 
         //Closes the drawer after an item has been selected
