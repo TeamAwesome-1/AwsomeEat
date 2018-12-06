@@ -131,7 +131,6 @@ public class FoodListFragment extends Fragment {
 
 
 
-
     @Override
     public void onStop(){
         super.onStop();
