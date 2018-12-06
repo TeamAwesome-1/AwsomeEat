@@ -46,7 +46,7 @@ public class FragmentAddDish extends Fragment {
         foodCategory = view.findViewById(R.id.foodCategory1);
         setFoodName = view.findViewById(R.id.food_name);
         addDish = view.findViewById(R.id.btnAdd);
-        dishPrice = view.findViewById(R.id.dish_price);
+        dishPrice = view.findViewById(R.id.food_price_edittext);
         addDish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

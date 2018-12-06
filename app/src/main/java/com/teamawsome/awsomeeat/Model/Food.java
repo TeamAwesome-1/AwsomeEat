@@ -35,9 +35,9 @@ public class Food {
 
     }
 
-    public Food(String name, String category, String restaurantId, String Category) {
+    public Food(String name, String price, String restaurantId, String Category) {
         this.Name = name;
-        this.Category = category;
+        this.Price = price;
         this.restaurantId = restaurantId;
         this.Category = Category;
     }
