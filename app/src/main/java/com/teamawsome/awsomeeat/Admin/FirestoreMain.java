@@ -47,6 +47,12 @@ import javax.annotation.Nullable;
 public class FirestoreMain extends AppCompatActivity {
     private int count = 0;
 
+    private String Category1;
+    private String Category2;
+    private String Category3;
+    private String Category4;
+    private String Category5;
+
     private static final FirestoreMain FirestoreMain = new FirestoreMain();
 
     public static FirestoreMain getInstance () { return FirestoreMain;
@@ -60,16 +66,41 @@ public class FirestoreMain extends AppCompatActivity {
 
     private Food food;
 
+
+
     private CollectionReference foods = db.collection("foods");
 
     private ListenerRegistration listenerRegistration;
+
+
 
     private FirestoreMain () {
 
 
     }
 
-        //Lägg till ny restaurang.
+    public String getCategory1() {
+        return "Chinese";
+    }
+
+    public String getCategory2() {
+        return "European";
+    }
+
+    public String getCategory3() {
+
+        return "Pizza";
+    }
+
+    public String getCategory4() {
+        return "Swedish";
+    }
+
+    public String getCategory5() {
+        return "Sandwiches";
+    }
+
+    //Lägg till ny restaurang.
 
         public void addRestaurant (String restaurantName, String restaurantAdress, String phoneNumber) {
 

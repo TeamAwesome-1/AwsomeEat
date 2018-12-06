@@ -3,15 +3,16 @@ package com.teamawsome.awsomeeat.Fragments;
 
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+
 import com.teamawsome.awsomeeat.Adapters.FoodListRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Admin.FirestoreMain;
-import com.teamawsome.awsomeeat.Common.Common;
 import com.teamawsome.awsomeeat.Model.Food;
 import com.teamawsome.awsomeeat.R;
 import com.teamawsome.idHolder;
@@ -27,6 +28,11 @@ public class FoodListFragment extends Fragment {
     private RecyclerView recyclerView;
     private String categoryId;
     private String restaurantId;
+    private FloatingActionButton category4Button;
+    private FloatingActionButton category2Button;
+    private FloatingActionButton category3Button, wholeMenuButton;
+    private FloatingActionButton category1Button;
+    private FloatingActionButton category5Button;
     private FirestoreMain firestoreMain = FirestoreMain.getInstance();
 
     private static final String TAG = "Logging Example";
@@ -44,6 +50,12 @@ public class FoodListFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_food_list, container, false);
 
+        category4Button = view.findViewById(R.id.category4_button);
+        category2Button = view.findViewById(R.id.category2_button);
+        category1Button = view.findViewById(R.id.category1_button);
+        category3Button = view.findViewById(R.id.category3_button);
+        category5Button = view.findViewById(R.id.category5_button);
+        wholeMenuButton = view.findViewById(R.id.wholeMenuButton);
         //init the adapter
         adapter = new FoodListRecyclerViewAdapter(itemList);
 
@@ -56,6 +68,9 @@ public class FoodListFragment extends Fragment {
         }
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_food);
+        recyclerView.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
         return view;
@@ -65,7 +80,7 @@ public class FoodListFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-            //Load Foodlist for a specific category to the choosen restaurant
+          /*  //Load Foodlist for a specific category to the choosen restaurant
             if(restaurantId != null && categoryId != null) {
 
               firestoreMain.getMenuForRestaurantCategory(adapter, restaurantId, categoryId);
@@ -75,8 +90,45 @@ public class FoodListFragment extends Fragment {
               //TODO ta bort /Sandra
               Toast.makeText(getContext(), "Whole foodlist for restaurant is displayed", Toast.LENGTH_SHORT).show();
 
-            }
+            }*/
+          //Load the whole list from database
+          firestoreMain.getRestaurantMenu(adapter, restaurantId);
+
+
+
+        //Filterbuttons....
+
+       category1Button.setOnClickListener(view -> {
+           adapter.getFilter().filter(firestoreMain.getCategory1());
+
+       });
+
+       category2Button.setOnClickListener(view -> {
+           adapter.getFilter().filter(firestoreMain.getCategory2());
+
+       });
+
+       category3Button.setOnClickListener(view -> {
+           adapter.getFilter().filter(firestoreMain.getCategory3());
+
+       });
+
+       category4Button.setOnClickListener(view -> {
+           adapter.getFilter().filter(firestoreMain.getCategory4());
+
+       });
+
+      category5Button.setOnClickListener(view -> {
+           adapter.getFilter().filter(firestoreMain.getCategory5());
+
+       });
+
+       wholeMenuButton.setOnClickListener(view -> {
+          adapter.getFilter().filter("");
+       });
         }
+
+
 
 
 

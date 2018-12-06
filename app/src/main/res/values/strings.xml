@@ -35,5 +35,6 @@
     <string name="observe_that_price_might_be_wrong">Observe that the price might be wrong!</string>
     <string name="exit">Exit</string>
     <string name="do_you_really_want_to_close_the_app">Do you really want to close the app?</string>
+    <string name="european">European</string>
 
 </resources>

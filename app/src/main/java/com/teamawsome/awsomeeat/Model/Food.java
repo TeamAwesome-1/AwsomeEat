@@ -4,15 +4,15 @@ import com.google.firebase.database.Exclude;
 
 public class Food {
 
-    private String Name;
+    private String name;
     @Exclude
-    private String Image;
+    private String image;
     @Exclude
-    private String Description;
+    private String description;
     @Exclude
-    private String Price;
+    private String price;
     @Exclude
-    private String Discount;
+    private String discount;
     @Exclude
     private String restaurantId;
     public String Category;
@@ -25,19 +25,19 @@ public class Food {
     }
 
     public Food(String name, String image, String description, String price, String discount, String restaurantId, String category ) {
-        this.Name = name;
-        this.Image = image;
-        this.Description = description;
-        this.Price = price;
-        this.Discount= discount;
+        this.name = name;
+        this.image = image;
+        this.description = description;
+        this.price = price;
+        this.discount = discount;
         this.restaurantId = restaurantId;
         this.Category = category;
 
     }
 
-    public Food(String name, String category, String restaurantId, String Category) {
-        this.Name = name;
-        this.Category = category;
+    public Food(String name, String price, String restaurantId, String Category) {
+        this.name = name;
+        this.price = price;
         this.restaurantId = restaurantId;
         this.Category = Category;
     }
@@ -51,43 +51,50 @@ public class Food {
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        this.Name = name;
+        this.name = name;
     }
 
-   public String getImage() {
-        return Image;
+   //TODO ändra category till att skrivas med gemener istället annars fungerar inte gettern
+   /*public String getCategory() {
+        return Category;
+    }*/
+
+
+
+    public String getImage() {
+        return image;
     }
 
     public void setImage(String image) {
-        Image = image;
+        this.image = image;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        description = description;
     }
 
     public String getPrice() {
-        return Price;
+        return price;
     }
 
     public void setPrice(String price) {
-        Price = price;
+        this.price = price;
     }
 
     public String getDiscount() {
-        return Discount;
+        return discount;
     }
 
     public void setDiscount(String discount) {
-        Discount = discount;
+        this.discount = discount;
     }
 
     public String getRestaurantId() {
