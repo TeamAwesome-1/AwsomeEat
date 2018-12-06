@@ -1,5 +1,8 @@
 package com.teamawsome.awsomeeat;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -30,6 +33,7 @@ import com.teamawsome.awsomeeat.Admin.FirestoreMain;
 import com.teamawsome.awsomeeat.Database.Authentication;
 import com.teamawsome.awsomeeat.Fragments.AdminMainFragment;
 import com.teamawsome.awsomeeat.Fragments.CartFragment;
+import com.teamawsome.awsomeeat.Fragments.EditProfleFragment;
 import com.teamawsome.awsomeeat.Fragments.RestaurantListFragment;
 import com.teamawsome.awsomeeat.Fragments.userFragment;
 import com.teamawsome.idHolder;
@@ -37,9 +41,11 @@ import com.teamawsome.idHolder;
 public class AwsomeEatActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private static final String TAG = "User";
     private String extraInformation;
-    private static FirestoreMain firestoreMain;
-    private static Authentication authentication;
-    private FirebaseUser user;
+    private static FirestoreMain firestoreMain = FirestoreMain.getInstance();
+    private static Authentication authentication = Authentication.getInstance();
+    private final Context context = this;
+    private Fragment fragment;
+
     public String getExtraInformation() {
         return extraInformation;
     }
@@ -52,15 +58,9 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        firestoreMain = FirestoreMain.getInstance();
-        authentication = Authentication.getInstance();
         authentication.loadAuthData();
-        //firestoreMain.getUserAdress();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -115,14 +115,22 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
         });
 
 
-
         // Starts the fragment shown on first page in app
-        RestaurantListFragment restaurantListFragment = new RestaurantListFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.fragmentinsertlayout, restaurantListFragment);
-        fragmentTransaction.commit();
 
+        // TODO: 
+        if (!authentication.isAdmin()){
+            fragment = new RestaurantListFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.fragmentinsertlayout, fragment);
+            fragmentTransaction.commit();
+        }else{
+            fragment = new AdminMainFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.fragmentinsertlayout, fragment);
+            fragmentTransaction.commit();
+        }
     }
 
     @Override
@@ -198,7 +206,6 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        Fragment fragment;
         if (id == R.id.nav_view) {
 
         } else if (id == R.id.nav_menu) {
@@ -220,7 +227,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
             fragmentTransaction.add(R.id.fragmentinsertlayout, fragment);
             fragmentTransaction.commit();
         } else if (id == R.id.edit_profile){
-            fragment = new userFragment();
+            fragment = new EditProfleFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.fragmentinsertlayout, fragment);
@@ -228,8 +235,9 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
         }
         else if (id == R.id.nav_log_out) {
             //Logout
-            FirebaseAuth.getInstance().signOut();
-            Intent signIn= new Intent(AwsomeEatActivity.this,SignIn.class);
+
+            authentication.logOut();
+            Intent signIn= new Intent(AwsomeEatActivity.this, MainActivity.class);
             signIn.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(signIn);
         }
@@ -248,26 +256,11 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
         return true;
     }
 
-    private void checkAuthState(){
-        Log.d(TAG,"checkAuthState");
-
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        if(user == null){
-            Log.d(TAG, "user is null, sent back to login");
-
-            Intent intent = new Intent(AwsomeEatActivity.this, SignIn.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-            finish();
-        }else{
-            Log.d(TAG, "user is authenticated");
-        }
-    }
     @Override
     protected void onResume() {
         super.onResume();
-        checkAuthState();
+        authentication.checkAuthState(context);
     }
 
 }
+
