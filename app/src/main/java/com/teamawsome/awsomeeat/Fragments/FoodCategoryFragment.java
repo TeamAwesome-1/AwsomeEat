@@ -31,7 +31,6 @@ public class FoodCategoryFragment extends Fragment {
 
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,26 +46,23 @@ public class FoodCategoryFragment extends Fragment {
         adapter = new CategoryListRecyclerViewAdapter(foodCategoryList);
         recyclerView.setAdapter(adapter);
         return view;
-
-
-
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if(Common.isNetworkAvailable(getContext())) {
-            if (foodCategoryList.size() == 0) {
-                //Load categoryList from database for the restaurant user pressed in previous fragment.
-                firestoreMain.getCategoriesForRestaurant(adapter, restaurantId);
-            }
-        }
-        else
-        {
-            Toast.makeText(getActivity(), "Please check your Internet Connection!", Toast.LENGTH_SHORT).show();
-            return;
-        }
+        //Load categoryList from database for the restaurant user pressed in previous fragment.
+
+        firestoreMain.getCategoriesForRestaurant(adapter, restaurantId);
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        //Deletes local list
+        adapter.clearList();
+        firestoreMain.detachSnapShotListener();
     }
 
 }

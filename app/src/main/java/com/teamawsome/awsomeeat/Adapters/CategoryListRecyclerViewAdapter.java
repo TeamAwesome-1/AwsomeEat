@@ -90,4 +90,9 @@ public class CategoryListRecyclerViewAdapter extends RecyclerView.Adapter<FoodLi
     public int getItemCount() {
        return categoryList.size();
     }
+
+    public void clearList(){
+        categoryList.clear();
+        this.notifyItemRangeRemoved(0,getItemCount());
+    }
 }

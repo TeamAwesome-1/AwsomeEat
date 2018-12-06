@@ -47,6 +47,12 @@ import javax.annotation.Nullable;
 public class FirestoreMain extends AppCompatActivity {
     private int count = 0;
 
+    private String Category1;
+    private String Category2;
+    private String Category3;
+    private String Category4;
+    private String Category5;
+
     private static final FirestoreMain FirestoreMain = new FirestoreMain();
 
     public static FirestoreMain getInstance () { return FirestoreMain;
@@ -60,16 +66,41 @@ public class FirestoreMain extends AppCompatActivity {
 
     private Food food;
 
+
+
     private CollectionReference foods = db.collection("foods");
 
     private ListenerRegistration listenerRegistration;
+
+
 
     private FirestoreMain () {
 
 
     }
 
-        //Lägg till ny restaurang.
+    public String getCategory1() {
+        return "Chinese";
+    }
+
+    public String getCategory2() {
+        return "European";
+    }
+
+    public String getCategory3() {
+
+        return "Pizza";
+    }
+
+    public String getCategory4() {
+        return "Swedish";
+    }
+
+    public String getCategory5() {
+        return "Sandwiches";
+    }
+
+    //Lägg till ny restaurang.
 
         public void addRestaurant (String restaurantName, String restaurantAdress, String phoneNumber) {
 
@@ -96,6 +127,7 @@ public class FirestoreMain extends AppCompatActivity {
     //    public RestaurantAdmin ()
 
 
+
         public void getCartList(CartRecyclerViewAdapter adapter, String userId){
 
         listenerRegistration= db.collection("Cart").whereEqualTo("userId", userId)
@@ -113,6 +145,7 @@ public class FirestoreMain extends AppCompatActivity {
                             Order order = dc.getDocument().toObject(Order.class);
                             order.setDocumentId(id);
                             adapter.addItem(order);
+
 
                         } else if (dc.getType() == DocumentChange.Type.REMOVED) {
                             String id = dc.getDocument().getId();
@@ -136,7 +169,7 @@ public class FirestoreMain extends AppCompatActivity {
         //Hämtar en lista på alla restauranger
         public void getRestaurantList(RestaurantRecyclerViewAdapter adapter){
 
-            db.collection("restaurants").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            listenerRegistration = db.collection("restaurants").addSnapshotListener(new EventListener<QuerySnapshot>() {
                 @Override
                 public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                     if (e != null) {
@@ -170,7 +203,7 @@ public class FirestoreMain extends AppCompatActivity {
         public void getCategoriesForRestaurant(CategoryListRecyclerViewAdapter adapter, String restaurantId){
 
 
-        db.collection("Categories").whereArrayContains("restaurantId", restaurantId)
+            listenerRegistration = db.collection("Categories").whereArrayContains("restaurantId", restaurantId)
                     .addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
                         public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
@@ -205,7 +238,7 @@ public class FirestoreMain extends AppCompatActivity {
         public void getRestaurantMenu (FoodListRecyclerViewAdapter adapter, String restaurantId) {
 
 
-            db.collection("Foods").whereEqualTo("restaurantId", restaurantId)
+            listenerRegistration = db.collection("Foods").whereEqualTo("restaurantId", restaurantId)
                     .addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
                         public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {

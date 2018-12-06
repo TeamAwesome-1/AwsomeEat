@@ -82,5 +82,10 @@ public class RestaurantRecyclerViewAdapter extends RecyclerView.Adapter<Restaura
             }
         }
     }
+    public void clearList(){
+        restaurantsList.clear();
+        this.notifyItemRangeRemoved(0,restaurantsList.size());
+    }
+
 }
 

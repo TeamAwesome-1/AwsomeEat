@@ -1,30 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.teamawsome.awsomeeat.FoodList">
+    android:background="@drawable/background"
+    android:padding="0dp"
+    tools:context="com.teamawsome.awsomeeat.Fragments.FoodListFragment">
 
-
-    <FrameLayout
-        android:id="@+id/framelayout"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_food"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="621dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:scrollbars="vertical"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:context=".ItemFragment"
+        tools:listitem="@layout/menu_item">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_food"
+    </android.support.v7.widget.RecyclerView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginBottom="2dp"
+        app:cardBackgroundColor="@color/browser_actions_title_color">
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="vertical"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:context=".ItemFragment"
-            tools:listitem="@layout/menu_item">
+            android:layout_height="match_parent">
 
-        </android.support.v7.widget.RecyclerView>
-    </FrameLayout>
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/category1_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="4dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@mipmap/ic_asian_food"
+                app:backgroundTint="@color/fbutton_color_sun_flower" />
 
-</android.support.constraint.ConstraintLayout>
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/category2_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="3dp"
+                android:layout_toEndOf="@+id/category1_button"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@mipmap/ic_carrot_round"
+                app:backgroundTint="@color/btnSignActive" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/category3_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="3dp"
+                android:layout_toEndOf="@+id/category2_button"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/ic_pizza_24px"
+                app:backgroundTint="@color/fbutton_color_pomegranate" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/category4_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="3dp"
+                android:layout_toEndOf="@+id/category3_button"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/ic_swedish"
+                app:backgroundTint="@color/fbutton_color_sun_flower" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/category5_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="3dp"
+                android:layout_toEndOf="@+id/category4_button"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/ic_bread"
+                app:backgroundTint="@color/tabindicator" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/wholeMenuButton"
+                android:layout_width="36dp"
+                android:layout_height="39dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="4dp"
+                android:layout_toEndOf="@+id/category5_button"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/ic_orders"
+                app:backgroundTint="@color/fbutton_color_pomegranate" />
+
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>
+
+
+
+
+
+
+
+

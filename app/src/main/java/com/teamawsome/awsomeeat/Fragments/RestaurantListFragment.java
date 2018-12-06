@@ -42,17 +42,25 @@ public class RestaurantListFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
-        if (itemList.size()== 0) {
+
+        //Load Restaurants from database
             firestoreMain.getRestaurantList(adapter);
-        }
+
 
         //specifies what happens when button is clicked - adminView is opened.
-        getActivity().findViewById(R.id.Button).setOnClickListener((View view) -> {
-            Intent intent = new Intent(getContext(), AdminMain.class);
-            startActivity(intent);
+        // getActivity().findViewById(R.id.Button).setOnClickListener((View view) -> {
+        // Intent intent = new Intent(getContext(), AdminMain.class);
+        // startActivity(intent);
 
-        });
+        //});
 
+    }
+
+    public void onStop(){
+        super.onStop();
+        //Deletes local list
+        adapter.clearList();
+        firestoreMain.detachSnapShotListener();
     }
 
 

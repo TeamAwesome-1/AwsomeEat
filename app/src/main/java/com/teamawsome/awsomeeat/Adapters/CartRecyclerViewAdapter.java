@@ -81,6 +81,7 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartViewHolder
             if(position >= 0 && position < orderList.size()){
                 orderList.remove(position);
                 this.notifyItemRemoved(position);
+                setTotalPrice();
             }
         }
 
@@ -103,14 +104,15 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartViewHolder
                 }
             }
 
-            private void setTotalPrice(){
-                 totalPrice = 0;
-                for (int i = 0; i < getItemCount(); i++) {
-                    Order order = orderList.get(i);
-                    totalPrice += (Integer.parseInt(order.getPrice())) * (Integer.parseInt(order.getQuantity()));
-                }
-                total_price.setText(fmt.format(totalPrice));
-            }
+    private void setTotalPrice(){
+       int totalPrice = 0;
+       for (int i = 0; i < getItemCount(); i++) {
+            Order order = orderList.get(i);
+            totalPrice += (Integer.parseInt(order.getPrice())) * (Integer.parseInt(order.getQuantity()));
+       }
+       total_price.setText(fmt.format(totalPrice));
+
+    }
 
 
 

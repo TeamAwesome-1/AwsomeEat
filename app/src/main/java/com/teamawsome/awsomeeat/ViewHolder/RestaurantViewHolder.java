@@ -62,7 +62,8 @@ public class RestaurantViewHolder extends RecyclerView.ViewHolder implements Vie
 
         }else{
            // open next fragment with foodcategories
-            EventHandler.openFoodCategoryFragment(v);
+           // EventHandler.openFoodCategoryFragment(v);
+            EventHandler.openFoodListFragment(v);
         }
 
 
