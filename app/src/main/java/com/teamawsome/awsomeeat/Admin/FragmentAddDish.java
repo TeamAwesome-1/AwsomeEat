@@ -8,14 +8,19 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
 import com.teamawsome.awsomeeat.Model.Food;
+import com.teamawsome.awsomeeat.PictureHandler;
 import com.teamawsome.awsomeeat.R;
 
 public class FragmentAddDish extends Fragment {
@@ -26,7 +31,10 @@ public class FragmentAddDish extends Fragment {
     TextView dishPrice;
     Food food;
     RadioGroup foodCategory;
-    String Category;
+    String category;
+    ImageView picDish;
+    EditText picUrl;
+    String picUrlString;
 
     public FragmentAddDish() {
     }
@@ -36,14 +44,54 @@ public class FragmentAddDish extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         view=inflater.inflate(R.layout.fragment_add_dish,container,false);
+        picDish = view.findViewById(R.id.picdish_imageview);
+        picUrl = view.findViewById(R.id.picture_url);
 
-        String [] values = {"Resturant1","Resturant2","Resturant3","Resturant4"};
-        Spinner spinner = (Spinner) view.findViewById(R.id.spinner_resturantName);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, values);
+
+
+
+        Spinner spinner = (Spinner) view.findViewById(R.id.spinner2);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.categories));
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinner.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
-        foodCategory = view.findViewById(R.id.foodCategory1);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                category = "Not assigned";
+            }
+
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                switch (position) {
+                        case 1:
+                            category = adapter.getItem(0).toString();
+                            break;
+                        case 2:
+                            category = adapter.getItem(2).toString();
+                            break;
+                        case 3:
+                            category = adapter.getItem(3).toString();
+                            break;
+                        case 4:
+                            category = adapter.getItem(4).toString();
+                            break;
+                        case 5:
+                            category = adapter.getItem(5).toString();
+                            break;
+                    }
+            }
+
+
+
+        });
+
+       // foodCategory = view.findViewById(R.id.foodCategory1);
         setFoodName = view.findViewById(R.id.food_name);
         addDish = view.findViewById(R.id.btnAdd);
         dishPrice = view.findViewById(R.id.food_price_edittext);
@@ -55,23 +103,7 @@ public class FragmentAddDish extends Fragment {
         });
 
 
-        foodCategory.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == R.id.swedishButton) {
-                    Category = "Pizza";
-                }
-                else if (checkedId == R.id.chineseButton) {
-                    Category = "Chinese";
-                }
-                else if (checkedId == R.id.pizzaButton) {
-                    Category = "Pizza";
-                }
 
-            }
-
-
-        });
 
         return view;
 
@@ -80,8 +112,9 @@ public class FragmentAddDish extends Fragment {
     }
 
     public void addNewDish () {
-
-        firestoreMain.addFood(setFoodName.getText().toString(), dishPrice.getText().toString(), Category);
+        picUrlString = picUrl.getText().toString();
+        PictureHandler.setPictureFromUrl(picUrlString, picDish);
+        firestoreMain.addFood(setFoodName.getText().toString(), dishPrice.getText().toString(), category, picUrlString);
     }
 }
 

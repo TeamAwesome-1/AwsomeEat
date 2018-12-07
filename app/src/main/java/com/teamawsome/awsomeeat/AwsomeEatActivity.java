@@ -61,7 +61,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
         authentication.loadAuthData();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getCartNumber();
+
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -140,8 +140,8 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
     private void DisplayExitDialog() {
 
         AlertDialog.Builder alertdialog = new AlertDialog.Builder(this);
-        alertdialog.setTitle(R.string.exit);
-        alertdialog.setMessage(R.string.do_you_really_want_to_close_the_app);
+        alertdialog.setTitle(R.string.sign_out);
+        alertdialog.setMessage(R.string.do_you_want_to_sign_out);
         alertdialog.setIcon(R.drawable.ic_exit_to_app_black_24dp);
 
         //Inserts a Yes-button with a clicklistener
@@ -149,7 +149,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                finish();
+                signOut();
             }
         });
 
@@ -198,7 +198,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.cart) {
-            EventHandler.openCartFragment(getCurrentFocus());
+         EventHandler.openCartFragment(getCurrentFocus());
             return true;
         }
 
@@ -224,10 +224,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
           EventHandler.openEditProfileFragment(getCurrentFocus());
         }
         else if (id == R.id.nav_log_out) {
-            authentication.logOut();
-            Intent signIn= new Intent(AwsomeEatActivity.this, MainActivity.class);
-            signIn.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(signIn);
+            signOut();
         }
 
 
@@ -266,6 +263,13 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
     protected void onResume() {
         super.onResume();
         authentication.checkAuthState(context);
+    }
+
+    private void signOut() {
+        authentication.logOut();
+        Intent signIn= new Intent(AwsomeEatActivity.this, MainActivity.class);
+        signIn.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(signIn);
     }
 
 }

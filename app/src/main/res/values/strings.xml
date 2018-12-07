@@ -53,5 +53,6 @@
     <string name="add_some_items_to_cart">Add some items to cart !</string>
     <string name="cart_is_empty">Cart is empty!</string>
     <string name="cart">Cart</string>
+    <string name="do_you_want_to_sign_out">Do you want to sign out?</string>
 
 </resources>

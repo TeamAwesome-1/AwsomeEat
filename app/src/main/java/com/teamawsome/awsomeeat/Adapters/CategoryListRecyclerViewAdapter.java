@@ -13,12 +13,12 @@ import com.teamawsome.awsomeeat.R;
 import com.teamawsome.awsomeeat.ViewHolder.FoodListViewHolder;
 import java.util.List;
 
-public class CategoryListRecyclerViewAdapter extends RecyclerView.Adapter<FoodListViewHolder> {
+public class CategoryListRecyclerViewAdapter extends RecyclerView.Adapter<FoodListViewHolder>  {
 
     List<Category> categoryList;
     View view;
     FloatingActionButton addnewDish;
-    Authentication authentication = Authentication.getInstance();
+    private static Authentication authentication = Authentication.getInstance();
 
     public CategoryListRecyclerViewAdapter (List<Category> categoryList){
         this.categoryList = categoryList;
@@ -31,17 +31,19 @@ public class CategoryListRecyclerViewAdapter extends RecyclerView.Adapter<FoodLi
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.menu_item, viewGroup, false);
         addnewDish = view.findViewById(R.id.addNewDishButton);
-       // TODO: Fixa authenction.isAdmin så att den fungerar.
-      // if (authentication.isAdmin()) {
+
+       if (authentication.isAdmin()) {
             addnewDish.setVisibility(view.VISIBLE);
-     //  }
-        addnewDish.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EventHandler.openAddishFragment(view);
-            }
-        });
-        return new FoodListViewHolder(view);
+
+           addnewDish.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                   EventHandler.openAddishFragment(v);
+               }
+           });
+       }
+
+       return new FoodListViewHolder(view);
     }
 
     @Override

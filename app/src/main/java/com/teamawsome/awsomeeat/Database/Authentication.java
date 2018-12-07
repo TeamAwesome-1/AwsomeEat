@@ -176,9 +176,9 @@ public class Authentication extends AppCompatActivity {
                         DocumentSnapshot document = task.getResult();
                         if (document != null) {
 
-                            boolean admin2 = document.getBoolean("admin");
-                            setAdmin(admin2);
-                            Log.d("User", "UserAdmin: " + admin2);
+                        boolean admin2 = document.getBoolean("admin");
+                        setAdmin(admin2);
+                        Log.d("User", "UserAdmin: " + admin2);
 
                         }
                     }

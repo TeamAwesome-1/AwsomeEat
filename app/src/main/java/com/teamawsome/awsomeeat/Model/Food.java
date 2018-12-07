@@ -15,6 +15,15 @@ public class Food {
     private String discount;
     @Exclude
     private String restaurantId;
+
+  /*  public String getCategory() {
+        return Category;
+    }
+
+    public void setCategory(String category) {
+        this.Category = category;
+    } */
+
     public String Category;
     private String id;
 
@@ -35,11 +44,12 @@ public class Food {
 
     }
 
-    public Food(String name, String price, String restaurantId, String Category) {
+    public Food(String name, String price, String restaurantId, String Category, String image) {
         this.name = name;
         this.price = price;
         this.restaurantId = restaurantId;
         this.Category = Category;
+        this.image = image;
     }
 
     public String getId() {

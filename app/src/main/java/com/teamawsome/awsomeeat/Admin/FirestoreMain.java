@@ -345,14 +345,10 @@ public class FirestoreMain extends AppCompatActivity {
 
         }
 
-    /**
-     * Add new foodobject to database
-     * @param name name of food
-     * @param price price of food
-     * @param Category Category of food
-     */
-    public void addFood (String name, String price, String Category) {
-        food = new Food(name, price, idHolder.getRestaurantId(), Category);
+        //Lägger till en ny maträtt i "Foods" collection.
+        public void addFood (String name, String price, String Category, String picUrl) {
+        food = new Food(name, price, idHolder.getRestaurantId(), Category, picUrl);
+
         db.collection("Foods").add(food);
         }
 
