@@ -61,7 +61,6 @@ public class CartViewHolder extends RecyclerView.ViewHolder implements View.OnCl
             txt_price.setText(fmt.format(price));
             itemId = orderInfo.getDocumentId();
             txt_cart_name.setText(orderInfo.getProductName());
-
         }
 
 

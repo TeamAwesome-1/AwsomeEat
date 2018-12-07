@@ -111,8 +111,9 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartViewHolder
             totalPrice += (Integer.parseInt(order.getPrice())) * (Integer.parseInt(order.getQuantity()));
        }
        total_price.setText(fmt.format(totalPrice));
-
     }
+
+
 
 
 

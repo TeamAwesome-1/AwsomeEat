@@ -100,6 +100,7 @@ public class FoodDetailFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 String amount = numberButton.getNumber();
+
                 user = FirebaseAuth.getInstance().getCurrentUser();
                 Order order = new Order(restaurantId,foodId,currentFood.getName(),amount,currentFood.getPrice(), user.getUid());
 

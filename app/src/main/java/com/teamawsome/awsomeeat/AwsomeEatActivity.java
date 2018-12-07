@@ -180,7 +180,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.cart) {
-         eventHandler.openCartFragment(getCurrentFocus());
+         eventHandler.openCartFragment(this.getCurrentFocus());
         }
 
         return super.onOptionsItemSelected(item);
@@ -207,8 +207,6 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
         else if (id == R.id.nav_log_out) {
             signOut();
         }
-
-
         else if (id == R.id.adminItem) {
             eventHandler.openAdminFragment(getCurrentFocus());
         }

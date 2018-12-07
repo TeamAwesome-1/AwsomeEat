@@ -29,7 +29,6 @@ public class EventHandler {
     private final String BASE_FRAGMENT_TAG;
 
     private static final EventHandler EventHandler =  new EventHandler();
-
     private EventHandler () {
         BASE_FRAGMENT_TAG = "baseFragment";
     }
