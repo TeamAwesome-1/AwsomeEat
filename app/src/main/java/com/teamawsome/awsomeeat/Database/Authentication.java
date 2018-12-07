@@ -186,12 +186,12 @@ public class Authentication extends AppCompatActivity {
                             setAdmin(admin2);
                             Log.d("User", "UserAdmin: " + admin2);
 
-                            //}
                         }
                     }
                 }
             });
         }
+
     }
 
     public void getUserAdress(){
