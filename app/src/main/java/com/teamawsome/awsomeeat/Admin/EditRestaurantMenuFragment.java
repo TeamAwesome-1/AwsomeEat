@@ -40,6 +40,10 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
     private FoodListRecyclerViewAdapter adapter;
     private LayoutInflater inflater;
     private String category;
+    private EditText picUrl;
+    private String picUrlString;
+    private ImageView picDish;
+
 
     @Override
     public void onClick(View v) {
@@ -67,10 +71,15 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
                              Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.fragment_edit_restaurant_menu,container,false);
 
+        picDish = view.findViewById(R.id.picdishedit_imageview);
+        picUrl = view.findViewById(R.id.picurledit_edittext);
 
-        String [] values = {"Chinese","Italian","Pizza","Hamburger","Swedish","French","Sandwiches"};
+
+
+
+
         Spinner spinner = (Spinner) view.findViewById(R.id.spinnerAddDish1);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, values);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.categories));
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinner.setAdapter(adapter);
         adapter.notifyDataSetChanged();
@@ -82,34 +91,27 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
             public void onNothingSelected(AdapterView<?> parent) {
                 category = "Not assigned";
             }
-         // to close the onItemSelected
+
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // String selectedItem = parent.getItemAtPosition(position).toString();
+
                 switch (position) {
                     case 1:
-                        category = values[1];
+                        category = adapter.getItem(0).toString();
                         break;
                     case 2:
-                        category = values[2];
+                        category = adapter.getItem(2).toString();
                         break;
                     case 3:
-                        category = values[3];
+                        category = adapter.getItem(3).toString();
                         break;
                     case 4:
-                        category = values[4];
+                        category = adapter.getItem(4).toString();
                         break;
                     case 5:
-                        category = values[5];
+                        category = adapter.getItem(5).toString();
                         break;
-                    case 6:
-                        category = values[6];
-                        break;
-                    case 7:
-                        category = values[7];
-                        break;
-                    // do your stuff
                 }
             }
 
@@ -143,6 +145,8 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
 
        // ImageView dishPic = view.findViewById(R.id.picDish);
         food = idHolder.getSeletedFood();
+
+        PictureHandler.setPictureFromUrl(food.getImage(), picDish);
         dishNameEdit.setText(food.getName());
         dishPriceEdit.setText(food.getPrice());
       //  PictureHandler.setPictureFromUrl(food.getImage(), dishPic);
@@ -161,6 +165,9 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
 
         public void setUpdateDish1 (View v){
 
+            picUrlString = picUrl.getText().toString();
+            PictureHandler.setPictureFromUrl(picUrlString, picDish);
+
  dishNameEdit.setText(dishNameEdit.getText());
  dishPriceEdit.setText(dishPriceEdit.getText());
 
@@ -168,6 +175,7 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
     food.setPrice(dishPriceEdit.getText().toString());
     food.setRestaurantId(idHolder.getRestaurantId());
     food.Category = category;
+    food.setImage(picUrlString);
     changeItem();
 
 

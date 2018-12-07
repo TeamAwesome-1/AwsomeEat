@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.teamawsome.awsomeeat.Adapters.FoodListRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Admin.FirestoreMain;
+import com.teamawsome.awsomeeat.EventHandler;
 import com.teamawsome.awsomeeat.Model.Food;
 import com.teamawsome.awsomeeat.R;
 import com.teamawsome.idHolder;
@@ -33,6 +34,7 @@ public class FoodListFragment extends Fragment {
     private FloatingActionButton category3Button, wholeMenuButton;
     private FloatingActionButton category1Button;
     private FloatingActionButton category5Button;
+    private FloatingActionButton addNewDishButton;
     private FirestoreMain firestoreMain = FirestoreMain.getInstance();
 
     private static final String TAG = "Logging Example";
@@ -56,6 +58,7 @@ public class FoodListFragment extends Fragment {
         category3Button = view.findViewById(R.id.category3_button);
         category5Button = view.findViewById(R.id.category5_button);
         wholeMenuButton = view.findViewById(R.id.wholeMenuButton);
+        addNewDishButton = view.findViewById(R.id.addnewdish_button);
         //init the adapter
         adapter = new FoodListRecyclerViewAdapter(itemList);
 
@@ -126,6 +129,11 @@ public class FoodListFragment extends Fragment {
        wholeMenuButton.setOnClickListener(view -> {
           adapter.getFilter().filter("");
        });
+
+       addNewDishButton.setOnClickListener(view -> {
+           EventHandler.openAddishFragment(view);
+
+        });
         }
 
 

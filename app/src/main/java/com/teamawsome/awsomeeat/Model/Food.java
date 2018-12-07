@@ -44,11 +44,12 @@ public class Food {
 
     }
 
-    public Food(String name, String price, String restaurantId, String Category) {
+    public Food(String name, String price, String restaurantId, String Category, String image) {
         this.name = name;
         this.price = price;
         this.restaurantId = restaurantId;
         this.Category = Category;
+        this.image = image;
     }
 
     public String getId() {

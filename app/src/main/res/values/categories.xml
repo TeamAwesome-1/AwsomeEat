@@ -5,14 +5,12 @@
 
 
         <string-array name="categories">
-            <item>Pizza</item>
             <item>Chinese</item>
+            <item>European</item>
+            <item>Pizza</item>
+            <item>Sandwiches</item>
             <item>Swedish</item>
-            <item>German</item>
-            <item>Thai</item>
-            <item>Hamburgers</item>
-            <item>French</item>
-            <item>Italian</item>
+
         </string-array>
 
 
