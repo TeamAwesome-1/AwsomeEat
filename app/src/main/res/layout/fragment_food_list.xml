@@ -27,8 +27,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:context=".ItemFragment"
-        tools:itemCount="5"
-        tools:spanCount="5">
+        tools:itemCount="6"
+        tools:spanCount="6">
 
     </android.support.v7.widget.RecyclerView>
 
@@ -58,7 +58,7 @@
                 android:layout_marginBottom="4dp"
                 android:clickable="true"
                 android:focusable="true"
-                android:src="@drawable/ricered"
+                android:src="@drawable/asianfood"
                 android:tooltipText="Asian"
                 app:backgroundTint="@android:color/white" />
 
@@ -74,7 +74,7 @@
                 android:layout_toEndOf="@+id/category1_button"
                 android:clickable="true"
                 android:focusable="true"
-                android:src="@mipmap/ic_carrot_round"
+                android:src="@drawable/vegeterian"
                 app:backgroundTint="@android:color/white" />
 
             <android.support.design.widget.FloatingActionButton
@@ -105,7 +105,7 @@
                 android:layout_toEndOf="@+id/category3_button"
                 android:clickable="true"
                 android:focusable="true"
-                android:src="@drawable/ic_swedish"
+                android:src="@drawable/foodkorv"
                 app:backgroundTint="@android:color/white" />
 
             <android.support.design.widget.FloatingActionButton
@@ -120,28 +120,25 @@
                 android:layout_toEndOf="@+id/category4_button"
                 android:clickable="true"
                 android:focusable="true"
-                android:src="@drawable/ic_bread"
+                android:src="@drawable/sandwichicon"
                 app:backgroundTint="@android:color/white" />
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/wholeMenuButton"
-                android:layout_width="36dp"
-                android:layout_height="39dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentBottom="true"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="7dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginBottom="4dp"
+                android:layout_marginBottom="3dp"
                 android:layout_toEndOf="@+id/category5_button"
                 android:clickable="true"
                 android:focusable="true"
-                android:src="@drawable/ic_orders"
-                app:backgroundTint="@color/fbutton_color_pomegranate"
-                app:elevation="6dp"
-                app:pressedTranslationZ="12dp"
-                app:layout_anchorGravity="bottom|right|end"
-                app:useCompatPadding="true"/>
+                android:src="@drawable/wholemenu"
+                app:backgroundTint="@android:color/white" />
+
+
 
 
 
