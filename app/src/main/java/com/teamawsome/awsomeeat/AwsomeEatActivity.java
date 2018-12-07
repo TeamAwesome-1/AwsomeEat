@@ -98,17 +98,6 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
                 }
             }
-
-
-               /* MenuItem admin = findViewById(R.id.admin);
-                admin.setVisible(false);
-               if (authentication.isAdmin()) {
-                   admin.setVisible(true);
-                   return;
-               }
-                 else if (!authentication.isAdmin()){
-               }
-            }*/
         });
 
 
@@ -134,7 +123,6 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
         }
         else{
             DisplayExitDialog();
-
         }
     }
 
@@ -174,6 +162,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
         final MenuItem menuItem = menu.findItem(R.id.cart);
 
+
         View actionView = MenuItemCompat.getActionView(menuItem);
         textCartItemCount = (TextView) actionView.findViewById(R.id.cart_badge);
 
@@ -182,7 +171,6 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
         actionView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getCartNumber();
                 onOptionsItemSelected(menuItem);
             }
         });
@@ -264,6 +252,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
     protected void onResume() {
         super.onResume();
         authentication.checkAuthState(context);
+        getCartNumber();
     }
 
     private void signOut() {
