@@ -174,22 +174,24 @@ public class Authentication extends AppCompatActivity {
     public void checkAdminState(){
         DocumentReference docRef = userCollection.document(currentUser.getUid());
 
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document != null) {
+        if(docRef!= null) {
+            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document != null) {
 
-                        boolean admin2 = document.getBoolean("admin");
-                        setAdmin(admin2);
-                        Log.d("User", "UserAdmin: " + admin2);
+                            boolean admin2 = document.getBoolean("admin");
+                            setAdmin(admin2);
+                            Log.d("User", "UserAdmin: " + admin2);
 
-                        //}
+                            //}
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
     }
 
     public void getUserAdress(){

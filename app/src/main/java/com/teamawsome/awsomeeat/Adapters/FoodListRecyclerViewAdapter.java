@@ -15,7 +15,7 @@ import java.util.List;
 
 public class FoodListRecyclerViewAdapter extends RecyclerView.Adapter<FoodViewHolder> implements Filterable {
     public static List<Food> list;
-    private List<Food> fullList;
+    private List<Food> fullList = new ArrayList<>();
 
     public FoodListRecyclerViewAdapter() {
 
@@ -59,11 +59,16 @@ public class FoodListRecyclerViewAdapter extends RecyclerView.Adapter<FoodViewHo
     }
 
     public void modifyItem(String id, Food food) {
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getId().equals(id)) {
-                list.set(i, food);
-                this.notifyItemChanged(i);
-                return;
+        for (int i = 0; i < fullList.size(); i++) {
+            if (fullList.get(i).getId().equals(id)) {
+                fullList.set(i, food);
+            }
+            for (int j = 0; j < list.size() ; j++) {
+                if (list.get(j).getId().equals(id)) {
+                    list.set(j, food);
+                    this.notifyItemChanged(j);
+                    return;
+                }
             }
         }
     }
@@ -77,10 +82,15 @@ public class FoodListRecyclerViewAdapter extends RecyclerView.Adapter<FoodViewHo
     }
 
    public void removeMenuItem(String id){
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getId().equals(id)){
-                removeMenuItem(i);
-                return;
+        for (int i = 0; i < fullList.size(); i++) {
+            if (fullList.get(i).getId().equals(id)){
+                fullList.remove(i);
+            }
+            for (int j = 0; j < list.size(); j++) {
+                if (list.get(i).getId().equals(id)) {
+                    removeMenuItem(i);
+                    return;
+                }
             }
         }
     }
@@ -100,9 +110,8 @@ public class FoodListRecyclerViewAdapter extends RecyclerView.Adapter<FoodViewHo
         @Override
         protected FilterResults performFiltering(CharSequence category) {
             List<Food> filteredList = new ArrayList<>();
-            int a = fullList.size();
-            int b = list.size();
-            if(category == null || category.length() == 0){
+
+            if(category == null || category.length() == 0 || category == "default"){
                 filteredList.addAll(fullList);
             }else{
                 String filter = category.toString();
