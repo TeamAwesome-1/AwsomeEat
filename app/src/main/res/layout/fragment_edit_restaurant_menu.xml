@@ -42,10 +42,11 @@
             app:met_baseColor="@android:color/black"
             android:textColorHint="@android:color/black"
             android:textSize="20sp" />
+
         <android.support.v7.widget.AppCompatSpinner
-            android:id="@+id/spinner"
+            android:id="@+id/spinnerAddDish1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/dish_price"

@@ -15,6 +15,15 @@ public class Food {
     private String discount;
     @Exclude
     private String restaurantId;
+
+  /*  public String getCategory() {
+        return Category;
+    }
+
+    public void setCategory(String category) {
+        this.Category = category;
+    } */
+
     public String Category;
     private String id;
 

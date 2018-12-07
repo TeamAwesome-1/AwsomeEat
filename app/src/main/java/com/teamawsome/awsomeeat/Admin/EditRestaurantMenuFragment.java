@@ -9,9 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.firebase.firestore.CollectionReference;
@@ -25,7 +28,7 @@ import com.teamawsome.idHolder;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EditRestaurantMenuFragment extends Fragment implements View.OnClickListener {
+public class EditRestaurantMenuFragment extends Fragment implements View.OnClickListener  {
     private FirestoreMain firestoreMain = FirestoreMain.getInstance();
     View view;
     CollectionReference foods;
@@ -36,6 +39,7 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
     private FloatingActionButton newDish;
     private FoodListRecyclerViewAdapter adapter;
     private LayoutInflater inflater;
+    private String category;
 
     @Override
     public void onClick(View v) {
@@ -51,6 +55,7 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
         }
     }
 
+
     public EditRestaurantMenuFragment() {
         // Required empty public constructor
 
@@ -63,12 +68,62 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
         view=inflater.inflate(R.layout.fragment_edit_restaurant_menu,container,false);
 
 
+        String [] values = {"Chinese","Italian","Pizza","Hamburger","Swedish","French","Sandwiches"};
+        Spinner spinner = (Spinner) view.findViewById(R.id.spinnerAddDish1);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, values);
+        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        spinner.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                category = "Not assigned";
+            }
+         // to close the onItemSelected
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // String selectedItem = parent.getItemAtPosition(position).toString();
+                switch (position) {
+                    case 1:
+                        category = values[1];
+                        break;
+                    case 2:
+                        category = values[2];
+                        break;
+                    case 3:
+                        category = values[3];
+                        break;
+                    case 4:
+                        category = values[4];
+                        break;
+                    case 5:
+                        category = values[5];
+                        break;
+                    case 6:
+                        category = values[6];
+                        break;
+                    case 7:
+                        category = values[7];
+                        break;
+                    // do your stuff
+                }
+            }
+
+
+
+        });
+
+
         dishNameEdit = view.findViewById(R.id.food_name);
         dishPriceEdit = view.findViewById(R.id.food_price_edittext);
 
        // dishNameEdit.setText(food.getName());
        // dishPriceEdit.setText(food.getPrice());
-        Button updateDish = view.findViewById(R.id.updateDishButton);
+        updateDish = view.findViewById(R.id.updateDishButton);
 
    //TODO: Göra det möjligt att uppdatera food objekt ifrån Collection "Foods".
      //TODO:   använd food objektet.
@@ -93,7 +148,7 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
       //  PictureHandler.setPictureFromUrl(food.getImage(), dishPic);
         newDish = view.findViewById(R.id.addNewDishButton);
 
-//        updateDish.setOnClickListener(v -> setUpdateDish1(v));
+       updateDish.setOnClickListener(this::setUpdateDish1);
         }
 
 
@@ -112,7 +167,7 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
     food.setName(dishNameEdit.getText().toString());
     food.setPrice(dishPriceEdit.getText().toString());
     food.setRestaurantId(idHolder.getRestaurantId());
-
+    food.Category = category;
     changeItem();
 
 
