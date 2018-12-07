@@ -60,7 +60,7 @@
                 android:focusable="true"
                 android:src="@drawable/ricered"
                 android:tooltipText="Asian"
-                app:backgroundTint="@color/fbutton_color_midnight_blue" />
+                app:backgroundTint="@android:color/white" />
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/category2_button"
@@ -75,7 +75,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:src="@mipmap/ic_carrot_round"
-                app:backgroundTint="@color/btnSignActive" />
+                app:backgroundTint="@android:color/white" />
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/category3_button"
@@ -91,7 +91,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:src="@drawable/pizza"
-                app:backgroundTint="@color/fbutton_color_midnight_blue" />
+                app:backgroundTint="@android:color/white" />
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/category4_button"
@@ -106,7 +106,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:src="@drawable/ic_swedish"
-                app:backgroundTint="@color/fui_transparent" />
+                app:backgroundTint="@android:color/white" />
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/category5_button"
@@ -121,7 +121,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:src="@drawable/ic_bread"
-                app:backgroundTint="@color/fui_transparent" />
+                app:backgroundTint="@android:color/white" />
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/wholeMenuButton"
