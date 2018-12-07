@@ -55,7 +55,8 @@ public class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
       if (auth.isAdmin()) {
         EventHandler.openEditRestaurantMenuFragment(view);
-       }
-      EventHandler.openFoodDetailFragment(view);
+       }else {
+          EventHandler.openFoodDetailFragment(view);
+      }
     }
 }
