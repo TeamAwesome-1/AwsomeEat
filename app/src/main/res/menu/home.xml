@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <item
-        android:id="@+id/refresh"
-        android:icon="@drawable/ic_refresh"
-        android:title="Refresh" />
+        android:id="@+id/cart"
+        android:icon="@drawable/ic_shopping_cart_white_24dp"
+        android:orderInCategory="300"
+        android:title="@string/cart"
+        app:showAsAction="always"/>
+
+
+
 
 </menu>

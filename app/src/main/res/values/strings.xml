@@ -37,7 +37,6 @@
     <string name="do_you_really_want_to_close_the_app">Do you really want to close the app?</string>
     <string name="european">European</string>
     <string name="restaurants">Restaurants</string>
-    <string name="cart">Cart</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="sign_out">Sign Out</string>
     <string name="admin">Admin</string>
@@ -49,5 +48,10 @@
     <string name="didnt_enter_email_password"><![CDATA[You didn\'t enter email & password!]]></string>
     <string name="must_enter_adress">Must enter adress!</string>
     <string name="must_enter_name">Must enter name!</string>
+    <string name="add_dish">Add Dish</string>
+    <string name="add_resturant">Add Restaurant</string>
+    <string name="add_some_items_to_cart">Add some items to cart !</string>
+    <string name="cart_is_empty">Cart is empty!</string>
+    <string name="cart">Cart</string>
 
 </resources>

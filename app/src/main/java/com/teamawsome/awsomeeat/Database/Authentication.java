@@ -85,7 +85,6 @@ public class Authentication extends AppCompatActivity {
                     getUserAdress();
                     Log.d(TAG, "onAuthStateChanged: signed_in: " + currentUser.getUid());
                     openActivity = true;
-
                     Intent intent = new Intent(context, AwsomeEatActivity.class);
                     context.startActivity(intent);
                     finish();

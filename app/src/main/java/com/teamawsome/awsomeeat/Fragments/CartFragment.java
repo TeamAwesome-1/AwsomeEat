@@ -75,7 +75,7 @@ public class CartFragment extends Fragment {
                 if(cartList.size() > 0)
                     showAlertDialog();
                 else
-                    Toast.makeText(getContext(), "Cart is empty!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.cart_is_empty), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -84,7 +84,7 @@ public class CartFragment extends Fragment {
     private void showAlertDialog() {
         if (cartList.size() <= 0)  //checking if cart is empty or not
         {
-            Toast.makeText(getContext(), "Add some items to cart !", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getString(R.string.add_some_items_to_cart), Toast.LENGTH_SHORT).show();
 
 
         } else {
