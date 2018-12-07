@@ -36,6 +36,7 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
     private FloatingActionButton newDish;
     private FoodListRecyclerViewAdapter adapter;
     private LayoutInflater inflater;
+    private EventHandler eventHandler = EventHandler.getInstance();
 
     @Override
     public void onClick(View v) {
@@ -131,7 +132,7 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
     }
 
     public void addNewDish (View v) {
-       EventHandler.openAddishFragment(v);
+       eventHandler.openAddishFragment(v);
 
 
             }

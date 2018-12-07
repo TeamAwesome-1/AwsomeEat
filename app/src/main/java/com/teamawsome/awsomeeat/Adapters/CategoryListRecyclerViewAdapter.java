@@ -2,6 +2,7 @@ package com.teamawsome.awsomeeat.Adapters;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
+import android.util.EventLog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +17,9 @@ import java.util.List;
 public class CategoryListRecyclerViewAdapter extends RecyclerView.Adapter<FoodListViewHolder> {
 
     List<Category> categoryList;
-    View view;
     FloatingActionButton addnewDish;
     Authentication authentication = Authentication.getInstance();
+    EventHandler eventHandler = EventHandler.getInstance();
 
     public CategoryListRecyclerViewAdapter (List<Category> categoryList){
         this.categoryList = categoryList;
@@ -38,7 +39,7 @@ public class CategoryListRecyclerViewAdapter extends RecyclerView.Adapter<FoodLi
         addnewDish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventHandler.openAddishFragment(view);
+                eventHandler.openAddishFragment(view);
             }
         });
         return new FoodListViewHolder(view);

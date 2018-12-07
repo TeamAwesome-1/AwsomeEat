@@ -25,11 +25,20 @@ import com.teamawsome.awsomeeat.Fragments.RestaurantListFragment;
 public class EventHandler {
 
     //TODO Check if all methods are neccessary/Sandra
-    private static Fragment fragment;
-    private static final String BASE_FRAGMENT_TAG = "baseFragment";
+    private Fragment fragment;
+    private final String BASE_FRAGMENT_TAG;
 
+    private static final EventHandler EventHandler =  new EventHandler();
 
-    private static void openFragment(Fragment fragment, View v, String baseFragmentTag){
+    private EventHandler () {
+        BASE_FRAGMENT_TAG = "baseFragment";
+    }
+
+    public static EventHandler getInstance () {
+        return EventHandler;
+    }
+
+    private void openFragment(Fragment fragment, View v, String baseFragmentTag){
 
         AppCompatActivity activity = (AppCompatActivity) v.getContext();
         activity.getSupportFragmentManager().beginTransaction()
@@ -38,7 +47,7 @@ public class EventHandler {
     }
 
 
-    private static void openFragment(Fragment fragment, View v){
+    private void openFragment(Fragment fragment, View v){
         AppCompatActivity activity = (AppCompatActivity) v.getContext();
 
         if(activity.getSupportFragmentManager().findFragmentByTag(BASE_FRAGMENT_TAG) == null){
@@ -51,7 +60,7 @@ public class EventHandler {
     }
 
 
-    private static void openBaseFragment(View v){
+    private void openBaseFragment(View v){
         AppCompatActivity activity = (AppCompatActivity) v.getContext();
         FragmentManager fm = activity.getSupportFragmentManager();
         fm.popBackStack(BASE_FRAGMENT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
@@ -62,46 +71,46 @@ public class EventHandler {
      * Opens the baseFragment-RestaurantListfragment.
      * @param v- view
      */
-    public static void openRestaurantListFragment(View v){
+    public void openRestaurantListFragment(View v){
         openBaseFragment(v);
     }
 
-    public static void openAddRestaurantFragment(View v){
+    public void openAddRestaurantFragment(View v){
         fragment = new FragmentAddRestaurant();
         openFragment(fragment, v);
     }
 
-    public static void openCartFragment(View v){
+    public void openCartFragment(View v){
         fragment = new CartFragment();
         openFragment(fragment, v);
     }
 
-    public static void openFoodListFragment(View v){
+    public void openFoodListFragment(View v){
         fragment = new FoodListFragment();
         openFragment(fragment, v);
     }
 
-    public static void openFoodDetailFragment(View v){
+    public void openFoodDetailFragment(View v){
         fragment = new FoodDetailFragment();
         openFragment(fragment, v);
     }
 
-    public static void openEditRestaurantMenuFragment(View view) {
+    public void openEditRestaurantMenuFragment(View view) {
         fragment = new EditRestaurantMenuFragment();
         openFragment(fragment, view);
     }
 
-    public static void openAddishFragment (View v) {
+    public void openAddishFragment (View v) {
         fragment = new FragmentAddDish();
         openFragment(fragment, v);
     }
 
-    public static void openEditProfileFragment(View currentFocus) {
+    public void openEditProfileFragment(View currentFocus) {
         fragment = new EditProfleFragment();
         openFragment(fragment, currentFocus);
     }
 
-    public static void openAdminFragment(View currentFocus) {
+    public void openAdminFragment(View currentFocus) {
         fragment = new AdminMainFragment();
         openFragment(fragment, currentFocus);
     }

@@ -40,18 +40,19 @@ import javax.annotation.Nullable;
 public class FoodDetailFragment extends Fragment {
 
 
-    TextView food_name, food_price, food_description, price_annotation;
-    ImageView food_image;
-    CollapsingToolbarLayout collapsingToolbarLayout;
-    FloatingActionButton btnCart;
-    Button continueShoppingButton;
-    Button goToCartButton;
-    ElegantNumberButton numberButton;
-    String foodId;
-    String restaurantId;
-    Food currentFood;
-    FirestoreMain firestoreMain = FirestoreMain.getInstance();
-    FirebaseUser user;
+    private TextView food_name, food_price, food_description, price_annotation;
+    private ImageView food_image;
+    private CollapsingToolbarLayout collapsingToolbarLayout;
+    private FloatingActionButton btnCart;
+    private Button continueShoppingButton;
+    private Button goToCartButton;
+    private ElegantNumberButton numberButton;
+    private String foodId;
+    private String restaurantId;
+    private Food currentFood;
+    private FirestoreMain firestoreMain = FirestoreMain.getInstance();
+    private FirebaseUser user;
+    private EventHandler eventHandler = EventHandler.getInstance();
 
     public FoodDetailFragment() {
 
@@ -116,7 +117,7 @@ public class FoodDetailFragment extends Fragment {
                     getActivity().getSupportFragmentManager().popBackStack();
                 }
                 else{
-                    EventHandler.openRestaurantListFragment(view);
+                    eventHandler.openRestaurantListFragment(view);
                 }
             }
         });
@@ -126,7 +127,7 @@ public class FoodDetailFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                EventHandler.openCartFragment(view);
+                eventHandler.openCartFragment(view);
             }
         });
 
