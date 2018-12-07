@@ -42,93 +42,117 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 
-//TODO Förenkla metoderna och undvik återupprepning av kod. /Sandra
+//TODO Förenkla metoderna och undvik återupprepning av kod. kolla på addmetoderna /Sandra
 
 public class FirestoreMain extends AppCompatActivity {
     private int count = 0;
 
-    private String Category1;
-    private String Category2;
-    private String Category3;
-    private String Category4;
-    private String Category5;
+    private String category1;
+    private String category2;
+    private String category3;
+    private String category4;
+    private String category5;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private Restaurant restaurant;
+    private Food food;
+    private List<String> categories;
+    private CollectionReference foods = db.collection("foods");
+    private ListenerRegistration listenerRegistration;
+
+
 
     private static final FirestoreMain FirestoreMain = new FirestoreMain();
 
     public static FirestoreMain getInstance () { return FirestoreMain;
     }
 
-
-
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-    private Restaurant restaurant;
-
-    private Food food;
-
-
-
-    private CollectionReference foods = db.collection("foods");
-
-    private ListenerRegistration listenerRegistration;
-
-
-
     private FirestoreMain () {
-
-
+        getCategoriesFromDatabase();
     }
 
     public String getCategory1() {
-        return "Chinese";
+        if(categories.size()>0) {
+            category1 = categories.get(0);
+            return category1;
+        }
+        return "default";
     }
 
     public String getCategory2() {
-        return "European";
+        if(categories.size()>1) {
+            category2 = categories.get(1);
+            return category2;
+        }
+        return "default";
     }
 
     public String getCategory3() {
-
-        return "Pizza";
+        if(categories.size()>2) {
+            category3 = categories.get(2);
+            return category3;
+        }
+        return "default";
     }
 
     public String getCategory4() {
-        return "Swedish";
+        if(categories.size()>3) {
+            category4 = categories.get(3);
+            return category4;
+        }
+        return "default";
     }
 
     public String getCategory5() {
-        return "Sandwiches";
+        if(categories.size()>4) {
+            category5 = categories.get(4);
+            return category5;
+        }
+        return "default";
     }
 
     //Lägg till ny restaurang.
 
-        public void addRestaurant (String restaurantName, String restaurantAdress, String phoneNumber) {
-
-
-                  restaurant = new Restaurant(restaurantName, restaurantAdress, phoneNumber);
-                            db.collection("restaurants")
-                                    .add(restaurant);
-
-
-
-
-
+    public void addRestaurant (String restaurantName, String restaurantAdress, String phoneNumber) {
+        restaurant = new Restaurant(restaurantName, restaurantAdress, phoneNumber);
+        db.collection("restaurants")
+                .add(restaurant);
         }
 
-        //Lägger till i vaurkorg
-        public void addToCart (Order order) {
+
+    private void getCategoriesFromDatabase(){
+        categories = new ArrayList<>();
+        db.collection("Categories")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    categories.add(document.getId());
+                                }
+                            } else {
+
+                            }
+                        }
+                    });
+        }
+
+    /**
+     * Adds items to Cart-collection
+     * @param order -The orderobjekt that will be added to cart
+     */
+    public void addToCart (Order order) {
 
             db.collection("Cart")
                     .add(order);
-
-
         }
 
-
-
-
-
-        public void getCartList(CartRecyclerViewAdapter adapter, String userId){
+    /**
+     * Loads the cart for currentuser
+      * @param adapter - carts RecyclerViewAdpater
+     * @param userId- current user id.
+     */
+    public void getCartList(CartRecyclerViewAdapter adapter, String userId){
 
         listenerRegistration= db.collection("Cart").whereEqualTo("userId", userId)
                     .addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -166,8 +190,11 @@ public class FirestoreMain extends AppCompatActivity {
 
         }
 
-        //Hämtar en lista på alla restauranger
-        public void getRestaurantList(RestaurantRecyclerViewAdapter adapter){
+    /**
+     * Loads a list of all restaurants from database
+      * @param adapter -the RestaurantRecyclerViewAdapter that will display the list of restaurants
+     */
+   public void getRestaurantList(RestaurantRecyclerViewAdapter adapter){
 
             listenerRegistration = db.collection("restaurants").addSnapshotListener(new EventListener<QuerySnapshot>() {
                 @Override
@@ -199,8 +226,9 @@ public class FirestoreMain extends AppCompatActivity {
 
         }
 
-         //Hämtar en lista på alla matkategorier som finns att välja på i vald restaurang.
-        public void getCategoriesForRestaurant(CategoryListRecyclerViewAdapter adapter, String restaurantId){
+    //TODO ska dehär vara med? /Sandra
+   //Hämtar en lista på alla matkategorier som finns att välja på i vald restaurang.
+   public void getCategoriesForRestaurant(CategoryListRecyclerViewAdapter adapter, String restaurantId){
 
 
             listenerRegistration = db.collection("Categories").whereArrayContains("restaurantId", restaurantId)
@@ -233,10 +261,48 @@ public class FirestoreMain extends AppCompatActivity {
 
         }
 
+    //Hämtar alla maträtter som hör till en specifik restaurangs matkategori
+    public void getMenuForRestaurantCategory(FoodListRecyclerViewAdapter adapter, String restaurantId, String categoryId){
 
-        //Hämtar vald restaurangs meny.
-        public void getRestaurantMenu (FoodListRecyclerViewAdapter adapter, String restaurantId) {
+        listenerRegistration = db.collection("Foods").whereEqualTo("restaurantId", restaurantId).whereEqualTo("Category", categoryId)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                        if (e != null){
+                            return;
+                        }
+                        for (DocumentChange dc: queryDocumentSnapshots.getDocumentChanges()){
+                            if (dc.getType() == DocumentChange.Type.ADDED){
 
+                                String id = dc.getDocument().getId();
+                                Food food = dc.getDocument().toObject(Food.class);
+                                food.setId(id);
+                                adapter.addItem(food);
+                            }
+                            else if(dc.getType() == DocumentChange.Type.MODIFIED){
+
+                                String id = dc.getDocument().getId();
+                                Food food = dc.getDocument().toObject(Food.class);
+                                adapter.modifyItem(id, food);
+                            }
+
+                            else if (dc.getType() == DocumentChange.Type.REMOVED){
+                                String id = dc.getDocument().getId();
+                                adapter.removeMenuItem(id);
+                            }
+                        }
+                    }
+                });
+
+
+    }
+
+    /**
+     * Loads a foodlist for a specific restaurant from database
+     * @param adapter- FoodlistRecyclerViewAdapter that will display the list
+     * @param restaurantId- the id of the restaurant
+     */
+    public void getRestaurantMenu (FoodListRecyclerViewAdapter adapter, String restaurantId) {
 
             listenerRegistration = db.collection("Foods").whereEqualTo("restaurantId", restaurantId)
                     .addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -270,59 +336,6 @@ public class FirestoreMain extends AppCompatActivity {
 
         }
 
-
-        //Hämtar alla maträtter som hör till en specifik restaurangs matkategori
-         public void getMenuForRestaurantCategory(FoodListRecyclerViewAdapter adapter, String restaurantId, String categoryId){
-
-
-         listenerRegistration = db.collection("Foods").whereEqualTo("restaurantId", restaurantId).whereEqualTo("Category", categoryId)
-                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                        @Override
-                        public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                            if (e != null){
-                                return;
-                            }
-                            for (DocumentChange dc: queryDocumentSnapshots.getDocumentChanges()){
-                                if (dc.getType() == DocumentChange.Type.ADDED){
-
-                                    String id = dc.getDocument().getId();
-                                    Food food = dc.getDocument().toObject(Food.class);
-                                    food.setId(id);
-                                    adapter.addItem(food);
-                                }
-                                else if(dc.getType() == DocumentChange.Type.MODIFIED){
-
-                                    String id = dc.getDocument().getId();
-                                    Food food = dc.getDocument().toObject(Food.class);
-                                    adapter.modifyItem(id, food);
-                                }
-
-                                else if (dc.getType() == DocumentChange.Type.REMOVED){
-                                    String id = dc.getDocument().getId();
-                                    adapter.removeMenuItem(id);
-                                }
-                            }
-                        }
-                    });
-
-
-        }
-
-
-        //Söker efter en maträtt
-        public void searchFood () {
-
-
-        }
-
-
-        //Rensar listan med restauranger.
-        public void clearRestaurants (FirebaseFirestore db, RestaurantRecyclerViewAdapter adapter) {
-
-
-
-        }
-
         //Lägger till en ny maträtt i "Foods" collection.
         public void addFood (String name, String price, String Category, String picUrl) {
         food = new Food(name, price, idHolder.getRestaurantId(), Category, picUrl);
@@ -330,11 +343,10 @@ public class FirestoreMain extends AppCompatActivity {
         db.collection("Foods").add(food);
         }
 
-      public void changeFood(Food food ) {
+    public void changeFood(Food food ) {
         DocumentReference foods = db.collection("Foods").document(food.getId());
           foods.set(food);
     }
-
 
     public void addToOrders(List<Order> cartList) {
 
