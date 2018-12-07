@@ -34,7 +34,6 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.teamawsome.awsomeeat.Adapters.CartRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Admin.FirestoreMain;
 import com.teamawsome.awsomeeat.Database.Authentication;
 import com.teamawsome.awsomeeat.Fragments.AdminMainFragment;
@@ -51,6 +50,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
     private static Authentication authentication = Authentication.getInstance();
     private final Context context = this;
     private Fragment fragment;
+    private EventHandler eventHandler = EventHandler.getInstance();
     TextView textCartItemCount;
     int mCartItemCount;
 
@@ -187,8 +187,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.cart) {
-         EventHandler.openCartFragment(getCurrentFocus());
-            return true;
+         eventHandler.openCartFragment(this.getCurrentFocus());
         }
 
         return super.onOptionsItemSelected(item);
@@ -205,20 +204,18 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
         } else if (id == R.id.nav_menu) {
             //Handle what happens when "menu" is pressed in navigationbar
-           EventHandler.openRestaurantListFragment(getCurrentFocus());
+           eventHandler.openRestaurantListFragment(getCurrentFocus());
         } else if (id == R.id.nav_cart) {
             //Handle what happens when "cart" is pressed in navigationbar
-          EventHandler.openCartFragment(getCurrentFocus());
+          eventHandler.openCartFragment(getCurrentFocus());
         } else if (id == R.id.edit_profile){
-          EventHandler.openEditProfileFragment(getCurrentFocus());
+          eventHandler.openEditProfileFragment(getCurrentFocus());
         }
         else if (id == R.id.nav_log_out) {
             signOut();
         }
-
-
         else if (id == R.id.adminItem) {
-            EventHandler.openAdminFragment(getCurrentFocus());
+            eventHandler.openAdminFragment(getCurrentFocus());
         }
 
         //Closes the drawer after an item has been selected

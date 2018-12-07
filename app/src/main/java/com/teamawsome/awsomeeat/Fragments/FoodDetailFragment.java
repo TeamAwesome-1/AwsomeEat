@@ -51,7 +51,7 @@ public class FoodDetailFragment extends Fragment {
     private Food currentFood;
     private static FirestoreMain firestoreMain = FirestoreMain.getInstance();
     private static Authentication authentication = Authentication.getInstance();
-
+    private EventHandler eventHandler = EventHandler.getInstance();
     public FoodDetailFragment() {
 
     }
@@ -114,7 +114,7 @@ public class FoodDetailFragment extends Fragment {
                     getActivity().getSupportFragmentManager().popBackStack();
                 }
                 else{
-                    EventHandler.openRestaurantListFragment(view);
+                    eventHandler.openRestaurantListFragment(view);
                 }
             }
         });
@@ -124,7 +124,7 @@ public class FoodDetailFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                EventHandler.openCartFragment(view);
+                eventHandler.openCartFragment(view);
             }
         });
 

@@ -19,11 +19,12 @@ import com.teamawsome.idHolder;
 public class FoodListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
 
-    public View menuItemView;
-    public TextView txtMenuName;
-    public ImageView imageView;
-    public String itemId;
+    private View menuItemView;
+    private TextView txtMenuName;
+    private ImageView imageView;
+    private String itemId;
     private  String restaurantId;
+    private EventHandler eventHandler = EventHandler.getInstance();
 
     //private ItemClickListener itemClickListener;
 
@@ -50,6 +51,6 @@ public class FoodListViewHolder extends RecyclerView.ViewHolder implements View.
     @Override
     public void onClick(View view) {
         idHolder.setCategoryId(itemId);
-        EventHandler.openFoodListFragment(view);
+        eventHandler.openFoodListFragment(view);
     }
 }
