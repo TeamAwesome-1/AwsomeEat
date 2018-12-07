@@ -103,7 +103,7 @@
         android:layout_above="@+id/linearLayout"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="22dp"
-        android:src="@drawable/signup" />
+        android:src="@drawable/newsignup" />
 
 
 </RelativeLayout>
