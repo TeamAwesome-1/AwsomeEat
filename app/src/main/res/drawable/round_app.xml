@@ -6,11 +6,7 @@
         android:color="#2c3e50"
         />
 
-    <padding android:left="1dp"
-        android:top="1dp"
-        android:right="1dp"
-        android:bottom="1dp"
-        />
+
 
     <corners android:bottomRightRadius="5dp" android:bottomLeftRadius="5dp"
         android:topLeftRadius="5dp" android:topRightRadius="5dp"/>
