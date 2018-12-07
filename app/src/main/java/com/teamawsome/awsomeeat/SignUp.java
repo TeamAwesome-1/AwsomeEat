@@ -28,10 +28,6 @@ public class SignUp extends AppCompatActivity {
 
         btnSignUp = (Button) findViewById(R.id.btnSignUp);
 
-        //Initialize Firebase
-        //mAuth = FirebaseAuth.getInstance();
-
-
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -44,12 +44,7 @@ public class Authentication extends AppCompatActivity {
     public String adress;
     private static FirebaseAuth mAuth;
     private boolean admin;
-    private boolean openActivity = false;
     private Fragment fragment;
-
-    public boolean isOpenActivity() {
-        return openActivity;
-    }
 
     public FirebaseAuth.AuthStateListener getmAuthListener() {
         return mAuthListener;
@@ -84,7 +79,6 @@ public class Authentication extends AppCompatActivity {
                 if (currentUser != null){
                     getUserAdress();
                     Log.d(TAG, "onAuthStateChanged: signed_in: " + currentUser.getUid());
-                    openActivity = true;
                     Intent intent = new Intent(context, AwsomeEatActivity.class);
                     context.startActivity(intent);
                     finish();
@@ -204,26 +198,16 @@ public class Authentication extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     if (document != null) {
                         uid = document.getString("uid");
-                        //if (uid.equals(user)){
                         String adress2 = document.getString("adress");
                         setAdress(adress2);
                         Log.d("User", "UserAdress: " + adress2);
 
-                        //}
                     }
                 }
             }
         });
     }
 
-    /*
-
-    public void setAdminDB(boolean b){
-        user = new User(currentUser.getUid(), b);
-        userCollection.document(currentUser.getUid()).set(user);
-    }
-
-    */
     public void editUserAdress(String adress, String uid){
         user = new User(adress, uid);
        user.setAdmin(isAdmin());
@@ -231,15 +215,12 @@ public class Authentication extends AppCompatActivity {
 
     }
 
-
     public void setUserAdress(String adress, String uid){
         user = new User(adress, uid);
         user.setAdmin(false);
         userCollection.document(currentUser.getUid()).set(user);
 
     }
-
-
 
     public void setUserId(String name){
         dbUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -288,7 +269,6 @@ public class Authentication extends AppCompatActivity {
                             if (task.isSuccessful()){
                                 Log.d(TAG, "onComplete: User updated");
 
-                                getUserDetails();
                             }
                         }
                     });
@@ -301,7 +281,6 @@ public class Authentication extends AppCompatActivity {
             String name = currentUser.getDisplayName();
             String email = currentUser.getEmail();
 
-
             String properties = "uid: " + uid + " name " + name + " email " + email;
 
             Log.d(TAG, "Userdetails: " + properties);
@@ -309,7 +288,6 @@ public class Authentication extends AppCompatActivity {
     }
 
     public void loadAuthData(){
-        //setAdminDB(false);
         getUserAdress();
         checkAdminState();
 
@@ -355,7 +333,6 @@ public class Authentication extends AppCompatActivity {
             FirebaseAuth.getInstance().removeAuthStateListener(mAuthListener);
         }
     }
-
 
     public void logOut (){
         currentUser = null;

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
+import com.teamawsome.awsomeeat.Admin.FirestoreMain;
 import com.teamawsome.awsomeeat.Model.Food;
 import com.teamawsome.awsomeeat.Model.Order;
 import com.teamawsome.awsomeeat.R;
@@ -21,7 +22,6 @@ import java.util.Locale;
 import javax.annotation.Nonnull;
 
 public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartViewHolder> {
-
 
         private List<Order> orderList;
         private TextView total_price;

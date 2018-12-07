@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.teamawsome.awsomeeat.Adapters.CartRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Admin.FirestoreMain;
+import com.teamawsome.awsomeeat.Database.Authentication;
 import com.teamawsome.awsomeeat.Model.Order;
 import com.teamawsome.awsomeeat.R;
 import java.text.NumberFormat;
@@ -34,7 +35,7 @@ public class CartFragment extends Fragment {
     private List<Order> cartList = new ArrayList<>();
     private CartRecyclerViewAdapter adapter;
     private FirestoreMain firestoreMain = FirestoreMain.getInstance();
-    private FirebaseUser user;
+    private static Authentication authentication = Authentication.getInstance();
     private int price;
 
     public CartFragment() {
@@ -51,7 +52,6 @@ public class CartFragment extends Fragment {
         recyclerView = (RecyclerView)view.findViewById(R.id.listCart);
         txtTotalPrice = (TextView)view.findViewById(R.id.total);
         btnPlace = view.findViewById(R.id.btnPlaceOrder);
-        user = FirebaseAuth.getInstance().getCurrentUser();
         //set the adapter for the recyclerview
         adapter = new CartRecyclerViewAdapter(cartList, txtTotalPrice);
         recyclerView.setAdapter(adapter);
@@ -65,8 +65,7 @@ public class CartFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         //Load Cartlist from firestore
-        firestoreMain.getCartList(adapter, user.getUid());
-
+        firestoreMain.getCartList(adapter, authentication.getCurrentUser().getUid());
 
         //Set clicklistener for the placeOrderButton
         btnPlace.setOnClickListener(new View.OnClickListener() {

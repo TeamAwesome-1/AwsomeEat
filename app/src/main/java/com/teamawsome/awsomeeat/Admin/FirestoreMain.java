@@ -30,6 +30,7 @@ import com.teamawsome.awsomeeat.Adapters.CartRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Adapters.CategoryListRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Adapters.FoodListRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Adapters.RestaurantRecyclerViewAdapter;
+import com.teamawsome.awsomeeat.Fragments.CartFragment;
 import com.teamawsome.awsomeeat.Model.Category;
 import com.teamawsome.awsomeeat.Model.Food;
 import com.teamawsome.awsomeeat.Model.Order;
@@ -58,8 +59,15 @@ public class FirestoreMain extends AppCompatActivity {
     private List<String> categories;
     private CollectionReference foods = db.collection("foods");
     private ListenerRegistration listenerRegistration;
+    private int counterIcon;
 
+    public int getCounterIcon() {
+        return counterIcon;
+    }
 
+    public void setCounterIcon(int counterIcon) {
+        this.counterIcon = counterIcon;
+    }
 
     private static final FirestoreMain FirestoreMain = new FirestoreMain();
 
@@ -69,6 +77,8 @@ public class FirestoreMain extends AppCompatActivity {
     private FirestoreMain () {
         getCategoriesFromDatabase();
     }
+
+
 
     public String getCategory1() {
         if(categories.size()>0) {
@@ -169,7 +179,6 @@ public class FirestoreMain extends AppCompatActivity {
                             Order order = dc.getDocument().toObject(Order.class);
                             order.setDocumentId(id);
                             adapter.addItem(order);
-
 
                         } else if (dc.getType() == DocumentChange.Type.REMOVED) {
                             String id = dc.getDocument().getId();
