@@ -51,10 +51,21 @@ public class FragmentAddDish extends Fragment {
 
 
         Spinner spinner = (Spinner) view.findViewById(R.id.spinner2);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.categories));
+       /* ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.categories));
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinner.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();*/
+        ArrayAdapter<String> adapter;
+        //Loads categories from database
+        if(firestoreMain.getCategories()!=null) {
+            adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, firestoreMain.getCategories());
+        }else {
+            adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.categories));
+        }
+            adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+            spinner.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+
 
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()

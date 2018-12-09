@@ -113,7 +113,7 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartViewHolder
        total_price.setText(fmt.format(totalPrice));
     }
 
-    }
+
 
 
 

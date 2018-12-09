@@ -84,19 +84,7 @@ public class FoodListFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-          /*  //Load Foodlist for a specific category to the choosen restaurant
-            if(restaurantId != null && categoryId != null) {
-
-              firestoreMain.getMenuForRestaurantCategory(adapter, restaurantId, categoryId);
-
-            }else if(categoryId == null) {
-              firestoreMain.getRestaurantMenu(adapter, restaurantId);
-              //TODO ta bort /Sandra
-              Toast.makeText(getContext(), "Whole foodlist for restaurant is displayed", Toast.LENGTH_SHORT).show();
-
-            }*/
-          //Load the whole list from database
-          firestoreMain.getRestaurantMenu(adapter, restaurantId);
+        firestoreMain.getRestaurantMenu(adapter, restaurantId);
 
 
 
