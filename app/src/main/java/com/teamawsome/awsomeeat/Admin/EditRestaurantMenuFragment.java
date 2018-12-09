@@ -79,7 +79,17 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
 
 
         Spinner spinner = (Spinner) view.findViewById(R.id.spinnerAddDish1);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.categories));
+        /*ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.categories));
+        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        spinner.setAdapter(adapter);
+        adapter.notifyDataSetChanged();*/
+
+        ArrayAdapter<String> adapter;
+        if(firestoreMain.getCategories()!=null) {
+            adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, firestoreMain.getCategories());
+        }else {
+            adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.categories));
+        }
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinner.setAdapter(adapter);
         adapter.notifyDataSetChanged();
@@ -168,13 +178,13 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
             picUrlString = picUrl.getText().toString();
             PictureHandler.setPictureFromUrl(picUrlString, picDish);
 
- dishNameEdit.setText(dishNameEdit.getText());
- dishPriceEdit.setText(dishPriceEdit.getText());
+    dishNameEdit.setText(dishNameEdit.getText());
+    dishPriceEdit.setText(dishPriceEdit.getText());
 
     food.setName(dishNameEdit.getText().toString());
     food.setPrice(dishPriceEdit.getText().toString());
     food.setRestaurantId(idHolder.getRestaurantId());
-    food.Category = category;
+    food.Category=category;
     food.setImage(picUrlString);
     changeItem();
 

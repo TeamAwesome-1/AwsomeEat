@@ -18,7 +18,10 @@ import com.teamawsome.awsomeeat.Model.Food;
 import com.teamawsome.awsomeeat.R;
 import com.teamawsome.idHolder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Nullable;
 
 //Displays a foodlist
@@ -37,7 +40,7 @@ public class FoodListFragment extends Fragment {
     private FloatingActionButton addNewDishButton;
     private FirestoreMain firestoreMain = FirestoreMain.getInstance();
     private EventHandler eventHandler = EventHandler.getInstance();
-
+    private List <FloatingActionButton> floatingActionButtons;
     private static final String TAG = "Logging Example";
     FoodListRecyclerViewAdapter adapter;
 
@@ -53,20 +56,24 @@ public class FoodListFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_food_list, container, false);
 
+
         category4Button = view.findViewById(R.id.category4_button);
         category2Button = view.findViewById(R.id.category2_button);
         category1Button = view.findViewById(R.id.category1_button);
         category3Button = view.findViewById(R.id.category3_button);
         category5Button = view.findViewById(R.id.category5_button);
+
+        floatingActionButtons = new ArrayList<>();
+        floatingActionButtons.add(category1Button);
+        floatingActionButtons.add(category2Button);
+        floatingActionButtons.add(category3Button);
+        floatingActionButtons.add(category4Button);
+        floatingActionButtons.add(category5Button);
+
         wholeMenuButton = view.findViewById(R.id.wholeMenuButton);
         addNewDishButton = view.findViewById(R.id.addnewdish_button);
         //init the adapter
-        adapter = new FoodListRecyclerViewAdapter(itemList);
-
-        //Get info about which category user pressed and for which restaurant
-        if(idHolder.getCategoryId() != null) {
-            categoryId = idHolder.getCategoryId();
-        }
+        adapter = new FoodListRecyclerViewAdapter(itemList, floatingActionButtons);
         if(idHolder.getRestaurantId() != null) {
             restaurantId = idHolder.getRestaurantId();
         }
@@ -85,6 +92,7 @@ public class FoodListFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         firestoreMain.getRestaurantMenu(adapter, restaurantId);
+
 
 
 

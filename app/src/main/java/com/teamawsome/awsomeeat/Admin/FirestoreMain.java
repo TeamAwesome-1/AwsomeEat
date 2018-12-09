@@ -135,20 +135,6 @@ public class FirestoreMain extends AppCompatActivity {
 
     private void getCategoriesFromDatabase(){
         categories = new ArrayList<>();
-        /*db.collection("Categories")
-                    .get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()) {
-                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                    categories.add(document.getId());
-                                }
-                            } else {
-
-                            }
-                        }
-                    });*/
 
         listenerRegistration= db.collection("Categories")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
