@@ -1,6 +1,7 @@
 package com.teamawsome;
 
 import com.teamawsome.awsomeeat.Model.Food;
+import com.teamawsome.awsomeeat.Model.Restaurant;
 
 public class idHolder {
 
@@ -17,9 +18,17 @@ public class idHolder {
     private static String restaurantId;
     private static String categoryId;
     private static String foodId;
+    private static Restaurant restaurant;
 
     private static Food seletedFood;
 
+    public static Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public static void setRestaurant(Restaurant restaurant) {
+        idHolder.restaurant = restaurant;
+    }
 
     public static Food getSeletedFood() {
         return seletedFood;

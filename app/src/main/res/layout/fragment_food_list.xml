@@ -10,6 +10,13 @@
     tools:context="com.teamawsome.awsomeeat.Fragments.FoodListFragment">
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/editrestaurant_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:src="@drawable/cheef" />
+
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/addnewdish_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -59,6 +59,10 @@
     <string name="the_dish_have_been_updated">The dish have been updated</string>
     <string name="dish_added_to_restaurant_menu">The dish have been added to the restaurants menu</string>
     <string name="dish_have_been_removed">The dish have been removed</string>
+    <string name="name_of_the_restaurant">Enter the name of the restaurant</string>
+    <string name="update_restaurant">Update Restaurant</string>
+    <string name="the_restaurant_have_been_updated">The restaurant have been updated</string>
+    <string name="please_fill_all_fields">Please fill all fields</string>
     <string name="total">Total:</string>
     <string name="_0">0</string>
     <string name="password">Password</string>

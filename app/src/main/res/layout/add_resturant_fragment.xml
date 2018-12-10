@@ -20,12 +20,27 @@
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout">
 
+        <ImageView
+            android:id="@+id/restaurantpic_imageview"
+            android:layout_width="389dp"
+            android:layout_height="154dp"
+            app:srcCompat="@drawable/cheef" />
+
+        <EditText
+            android:id="@+id/restaurantpic_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Enter a URL"
+            android:inputType="text"
+            android:textColor="@color/fbutton_color_peter_river" />
+
         <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/restaurantName"
+            android:id="@+id/editrestaurantname_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_restaurantname"
-            android:hint="Name of the resturant"
+            android:hint="@string/name_of_the_restaurant"
             android:inputType="text"
             android:textColor="@color/fui_bgEmail"
             android:textColorHint="@android:color/holo_blue_bright"
@@ -36,7 +51,7 @@
             app:met_singleLineEllipsis="true" />
 
         <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/restaurantAdress"
+            android:id="@+id/editrestaurantadress_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_add_location"

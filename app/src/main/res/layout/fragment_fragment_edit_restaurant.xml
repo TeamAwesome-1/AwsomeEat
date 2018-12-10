@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Admin.FragmentEditRestaurant">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/fbutton_color_silver"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/background"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/editrestaurantpic_imageview"
+                android:layout_width="389dp"
+                android:layout_height="154dp"
+                app:srcCompat="@drawable/cheef" />
+
+            <EditText
+                android:id="@+id/editrestaurantpicurl_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Enter a URL"
+                android:inputType="text"
+                android:textColor="@color/fbutton_color_peter_river" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/editrestaurantname_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_restaurantname"
+                android:hint="Name of the resturant"
+                android:inputType="text"
+                android:textColor="@color/fui_bgEmail"
+                android:textColorHint="@android:color/holo_blue_bright"
+                android:textSize="25sp"
+                app:met_baseColor="@android:color/white"
+                app:met_floatingLabel="highlight"
+                app:met_primaryColor="@android:color/holo_red_light"
+                app:met_singleLineEllipsis="true" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/editrestaurantadress_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_add_location"
+                android:hint="Address"
+                android:inputType="textPostalAddress"
+                android:textColor="@android:color/holo_orange_dark"
+                android:textColorHint="@android:color/holo_blue_bright"
+                android:textSize="25sp"
+                app:met_baseColor="@android:color/white"
+                app:met_floatingLabel="highlight"
+                app:met_maxCharacters="9"
+                app:met_primaryColor="@android:color/holo_red_light"
+
+                app:met_singleLineEllipsis="true" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/editrestaurantphone_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_local_phone_black_24dp"
+                android:hint="Phone Number"
+                android:inputType="textPhonetic"
+                android:textColor="@android:color/holo_orange_dark"
+                android:textColorHint="@android:color/holo_blue_bright"
+                android:textSize="25sp"
+                app:met_baseColor="@android:color/white"
+                app:met_floatingLabel="highlight"
+                app:met_maxCharacters="9"
+                app:met_primaryColor="@android:color/holo_red_light"
+                app:met_singleLineEllipsis="true" />
+
+
+            <Button
+                android:id="@+id/updaterestaurant_button"
+                style="@style/FirebaseUI.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginBottom="6dp"
+                android:background="@drawable/buttonshape"
+                android:text="@string/update_restaurant"
+                android:textColor="@android:color/white" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

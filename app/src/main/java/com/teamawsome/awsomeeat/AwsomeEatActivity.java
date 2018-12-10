@@ -185,7 +185,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.cart) {
-         eventHandler.openCartFragment(getCurrentFocus());
+         eventHandler.openCartFragment(getSupportFragmentManager());
         }
 
         return super.onOptionsItemSelected(item);

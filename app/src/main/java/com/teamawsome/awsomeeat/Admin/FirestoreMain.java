@@ -134,10 +134,15 @@ public class FirestoreMain extends AppCompatActivity {
 
     //Lägg till ny restaurang.
 
-    public void addRestaurant (String restaurantName, String restaurantAdress, String phoneNumber) {
-        restaurant = new Restaurant(restaurantName, restaurantAdress, phoneNumber);
+    public void addRestaurant (String restaurantName, String restaurantAdress, String phoneNumber, String pictureUrl) {
+        restaurant = new Restaurant(restaurantName, restaurantAdress, phoneNumber, pictureUrl);
         db.collection("restaurants")
                 .add(restaurant);
+        }
+
+        public void updateRestaurant (String restaurantId, Restaurant restaurant) {
+        DocumentReference updatedRestaurant = db.collection("restaurants").document(restaurantId);
+        updatedRestaurant.set(restaurant);
         }
 
 

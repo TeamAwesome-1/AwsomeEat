@@ -10,6 +10,7 @@ import com.teamawsome.awsomeeat.Admin.EditRestaurantMenuFragment;
 import com.teamawsome.awsomeeat.Admin.FragmentAddDish;
 import com.teamawsome.awsomeeat.Admin.FragmentAddRestaurant;
 
+import com.teamawsome.awsomeeat.Admin.FragmentEditRestaurant;
 import com.teamawsome.awsomeeat.Fragments.AdminMainFragment;
 import com.teamawsome.awsomeeat.Fragments.CartFragment;
 import com.teamawsome.awsomeeat.Fragments.EditProfleFragment;
@@ -145,6 +146,11 @@ public class EventHandler {
 
     public void openEditProfileFragment(FragmentManager fm) {
         fragment = new EditProfleFragment();
+        openFragment(fragment, fm);
+    }
+
+    public void openEditRestaurantFragment(FragmentManager fm) {
+        fragment = new FragmentEditRestaurant();
         openFragment(fragment, fm);
     }
 
