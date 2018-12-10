@@ -145,6 +145,12 @@ public class FirestoreMain extends AppCompatActivity {
         updatedRestaurant.set(restaurant);
         }
 
+        public void deleteRestaurant (String restaurantId, Restaurant restaurant) {
+            DocumentReference updatedRestaurant = db.collection("restaurants").document(restaurantId);
+            updatedRestaurant.delete();
+
+        }
+
 
     public void setCounter(int counter) {
         this.counter = counter;

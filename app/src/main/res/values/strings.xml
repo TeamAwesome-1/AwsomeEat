@@ -74,5 +74,8 @@
 
     <string name="profile_updated">Profile updated!</string>
     <string name="authentication_failer">Authentication failed.</string>
+    <string name="delete_restaurant">Delete restaurant</string>
+    <string name="the_restaurant_have_been_deleted">The restaurant have been deleted</string>
+    <string name="the_restaurant_have_been_added">The restaurant have been added</string>
 
 </resources>

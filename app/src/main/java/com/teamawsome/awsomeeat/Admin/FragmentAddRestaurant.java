@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.teamawsome.awsomeeat.PictureHandler;
@@ -54,6 +55,8 @@ public class FragmentAddRestaurant extends Fragment {
                                                String restAdress = restaurantAdress.getText().toString();
                                                String restPhone = restaurantPhoneNumber.getText().toString();
                                                firestoreMain.addRestaurant(restName, restAdress, restPhone, restaurantPicString);
+                                                 Toast.makeText(getContext(), getString(R.string.the_restaurant_have_been_added), Toast.LENGTH_SHORT).show();
+                                                 getActivity().getSupportFragmentManager().popBackStack();
 
                                              }
                                          }

@@ -104,6 +104,12 @@
                 android:text="@string/update_restaurant"
                 android:textColor="@android:color/white" />
 
+            <Button
+                android:id="@+id/deleterestaurant_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/delete_restaurant" />
+
         </LinearLayout>
 
     </LinearLayout>
