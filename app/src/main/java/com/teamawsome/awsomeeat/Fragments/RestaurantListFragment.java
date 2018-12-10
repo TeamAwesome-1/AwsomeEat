@@ -49,12 +49,6 @@ public class RestaurantListFragment extends Fragment {
         //Load Restaurants from database
             firestoreMain.getRestaurantList(adapter);
 
-        //specifies what happens when button is clicked - adminView is opened.
-        // getActivity().findViewById(R.id.Button).setOnClickListener((View view) -> {
-        // Intent intent = new Intent(getContext(), AdminMain.class);
-        // startActivity(intent);
-
-        //});
 
     }
 

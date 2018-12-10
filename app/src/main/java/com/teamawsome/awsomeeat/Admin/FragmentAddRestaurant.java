@@ -23,6 +23,7 @@ public class FragmentAddRestaurant extends Fragment {
     View view;
     private ImageView imageView;
     private EditText editText;
+    private String restaurantPicString;
 
 
 
@@ -48,16 +49,22 @@ public class FragmentAddRestaurant extends Fragment {
         addRestButton.setOnClickListener(new View.OnClickListener() {
                                              @Override
                                              public void onClick(View v) {
-                                                 String restaurantPicString = editText.getText().toString();
-                                                 PictureHandler.setPictureFromUrl(restaurantPicString, imageView);
-
+                                                 restaurantPicString = editText.getText().toString();
                                                String restName = restaurantName.getText().toString();
                                                String restAdress = restaurantAdress.getText().toString();
                                                String restPhone = restaurantPhoneNumber.getText().toString();
-                                               firestoreMain.addRestaurant(restName, restAdress, restPhone, restaurantPicString);
-                                                 Toast.makeText(getContext(), getString(R.string.the_restaurant_have_been_added), Toast.LENGTH_SHORT).show();
-                                                 getActivity().getSupportFragmentManager().popBackStack();
-
+                                               if (restaurantPicString.contains("http")) {
+                                                   PictureHandler.setPictureFromUrl(restaurantPicString, imageView);
+                                                   firestoreMain.addRestaurant(restName, restAdress, restPhone, restaurantPicString);
+                                                   Toast.makeText(getContext(), getString(R.string.the_restaurant_have_been_added), Toast.LENGTH_SHORT).show();
+                                                   getActivity().getSupportFragmentManager().popBackStack();
+                                               } else {
+                                                   restaurantPicString = "https://firebasestorage.googleapis.com/v0/b/awsomeeat.appspot.com/o/rest111.jpg?alt=media&token=424c59be-723e-4ec1-babc-b569c0f45d8d";
+                                                   PictureHandler.setPictureFromUrl(restaurantPicString, imageView);
+                                                   firestoreMain.addRestaurant(restName, restAdress, restPhone, restaurantPicString);
+                                                   getActivity().getSupportFragmentManager().popBackStack();
+                                                   Toast.makeText(getContext(), getString(R.string.adding_a_restaurant_with_default_picture), Toast.LENGTH_SHORT).show();
+                                               }
                                              }
                                          }
         );
