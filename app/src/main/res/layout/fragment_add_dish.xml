@@ -71,7 +71,7 @@
             android:id="@+id/dish_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_attach_money_black_24dp"
+            android:drawableLeft="@drawable/money"
             android:fontFamily="@font/actor"
             android:hint="Price:"
             android:inputType="text"
@@ -83,8 +83,7 @@
             android:id="@+id/food_price_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_attach_money_black_24dp"
-            android:hint="price"
+            android:drawableLeft="@drawable/money"
             android:inputType="number"
             android:textColor="@android:color/black"
             android:textColorHint="@android:color/holo_blue_bright"
@@ -95,23 +94,6 @@
             app:met_primaryColor="@android:color/holo_red_light"
 
             app:met_singleLineEllipsis="true" />
-
-        <TextView
-            android:id="@+id/resturanList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_restaurant_menu_black_24dp"
-            android:fontFamily="@font/actor"
-            android:hint="Resturant Name:"
-            android:inputType="text"
-            android:textColorHint="@android:color/black"
-            android:textSize="20sp"
-            app:met_baseColor="@android:color/black" />
-
-        <android.support.v7.widget.AppCompatSpinner
-            android:id="@+id/spinner_resturantName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
 
         <Button

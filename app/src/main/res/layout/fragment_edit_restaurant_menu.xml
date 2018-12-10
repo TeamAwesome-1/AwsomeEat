@@ -6,12 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:background="@color/fbutton_color_silver"
-
-    >
+    android:background="@android:color/white">
 
 
     <ImageView
+        android:background="@drawable/image_border"
         android:id="@+id/picdishedit_imageview"
         android:layout_width="347dp"
         android:layout_height="185dp"
@@ -93,10 +92,16 @@
 
             app:met_singleLineEllipsis="true" />
 
-        <Button
-            android:id="@+id/updateDishButton"
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:weightSum="2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/linearLayout2">
+
+        <Button
+            android:id="@+id/updateDishButton"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="6dp"
@@ -105,15 +110,25 @@
             android:clickable="true"
             android:focusable="true"
             android:text="Update"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@drawable/buttonshape"
+             />
 
         <Button
-            android:id="@+id/deletedish_button"
-            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@drawable/buttonshape"
+            android:id="@+id/deletedish_button"
             android:text="Delete"
             android:textColor="@color/colorText" />
 
+        </LinearLayout>
 
     </LinearLayout>
 

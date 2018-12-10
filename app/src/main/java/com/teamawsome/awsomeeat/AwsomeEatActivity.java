@@ -58,8 +58,6 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        authentication.loadAuthData();
-        authentication.getUserDetails();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -99,29 +97,14 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
                 }
             }
-
-
-               /* MenuItem admin = findViewById(R.id.admin);
-                admin.setVisible(false);
-               if (authentication.isAdmin()) {
-                   admin.setVisible(true);
-                   return;
-               }
-                 else if (!authentication.isAdmin()){
-               }
-            }*/
         });
 
-
         // Starts the fragment shown on first page in app
+        FragmentManager fragmentManager = getSupportFragmentManager();
 
-            fragment = new RestaurantListFragment();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.add(R.id.fragmentinsertlayout, fragment);
-            fragmentTransaction.commit();
+            authentication.openFragment(fragmentManager);
+}
 
-    }
 
     @Override
     public void onBackPressed() {
@@ -265,7 +248,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
     @Override
     protected void onResume() {
         super.onResume();
-       authentication.checkAuthState(context);
+       authentication.checkAuthState(this);
     }
 
     private void signOut() {
@@ -274,6 +257,5 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
         signIn.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(signIn);
     }
-
 }
 

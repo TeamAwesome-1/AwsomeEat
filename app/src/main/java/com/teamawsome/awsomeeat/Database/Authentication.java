@@ -3,6 +3,7 @@ package com.teamawsome.awsomeeat.Database;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,6 +27,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.teamawsome.awsomeeat.AwsomeEatActivity;
 import com.teamawsome.awsomeeat.Fragments.AdminMainFragment;
 import com.teamawsome.awsomeeat.Fragments.RestaurantListFragment;
+import com.teamawsome.awsomeeat.Fragments.userFragment;
 import com.teamawsome.awsomeeat.MainActivity;
 import com.teamawsome.awsomeeat.Model.User;
 import com.teamawsome.awsomeeat.R;
@@ -32,7 +35,7 @@ import com.teamawsome.awsomeeat.SignIn;
 import com.teamawsome.awsomeeat.SignUp;
 import com.teamawsome.awsomeeat.SignUpProfileFields;
 
-public class Authentication extends AppCompatActivity {
+public class Authentication {
 
     private static final Authentication Authentication = new Authentication();
     private static final String TAG = "User";
@@ -70,7 +73,7 @@ public class Authentication extends AppCompatActivity {
         });
     }
 
-    public void setupFirebaseAuth(Context context){
+    public void setupFirebaseAuth(Activity context){
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -81,7 +84,7 @@ public class Authentication extends AppCompatActivity {
                     Log.d(TAG, "onAuthStateChanged: signed_in: " + currentUser.getUid());
                     Intent intent = new Intent(context, AwsomeEatActivity.class);
                     context.startActivity(intent);
-                    finish();
+                    context.finish();
                 }else{
                     Log.d(TAG, "onAuthStateChanged: signed_out");
                 }
@@ -89,7 +92,7 @@ public class Authentication extends AppCompatActivity {
         };
     }
 
-    public void registerEmail(String email, String password, Context context){
+    public void registerEmail(String email, String password, Activity context){
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -103,7 +106,7 @@ public class Authentication extends AppCompatActivity {
                             mAuth = FirebaseAuth.getInstance();
                             Intent intent = new Intent(context, SignUpProfileFields.class);
                             context.startActivity(intent);
-                            finish();
+                            context.finish();
 
                             // updateUI(user);
                         } else {
@@ -186,6 +189,48 @@ public class Authentication extends AppCompatActivity {
             });
         }
 
+    }
+
+    public void openIntent(Activity context){
+        DocumentReference docRef = userCollection.document(currentUser.getUid());
+
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                Intent intent = new Intent(context, AwsomeEatActivity.class);
+                context.startActivity(intent);
+                context.finish();
+
+            }
+        });
+    }
+
+    public void openFragment(FragmentManager fragmentManager){
+        DocumentReference docRef = userCollection.document(currentUser.getUid());
+
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (getAdress() == null){
+                    setAdress("");
+                    setAdmin(false);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("Info_key", "Start");
+                    fragment = new userFragment();
+                    fragment.setArguments(bundle);
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.add(R.id.fragmentinsertlayout, fragment);
+                    fragmentTransaction.commit();
+
+                }else{
+                    loadAuthData();
+                    fragment = new RestaurantListFragment();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.add(R.id.fragmentinsertlayout, fragment);
+                    fragmentTransaction.commit();
+                }
+            }
+        });
     }
 
     public void getUserAdress(){
@@ -293,7 +338,7 @@ public class Authentication extends AppCompatActivity {
 
     }
 
-    public void checkAuthState(Context context){
+    public void checkAuthState(Activity context){
         Log.d(TAG,"checkAuthState");
 
         if(currentUser == null){
@@ -302,7 +347,7 @@ public class Authentication extends AppCompatActivity {
             Intent intent = new Intent(context, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             context.startActivity(intent);
-            finish();
+            context.finish();
         }else{
             Log.d(TAG, "user is authenticated, user id: " + currentUser.getUid());
         }
