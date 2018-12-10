@@ -114,6 +114,4 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartViewHolder
 
     }
 
-
-
 }
