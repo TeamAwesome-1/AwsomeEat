@@ -55,5 +55,9 @@
     <string name="cart">Cart</string>
     <string name="whole_menu">Whole menu</string>
     <string name="close">Close</string>
+    <string name="please_enter_a_valid_picture_url">Please enter a valid URL for the picture</string>
+    <string name="the_dish_have_been_updated">The dish have been updated</string>
+    <string name="dish_added_to_restaurant_menu">The dish have been added to the restaurants menu</string>
+    <string name="dish_have_been_removed">The dish have been removed</string>
 
 </resources>

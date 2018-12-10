@@ -50,6 +50,7 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
 
 
 
+
     private EventHandler eventHandler = EventHandler.getInstance();
 
     @Override
@@ -209,20 +210,22 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
         adapter.modifyItem(food.getId(), food);
         adapter.notifyDataSetChanged();
         firestoreMain.changeFood(food);
-      //  Toast.makeText(firestoreMain, "The dish have been updated", Toast.LENGTH_SHORT).show();
-      //  activity.getSupportFragmentManager().popBackStack();
+        Toast.makeText(this.getContext(), getString(R.string.the_dish_have_been_updated), Toast.LENGTH_SHORT).show();
+       getActivity().getSupportFragmentManager().popBackStack();
     }
 
     public void addNewDish (View v) {
        eventHandler.openAddishFragment(v);
-      //  activity.getSupportFragmentManager().popBackStack();
+        Toast.makeText(this.getContext(), getString(R.string.dish_added_to_restaurant_menu), Toast.LENGTH_SHORT).show();
+        getActivity().getSupportFragmentManager().popBackStack();
 
 
             }
 
             public void deleteDish (View v) {
              firestoreMain.deleteFood(food);
-        //        activity.getSupportFragmentManager().popBackStack();
+                Toast.makeText(this.getContext(), getString(R.string.dish_have_been_removed), Toast.LENGTH_SHORT).show();
+                getActivity().getSupportFragmentManager().popBackStack();
 
 
             }

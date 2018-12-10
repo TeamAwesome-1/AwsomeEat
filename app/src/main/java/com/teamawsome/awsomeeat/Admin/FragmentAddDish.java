@@ -124,8 +124,17 @@ public class FragmentAddDish extends Fragment {
 
     public void addNewDish () {
         picUrlString = picUrl.getText().toString();
-        PictureHandler.setPictureFromUrl(picUrlString, picDish);
-        firestoreMain.addFood(setFoodName.getText().toString(), dishPrice.getText().toString(), category, picUrlString);
+        if (picUrlString.contains("http")) {
+         //   picUrlString = picUrl.getText().toString();
+            PictureHandler.setPictureFromUrl(picUrlString, picDish);
+            firestoreMain.addFood(setFoodName.getText().toString(), dishPrice.getText().toString(), category, picUrlString);
+            Toast.makeText(this.getContext(), getString(R.string.dish_added_to_restaurant_menu), Toast.LENGTH_SHORT).show();
+            getActivity().getSupportFragmentManager().popBackStack();
+        } else {
+            Toast.makeText(this.getContext(), getString(R.string.please_enter_a_valid_picture_url), Toast.LENGTH_SHORT).show();
+
+
+        }
     }
 }
 
