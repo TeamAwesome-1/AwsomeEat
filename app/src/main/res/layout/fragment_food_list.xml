@@ -133,7 +133,7 @@
                 android:layout_toEndOf="@+id/category3_button"
                 android:clickable="true"
                 android:focusable="true"
-                android:src="@drawable/foodkorv"
+                android:src="@drawable/sandwichicon"
                 android:visibility="gone"
                 app:backgroundTint="@android:color/white" />
 
@@ -149,7 +149,7 @@
                 android:layout_toEndOf="@+id/category4_button"
                 android:clickable="true"
                 android:focusable="true"
-                android:src="@drawable/sandwichicon"
+                android:src="@drawable/foodkorv"
                 android:visibility="gone"
                 app:backgroundTint="@android:color/white" />
 
