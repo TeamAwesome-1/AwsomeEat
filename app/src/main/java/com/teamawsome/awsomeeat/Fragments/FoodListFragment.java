@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.teamawsome.awsomeeat.Adapters.FoodListRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Admin.FirestoreMain;
+import com.teamawsome.awsomeeat.Database.Authentication;
 import com.teamawsome.awsomeeat.EventHandler;
 import com.teamawsome.awsomeeat.Model.Food;
 import com.teamawsome.awsomeeat.R;
@@ -36,7 +37,9 @@ public class FoodListFragment extends Fragment {
     private FloatingActionButton category5Button;
     private FloatingActionButton addNewDishButton;
     private FirestoreMain firestoreMain = FirestoreMain.getInstance();
+    private EventHandler eventHandler = EventHandler.getInstance();
 
+    private Authentication auth = Authentication.getInstance();
     private static final String TAG = "Logging Example";
     FoodListRecyclerViewAdapter adapter;
 
@@ -68,6 +71,9 @@ public class FoodListFragment extends Fragment {
         }
         if(idHolder.getRestaurantId() != null) {
             restaurantId = idHolder.getRestaurantId();
+        }
+        if (!auth.isAdmin()) {
+            addNewDishButton.setVisibility(View.GONE);
         }
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_food);
@@ -131,7 +137,7 @@ public class FoodListFragment extends Fragment {
        });
 
        addNewDishButton.setOnClickListener(view -> {
-           EventHandler.openAddishFragment(view);
+           eventHandler.openAddishFragment(view);
 
         });
         }

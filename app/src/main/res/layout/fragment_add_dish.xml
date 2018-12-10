@@ -30,7 +30,7 @@
             android:id="@+id/picture_url"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="Enter an URL for the picture of the dish" />
+            android:hint="Enter an URL for the picture of the dish" />
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/food_name"

@@ -21,6 +21,7 @@ public class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     private ImageView food_image;
     private String itemId;
     private Food food;
+    private EventHandler eventHandler = EventHandler.getInstance();
 
     private ItemClickListener itemClickListener;
 
@@ -54,9 +55,9 @@ public class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         idHolder.setSeletedFood(food);
 
       if (auth.isAdmin()) {
-        EventHandler.openEditRestaurantMenuFragment(view);
+        eventHandler.openEditRestaurantMenuFragment(view);
        }else {
-          EventHandler.openFoodDetailFragment(view);
+          eventHandler.openFoodDetailFragment(view);
       }
     }
 }

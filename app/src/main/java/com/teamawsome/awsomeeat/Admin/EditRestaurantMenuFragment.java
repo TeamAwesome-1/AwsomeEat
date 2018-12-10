@@ -44,6 +44,7 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
     private String picUrlString;
     private ImageView picDish;
 
+    private EventHandler eventHandler = EventHandler.getInstance();
 
     @Override
     public void onClick(View v) {
@@ -58,7 +59,6 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
 
         }
     }
-
 
     public EditRestaurantMenuFragment() {
         // Required empty public constructor
@@ -191,10 +191,11 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
         adapter.modifyItem(food.getId(), food);
         adapter.notifyDataSetChanged();
         firestoreMain.changeFood(food);
+        Toast.makeText(firestoreMain, "The dish have been updated", Toast.LENGTH_SHORT).show();
     }
 
     public void addNewDish (View v) {
-       EventHandler.openAddishFragment(v);
+       eventHandler.openAddishFragment(v);
 
 
             }
