@@ -34,6 +34,7 @@ public class RestaurantListFragment extends Fragment {
         View view= inflater.inflate(R.layout.fragment_restaurant_list, container, false);
         adapter = new RestaurantRecyclerViewAdapter(itemList);
         RecyclerView recyclerView = view.findViewById(R.id.list);
+        authentication.checkAdminState();
         recyclerView.setAdapter(adapter);
         return view;
 
