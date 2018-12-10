@@ -210,7 +210,11 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
 
         else if (id == R.id.adminItem) {
-            EventHandler.openAdminFragment(getCurrentFocus());
+            Fragment fragment = new AdminMainFragment();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragmentinsertlayout, fragment).addToBackStack(null)
+                    .commit();
+           // EventHandler.openAdminFragment(getCurrentFocus());
         }
 
         //Closes the drawer after an item has been selected

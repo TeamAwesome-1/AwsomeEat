@@ -191,6 +191,7 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
         adapter.modifyItem(food.getId(), food);
         adapter.notifyDataSetChanged();
         firestoreMain.changeFood(food);
+        Toast.makeText(firestoreMain, "The dish have been updated", Toast.LENGTH_SHORT).show();
     }
 
     public void addNewDish (View v) {
