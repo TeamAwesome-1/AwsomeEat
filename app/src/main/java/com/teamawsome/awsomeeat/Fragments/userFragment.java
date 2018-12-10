@@ -80,6 +80,7 @@ public class userFragment extends Fragment {
                     fragmentTransaction.replace(R.id.fragmentinsertlayout, fragment);
                     fragmentTransaction.commit();
                     Toast.makeText(getActivity(), getString(R.string.profile_updated), Toast.LENGTH_SHORT).show();
+                    authentication.loadAuthData();
                 }
             }
         }

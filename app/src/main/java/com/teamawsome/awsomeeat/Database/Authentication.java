@@ -28,6 +28,7 @@ import com.teamawsome.DelayedProgressDialog;
 import com.teamawsome.awsomeeat.Admin.FirestoreMain;
 import com.teamawsome.awsomeeat.AwsomeEatActivity;
 import com.teamawsome.awsomeeat.Fragments.AdminMainFragment;
+import com.teamawsome.awsomeeat.Fragments.EditProfleFragment;
 import com.teamawsome.awsomeeat.Fragments.RestaurantListFragment;
 import com.teamawsome.awsomeeat.Fragments.userFragment;
 import com.teamawsome.awsomeeat.MainActivity;
@@ -101,18 +102,16 @@ public class Authentication {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            DelayedProgressDialog progressDialog = new DelayedProgressDialog();
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             //FirebaseUser user = mAuth.getCurrentUser();
                             //authentication.loadAuthData();
                             currentUser = FirebaseAuth.getInstance().getCurrentUser();
                             mAuth = FirebaseAuth.getInstance();
-                            Intent intent = new Intent(context, SignUpProfileFields.class);
+                            Intent intent = new Intent(context, AwsomeEatActivity.class);
                             context.startActivity(intent);
                             context.finish();
                             Toast.makeText(context, context.getString(R.string.registration_succeeded), Toast.LENGTH_SHORT).show();
-                            progressDialog.show( ((AppCompatActivity) context).getSupportFragmentManager(), "Loading");
                             // updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -227,10 +226,8 @@ public class Authentication {
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.add(R.id.fragmentinsertlayout, fragment);
                     fragmentTransaction.commit();
-
                 }else{
                     loadAuthData();
-
                     fragment = new RestaurantListFragment();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.add(R.id.fragmentinsertlayout, fragment);
@@ -395,5 +392,4 @@ public class Authentication {
         //mAuth = null;
         Log.d(TAG, "Signed out:");
     }
-
 }

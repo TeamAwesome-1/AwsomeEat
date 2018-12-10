@@ -91,8 +91,6 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
                     Menu admin = navigationView.getMenu();
                     admin.findItem(R.id.adminItem).setVisible(true);
 
-
-
                 }
             }
         });

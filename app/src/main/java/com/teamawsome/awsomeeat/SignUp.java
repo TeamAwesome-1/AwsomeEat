@@ -32,7 +32,7 @@ public class SignUp extends AppCompatActivity {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                DelayedProgressDialog progressDialog = new DelayedProgressDialog();
 
 
                 if(Common.isNetworkAvailable(getBaseContext())) {
@@ -44,9 +44,8 @@ public class SignUp extends AppCompatActivity {
                     else if (!(edtPassword.getText().toString()).equals(edtConfirmPassword.getText().toString()))
                         Toast.makeText(SignUp.this, getString(R.string.no_match_password), Toast.LENGTH_SHORT).show();
                     else {
-
                         authentication.registerEmail(edtName.getText().toString(), edtPassword.getText().toString(), SignUp.this);
-
+                        progressDialog.show( ((AppCompatActivity) context).getSupportFragmentManager(), "Loading");
                     }
             }
         }
