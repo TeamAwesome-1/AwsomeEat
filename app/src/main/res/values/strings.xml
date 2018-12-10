@@ -59,5 +59,7 @@
     <string name="the_dish_have_been_updated">The dish have been updated</string>
     <string name="dish_added_to_restaurant_menu">The dish have been added to the restaurants menu</string>
     <string name="dish_have_been_removed">The dish have been removed</string>
+    <string name="profile_updated">Profile updated!</string>
+    <string name="authentication_failer">Authentication failed.</string>
 
 </resources>

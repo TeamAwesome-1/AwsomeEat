@@ -145,6 +145,10 @@ public class CartFragment extends Fragment {
        firestoreMain.detachSnapShotListener();
    }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        authentication.checkAuthState(getActivity());
+    }
 
 }

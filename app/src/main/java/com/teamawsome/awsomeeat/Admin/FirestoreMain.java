@@ -31,6 +31,8 @@ import com.teamawsome.awsomeeat.Adapters.CartRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Adapters.CategoryListRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Adapters.FoodListRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Adapters.RestaurantRecyclerViewAdapter;
+import com.teamawsome.awsomeeat.AwsomeEatActivity;
+import com.teamawsome.awsomeeat.Database.Authentication;
 import com.teamawsome.awsomeeat.EventHandler;
 import com.teamawsome.awsomeeat.Fragments.CartFragment;
 import com.teamawsome.awsomeeat.Model.Category;
@@ -57,6 +59,7 @@ public class FirestoreMain extends AppCompatActivity {
     private String category5;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private static Authentication authentication = Authentication.getInstance();
     private Restaurant restaurant;
     private Food food;
     private List<String> categories;
@@ -65,6 +68,7 @@ public class FirestoreMain extends AppCompatActivity {
     private int counterIcon;
     private EventHandler eventHandler = EventHandler.getInstance();
     private View view;
+    private int counter;
 
     public int getCounterIcon() {
         return counterIcon;
@@ -135,6 +139,49 @@ public class FirestoreMain extends AppCompatActivity {
         db.collection("restaurants")
                 .add(restaurant);
         }
+
+
+     public int getCounter(){
+        return counter;
+
+     }
+
+
+     public void updateCounter(final Runnable r){
+
+         db.collection("Cart").whereEqualTo("userId", authentication.getCurrentUser().getUid())
+                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                     @Override
+                     public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                         if (e != null) {
+                             return;
+                         }
+
+                         for (DocumentChange dc : queryDocumentSnapshots.getDocumentChanges()) {
+                             if (dc.getType() == DocumentChange.Type.ADDED) {
+
+                                 Order order = dc.getDocument().toObject(Order.class);
+                                int i =  Integer.parseInt(order.getQuantity());
+                                counter += i;
+
+
+                             } else if (dc.getType() == DocumentChange.Type.REMOVED) {
+                                 Order order = dc.getDocument().toObject(Order.class);
+                                 int i =  Integer.parseInt(order.getQuantity());
+                                 counter = counter-i;
+
+
+                             } else if (dc.getType() == DocumentChange.Type.MODIFIED) {
+
+
+                             }
+                         }
+                         r.run();
+
+                     }
+                 });
+
+     }
 
 
     private void getCategoriesFromDatabase(){
@@ -257,7 +304,6 @@ public class FirestoreMain extends AppCompatActivity {
 
                 }
             });
-
         }
 
     //TODO ska dehär vara med? /Sandra
@@ -327,8 +373,6 @@ public class FirestoreMain extends AppCompatActivity {
                         }
                     }
                 });
-
-
     }
 
     /**
@@ -395,8 +439,6 @@ public class FirestoreMain extends AppCompatActivity {
             db.collection("Orders")
                     .add(cartList.get(i));
         }
-
-
     }
 
     public void clearCartItem ( String documentId){

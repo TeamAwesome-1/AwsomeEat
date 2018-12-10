@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.teamawsome.awsomeeat.Admin.FragmentAddDish;
 
 import com.teamawsome.awsomeeat.Admin.ViewPagerAdapter;
+import com.teamawsome.awsomeeat.Database.Authentication;
 import com.teamawsome.awsomeeat.EventHandler;
 import com.teamawsome.awsomeeat.R;
 
@@ -27,6 +28,7 @@ public class AdminMainFragment extends Fragment {
     private AppBarLayout appBarLayout;
     private ViewPager viewPager;
     private EventHandler eventHandler = EventHandler.getInstance();
+    private static Authentication authentication = Authentication.getInstance();
 
     public AdminMainFragment() {
         // Required empty public constructor
@@ -70,7 +72,11 @@ public class AdminMainFragment extends Fragment {
         return view;
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        authentication.checkAuthState(getActivity());
+    }
 
 
 }

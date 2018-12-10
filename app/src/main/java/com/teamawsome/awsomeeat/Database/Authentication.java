@@ -24,6 +24,8 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.teamawsome.DelayedProgressDialog;
+import com.teamawsome.awsomeeat.Admin.FirestoreMain;
 import com.teamawsome.awsomeeat.AwsomeEatActivity;
 import com.teamawsome.awsomeeat.Fragments.AdminMainFragment;
 import com.teamawsome.awsomeeat.Fragments.RestaurantListFragment;
@@ -40,6 +42,7 @@ public class Authentication {
     private static final Authentication Authentication = new Authentication();
     private static final String TAG = "User";
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private static FirestoreMain firestoreMain = FirestoreMain.getInstance();
     private CollectionReference userCollection = db.collection("User");
     private static User user;
     private static FirebaseUser currentUser;
@@ -98,6 +101,7 @@ public class Authentication {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            DelayedProgressDialog progressDialog = new DelayedProgressDialog();
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             //FirebaseUser user = mAuth.getCurrentUser();
@@ -107,13 +111,15 @@ public class Authentication {
                             Intent intent = new Intent(context, SignUpProfileFields.class);
                             context.startActivity(intent);
                             context.finish();
-
+                            Toast.makeText(context, context.getString(R.string.registration_succeeded), Toast.LENGTH_SHORT).show();
+                            progressDialog.show( ((AppCompatActivity) context).getSupportFragmentManager(), "Loading");
                             // updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(context, "Authentication failed.",
+                            Toast.makeText(context, context.getString(R.string.authentication_failer),
                                    Toast.LENGTH_SHORT).show();
+
                         }
                     }
                 });
@@ -224,6 +230,7 @@ public class Authentication {
 
                 }else{
                     loadAuthData();
+
                     fragment = new RestaurantListFragment();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.add(R.id.fragmentinsertlayout, fragment);
