@@ -176,8 +176,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
         final MenuItem menuItem = menu.findItem(R.id.cart);
 
-
-        View actionView = MenuItemCompat.getActionView(menuItem);
+        View actionView = menuItem.getActionView();
         textCartItemCount = (TextView) actionView.findViewById(R.id.cart_badge);
 
         setupBadge();
@@ -258,7 +257,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
     private void getCartNumber(){
 
-        mCartItemCount = firestoreMain.getCounterIcon();
+        mCartItemCount = 10;
     }
 
     @Override
