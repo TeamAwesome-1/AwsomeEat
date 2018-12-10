@@ -55,7 +55,7 @@
             android:fontFamily="@font/actor"
             android:gravity="center"
             android:textAllCaps="true"
-            android:textColor="@color/fbutton_color_sun_flower"
+            android:textColor="@android:color/white"
             android:textSize="25sp"
             android:typeface="monospace"
             app:layout_constraintBottom_toBottomOf="parent"
