@@ -55,4 +55,10 @@
     <string name="sign_in">Logga in</string>
     <string name="sign_up">Nytt konto</string>
     <string name="was_deleted">raderades</string>
+    <string name="profile_updated">Profil updaterad</string>
+    <string name="authentication_failer">Inloggning misslyckades</string>
+    <string name="dish_have_been_removed">Måltiden har raderats</string>
+    <string name="dish_added_to_restaurant_menu">Måltiden har lagts till i menyn</string>
+    <string name="the_dish_have_been_updated">Måltiden har uppdaterats</string>
+    <string name="please_enter_a_valid_picture_url">Fyll i en giltig URL för bilden</string>
 </resources>
