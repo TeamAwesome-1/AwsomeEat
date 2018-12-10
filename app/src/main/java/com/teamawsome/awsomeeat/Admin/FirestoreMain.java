@@ -50,14 +50,13 @@ import javax.annotation.Nullable;
 //TODO Förenkla metoderna och undvik återupprepning av kod. kolla på addmetoderna /Sandra
 
 public class FirestoreMain extends AppCompatActivity {
-    private int count = 0;
+
 
     private String category1;
     private String category2;
     private String category3;
     private String category4;
     private String category5;
-
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static Authentication authentication = Authentication.getInstance();
     private Restaurant restaurant;
@@ -65,6 +64,7 @@ public class FirestoreMain extends AppCompatActivity {
     private List<String> categories;
     private CollectionReference foods = db.collection("foods");
     private ListenerRegistration listenerRegistration;
+    private ListenerRegistration listenerforCounter, listenerForCategories, restaurantMenuListener, listenerForCartList,listenerForRestauranList;
     private int counterIcon;
     private EventHandler eventHandler = EventHandler.getInstance();
     private View view;
@@ -86,7 +86,6 @@ public class FirestoreMain extends AppCompatActivity {
     private FirestoreMain () {
         getCategoriesFromDatabase();
     }
-
 
     public List<String> getCategories(){
         return categories;
@@ -165,7 +164,7 @@ public class FirestoreMain extends AppCompatActivity {
 
      public void updateCounter(final Runnable r){
 
-         db.collection("Cart").whereEqualTo("userId", authentication.getCurrentUser().getUid())
+         listenerforCounter = db.collection("Cart").whereEqualTo("userId", authentication.getCurrentUser().getUid())
                  .addSnapshotListener(new EventListener<QuerySnapshot>() {
                      @Override
                      public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
@@ -202,7 +201,7 @@ public class FirestoreMain extends AppCompatActivity {
     private void getCategoriesFromDatabase(){
         categories = new ArrayList<>();
 
-        listenerRegistration= db.collection("Categories")
+        listenerForCategories= db.collection("Categories")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
@@ -251,7 +250,7 @@ public class FirestoreMain extends AppCompatActivity {
      */
     public void getCartList(CartRecyclerViewAdapter adapter, String userId){
 
-        listenerRegistration= db.collection("Cart").whereEqualTo("userId", userId)
+        listenerForCartList= db.collection("Cart").whereEqualTo("userId", userId)
                     .addSnapshotListener(new EventListener<QuerySnapshot>() {
                 @Override
                 public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
@@ -292,7 +291,7 @@ public class FirestoreMain extends AppCompatActivity {
      */
    public void getRestaurantList(RestaurantRecyclerViewAdapter adapter){
 
-            listenerRegistration = db.collection("restaurants").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            listenerForRestauranList = db.collection("restaurants").addSnapshotListener(new EventListener<QuerySnapshot>() {
                 @Override
                 public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                     if (e != null) {
@@ -395,9 +394,10 @@ public class FirestoreMain extends AppCompatActivity {
      * @param adapter- FoodlistRecyclerViewAdapter that will display the list
      * @param restaurantId- the id of the restaurant
      */
+    //OK
     public void getRestaurantMenu (FoodListRecyclerViewAdapter adapter, String restaurantId) {
 
-            listenerRegistration = db.collection("Foods").whereEqualTo("restaurantId", restaurantId)
+            restaurantMenuListener = db.collection("Foods").whereEqualTo("restaurantId", restaurantId)
                     .addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
                         public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
@@ -429,25 +429,25 @@ public class FirestoreMain extends AppCompatActivity {
 
         }
 
-        //Lägger till en ny maträtt i "Foods" collection.
-        public void addFood (String name, String price, String Category, String picUrl) {
+    //OK    //Lägger till en ny maträtt i "Foods" collection.
+  public void addFood (String name, String price, String Category, String picUrl) {
         food = new Food(name, price, idHolder.getRestaurantId(), Category, picUrl);
 
         db.collection("Foods").add(food);
         }
-
+    //OK
     public void changeFood(Food food ) {
         DocumentReference foods = db.collection("Foods").document(food.getId());
           foods.set(food);
     }
-
+    //OK
     public void deleteFood (Food food) {
         DocumentReference foods = db.collection("Foods").document(food.getId());
         foods.delete();
 
 
     }
-
+    //OK
     public void addToOrders(List<Order> cartList) {
 
         for (int i = 0; i < cartList.size(); i++) {
@@ -455,7 +455,7 @@ public class FirestoreMain extends AppCompatActivity {
                     .add(cartList.get(i));
         }
     }
-
+    //OK
     public void clearCartItem ( String documentId){
         db.collection("Cart").document(documentId)
                 .delete()
@@ -472,7 +472,7 @@ public class FirestoreMain extends AppCompatActivity {
                     }
                 });
     }
-
+    //ok
     public void clearCart(List<Order> cartList){
         for (int i = 0; i < cartList.size(); i++) {
             Order order = cartList.get(i);
@@ -482,7 +482,28 @@ public class FirestoreMain extends AppCompatActivity {
     }
 
     public void detachSnapShotListener(){
+        //ANVÄNDS för kategorilistan ---Ska bort
         listenerRegistration.remove();
+    }
+
+    public void detachListenerForCounter(){
+        listenerforCounter.remove();
+    }
+
+    public void detachListenerForCategories() {
+        listenerForCategories.remove();
+    }
+
+    public void detachListenerForRestaurantMenu() {
+        restaurantMenuListener.remove();
+    }
+
+    public void detachListenerForCartList(){
+        listenerForCartList.remove();
+    }
+
+    public void detachListenerForRestaurantList(){
+        listenerForRestauranList.remove();
     }
 }
 
