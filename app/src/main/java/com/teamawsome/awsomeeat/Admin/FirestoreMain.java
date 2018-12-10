@@ -47,7 +47,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 
-//TODO Förenkla metoderna och undvik återupprepning av kod. kolla på addmetoderna /Sandra
+
 
 public class FirestoreMain extends AppCompatActivity {
 
@@ -320,8 +320,7 @@ public class FirestoreMain extends AppCompatActivity {
             });
         }
 
-    //TODO ska dehär vara med? /Sandra
-   //Hämtar en lista på alla matkategorier som finns att välja på i vald restaurang.
+
    public void getCategoriesForRestaurant(CategoryListRecyclerViewAdapter adapter, String restaurantId){
 
 
@@ -430,8 +429,8 @@ public class FirestoreMain extends AppCompatActivity {
         }
 
     //OK    //Lägger till en ny maträtt i "Foods" collection.
-  public void addFood (String name, String price, String Category, String picUrl) {
-        food = new Food(name, price, idHolder.getRestaurantId(), Category, picUrl);
+  public void addFood (String name, String price, String category, String picUrl) {
+        food = new Food(name, price, idHolder.getRestaurantId(), category, picUrl);
 
         db.collection("Foods").add(food);
         }

@@ -16,15 +16,7 @@ public class Food {
     @Exclude
     private String restaurantId;
 
-   /*public String getCategory() {
-        return category;
-    }*/
-
-   /* public void setCategory(String category) {
-        this.category = category;
-    }*/
-
-    public String Category;
+    private String category;
     private String id;
 
 
@@ -40,15 +32,15 @@ public class Food {
         this.price = price;
         this.discount = discount;
         this.restaurantId = restaurantId;
-        this.Category = category;
+        this.category = category;
 
     }
 
-    public Food(String name, String price, String restaurantId, String Category, String image) {
+    public Food(String name, String price, String restaurantId, String category, String image) {
         this.name = name;
         this.price = price;
         this.restaurantId = restaurantId;
-        this.Category = Category;
+        this.category = category;
         this.image = image;
     }
 
@@ -67,13 +59,6 @@ public class Food {
     public void setName(String name) {
         this.name = name;
     }
-
-   //TODO ändra category till att skrivas med gemener istället annars fungerar inte gettern
-   /*public String getCategory() {
-        return Category;
-    }*/
-
-
 
     public String getImage() {
         return image;
@@ -114,6 +99,10 @@ public class Food {
     public void setRestaurantId(String restaurantId) {
         this.restaurantId = restaurantId;
     }
+
+    public String getCategory() { return category; }
+
+    public void setCategory(String category) { this.category = category; }
 
 
 }
