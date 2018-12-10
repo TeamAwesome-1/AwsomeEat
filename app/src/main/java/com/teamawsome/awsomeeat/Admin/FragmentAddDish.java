@@ -51,10 +51,21 @@ public class FragmentAddDish extends Fragment {
 
 
         Spinner spinner = (Spinner) view.findViewById(R.id.spinner2);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.categories));
+       /* ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.categories));
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinner.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();*/
+        ArrayAdapter<String> adapter;
+        //Loads categories from database
+        if(firestoreMain.getCategories()!=null) {
+            adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, firestoreMain.getCategories());
+        }else {
+            adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.categories));
+        }
+            adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+            spinner.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+
 
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
@@ -113,8 +124,17 @@ public class FragmentAddDish extends Fragment {
 
     public void addNewDish () {
         picUrlString = picUrl.getText().toString();
-        PictureHandler.setPictureFromUrl(picUrlString, picDish);
-        firestoreMain.addFood(setFoodName.getText().toString(), dishPrice.getText().toString(), category, picUrlString);
+        if (picUrlString.contains("http")) {
+         //   picUrlString = picUrl.getText().toString();
+            PictureHandler.setPictureFromUrl(picUrlString, picDish);
+            firestoreMain.addFood(setFoodName.getText().toString(), dishPrice.getText().toString(), category, picUrlString);
+            Toast.makeText(this.getContext(), getString(R.string.dish_added_to_restaurant_menu), Toast.LENGTH_SHORT).show();
+            getActivity().getSupportFragmentManager().popBackStack();
+        } else {
+            Toast.makeText(this.getContext(), getString(R.string.please_enter_a_valid_picture_url), Toast.LENGTH_SHORT).show();
+
+
+        }
     }
 }
 

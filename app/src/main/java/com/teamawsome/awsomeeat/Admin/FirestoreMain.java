@@ -3,6 +3,7 @@ package com.teamawsome.awsomeeat.Admin;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -30,6 +31,7 @@ import com.teamawsome.awsomeeat.Adapters.CartRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Adapters.CategoryListRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Adapters.FoodListRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Adapters.RestaurantRecyclerViewAdapter;
+import com.teamawsome.awsomeeat.EventHandler;
 import com.teamawsome.awsomeeat.Fragments.CartFragment;
 import com.teamawsome.awsomeeat.Model.Category;
 import com.teamawsome.awsomeeat.Model.Food;
@@ -53,6 +55,7 @@ public class FirestoreMain extends AppCompatActivity {
     private String category3;
     private String category4;
     private String category5;
+
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private Restaurant restaurant;
     private Food food;
@@ -60,6 +63,8 @@ public class FirestoreMain extends AppCompatActivity {
     private CollectionReference foods = db.collection("foods");
     private ListenerRegistration listenerRegistration;
     private int counterIcon;
+    private EventHandler eventHandler = EventHandler.getInstance();
+    private View view;
 
     public int getCounterIcon() {
         return counterIcon;
@@ -79,6 +84,9 @@ public class FirestoreMain extends AppCompatActivity {
     }
 
 
+    public List<String> getCategories(){
+        return categories;
+    }
 
     public String getCategory1() {
         if(categories.size()>0) {
@@ -131,20 +139,37 @@ public class FirestoreMain extends AppCompatActivity {
 
     private void getCategoriesFromDatabase(){
         categories = new ArrayList<>();
-        db.collection("Categories")
-                    .get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()) {
-                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                    categories.add(document.getId());
+
+        listenerRegistration= db.collection("Categories")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            return;
+                        }
+
+                        for (DocumentChange dc : queryDocumentSnapshots.getDocumentChanges()) {
+                            if (dc.getType() == DocumentChange.Type.ADDED) {
+                                categories.add(dc.getDocument().getId());
+
+                            } else if (dc.getType() == DocumentChange.Type.REMOVED) {
+                                for (int i = 0; i <categories.size() ; i++) {
+                                   if(categories.get(i).equals(dc.getDocument().getId())){
+                                      categories.remove(i);
+                                   }
                                 }
-                            } else {
+                            } else if (dc.getType() == DocumentChange.Type.MODIFIED) {
+                                for (int i = 0; i <categories.size() ; i++) {
+                                    if(categories.get(i).equals(dc.getDocument().getId())){
+                                        categories.set(i, dc.getDocument().getId());
+                                    }
+                                }
 
                             }
                         }
-                    });
+
+                    }
+                });
         }
 
     /**
@@ -355,6 +380,13 @@ public class FirestoreMain extends AppCompatActivity {
     public void changeFood(Food food ) {
         DocumentReference foods = db.collection("Foods").document(food.getId());
           foods.set(food);
+    }
+
+    public void deleteFood (Food food) {
+        DocumentReference foods = db.collection("Foods").document(food.getId());
+        foods.delete();
+
+
     }
 
     public void addToOrders(List<Order> cartList) {

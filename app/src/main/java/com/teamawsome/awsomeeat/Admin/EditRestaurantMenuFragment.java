@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +38,7 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
     private EditText dishNameEdit;
    private EditText dishPriceEdit;
     private Button updateDish;
+    private Button deleteDish;
     private FloatingActionButton newDish;
     private FoodListRecyclerViewAdapter adapter;
     private LayoutInflater inflater;
@@ -43,6 +46,10 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
     private EditText picUrl;
     private String picUrlString;
     private ImageView picDish;
+
+
+
+
 
     private EventHandler eventHandler = EventHandler.getInstance();
 
@@ -73,13 +80,24 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
 
         picDish = view.findViewById(R.id.picdishedit_imageview);
         picUrl = view.findViewById(R.id.picurledit_edittext);
+        deleteDish = view.findViewById(R.id.deletedish_button);
 
 
 
 
 
         Spinner spinner = (Spinner) view.findViewById(R.id.spinnerAddDish1);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.categories));
+        /*ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.categories));
+        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        spinner.setAdapter(adapter);
+        adapter.notifyDataSetChanged();*/
+
+        ArrayAdapter<String> adapter;
+        if(firestoreMain.getCategories()!=null) {
+            adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, firestoreMain.getCategories());
+        }else {
+            adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.categories));
+        }
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinner.setAdapter(adapter);
         adapter.notifyDataSetChanged();
@@ -151,8 +169,10 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
         dishPriceEdit.setText(food.getPrice());
       //  PictureHandler.setPictureFromUrl(food.getImage(), dishPic);
         newDish = view.findViewById(R.id.addNewDishButton);
-
+        picUrl.setText(food.getImage());
        updateDish.setOnClickListener(this::setUpdateDish1);
+       deleteDish.setOnClickListener(this::deleteDish);
+
         }
 
 
@@ -168,13 +188,13 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
             picUrlString = picUrl.getText().toString();
             PictureHandler.setPictureFromUrl(picUrlString, picDish);
 
- dishNameEdit.setText(dishNameEdit.getText());
- dishPriceEdit.setText(dishPriceEdit.getText());
+    dishNameEdit.setText(dishNameEdit.getText());
+    dishPriceEdit.setText(dishPriceEdit.getText());
 
     food.setName(dishNameEdit.getText().toString());
     food.setPrice(dishPriceEdit.getText().toString());
     food.setRestaurantId(idHolder.getRestaurantId());
-    food.Category = category;
+    food.Category=category;
     food.setImage(picUrlString);
     changeItem();
 
@@ -187,15 +207,25 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
 
     public void changeItem () {
         adapter = new FoodListRecyclerViewAdapter ();
-
         adapter.modifyItem(food.getId(), food);
         adapter.notifyDataSetChanged();
         firestoreMain.changeFood(food);
-        Toast.makeText(firestoreMain, "The dish have been updated", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this.getContext(), getString(R.string.the_dish_have_been_updated), Toast.LENGTH_SHORT).show();
+       getActivity().getSupportFragmentManager().popBackStack();
     }
 
     public void addNewDish (View v) {
        eventHandler.openAddishFragment(v);
+        Toast.makeText(this.getContext(), getString(R.string.dish_added_to_restaurant_menu), Toast.LENGTH_SHORT).show();
+        getActivity().getSupportFragmentManager().popBackStack();
+
+
+            }
+
+            public void deleteDish (View v) {
+             firestoreMain.deleteFood(food);
+                Toast.makeText(this.getContext(), getString(R.string.dish_have_been_removed), Toast.LENGTH_SHORT).show();
+                getActivity().getSupportFragmentManager().popBackStack();
 
 
             }
