@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.teamawsome.awsomeeat.Adapters.FoodListRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Admin.FirestoreMain;
@@ -102,31 +103,33 @@ public class FoodListFragment extends Fragment {
 
        category1Button.setOnClickListener(view -> {
            adapter.getFilter().filter(firestoreMain.getCategory1());
+           Toast.makeText(getContext(), firestoreMain.getCategory1(), Toast.LENGTH_SHORT).show();
 
        });
 
        category2Button.setOnClickListener(view -> {
            adapter.getFilter().filter(firestoreMain.getCategory2());
-
+           Toast.makeText(getContext(), firestoreMain.getCategory2(), Toast.LENGTH_SHORT).show();
        });
 
        category3Button.setOnClickListener(view -> {
            adapter.getFilter().filter(firestoreMain.getCategory3());
-
+           Toast.makeText(getContext(), firestoreMain.getCategory3(), Toast.LENGTH_SHORT).show();
        });
 
        category4Button.setOnClickListener(view -> {
            adapter.getFilter().filter(firestoreMain.getCategory4());
-
+           Toast.makeText(getContext(), firestoreMain.getCategory4(), Toast.LENGTH_SHORT).show();
        });
 
       category5Button.setOnClickListener(view -> {
            adapter.getFilter().filter(firestoreMain.getCategory5());
-
+          Toast.makeText(getContext(), firestoreMain.getCategory5(), Toast.LENGTH_SHORT).show();
        });
 
        wholeMenuButton.setOnClickListener(view -> {
           adapter.getFilter().filter("");
+           Toast.makeText(getContext(), R.string.whole_menu, Toast.LENGTH_SHORT).show();
        });
 
        addNewDishButton.setOnClickListener(view -> {

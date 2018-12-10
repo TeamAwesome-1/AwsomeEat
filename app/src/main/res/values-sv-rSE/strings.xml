@@ -45,4 +45,5 @@
     <string name="add_some_items_to_cart">Lägg till varor i varukorgen!</string>
     <string name="cart_is_empty">Varukorgen är tom!</string>
     <string name="cart">Varukorg</string>
+    <string name="whole_menu">Hela menyn</string>
 </resources>
