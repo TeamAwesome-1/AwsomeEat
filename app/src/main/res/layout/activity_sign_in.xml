@@ -31,8 +31,8 @@
             android:id="@+id/edtEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@mipmap/ic_user"
-            android:hint="Email"
+            android:drawableStart="@mipmap/ic_user"
+            android:hint="@string/email"
             android:inputType="textEmailAddress"
             android:textColor="@android:color/white"
             android:textColorHint="@android:color/holo_blue_bright"
@@ -45,13 +45,13 @@
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/edtPassword"
-            android:hint="Password"
+            android:hint="@string/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColorHint="@android:color/holo_blue_bright"
             android:textColor="@android:color/holo_blue_bright"
             android:textSize="25sp"
-            android:drawableLeft="@mipmap/ic_key"
+            android:drawableStart="@mipmap/ic_key"
             android:inputType="textPassword"
             app:met_baseColor="@android:color/white"
             app:met_floatingLabel="highlight"
@@ -64,7 +64,7 @@
 
     <Button
         android:id="@+id/btnSignIn"
-        android:text="Sign In"
+        android:text="@string/sign_in"
         android:background="@drawable/buttonshape"
         android:textColor="@android:color/white"
         android:layout_width="match_parent"
@@ -82,7 +82,8 @@
         android:layout_above="@+id/linearLayout"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="22dp"
-        android:src="@drawable/signinimage" />
+        android:src="@drawable/signinimage"
+        android:contentDescription="@string/user_picture"/>
 
 
 </RelativeLayout>

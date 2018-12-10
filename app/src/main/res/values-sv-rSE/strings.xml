@@ -10,7 +10,7 @@
     <string name="send">Skicka</string>
     <string name="choose_an_restaurant">Vänlig välj restaurang först</string>
     <string name="menu_homedrawer">Meny</string>
-    <string name="added_to_cart_toast">Uppdaterad varukorg</string>
+    <string name="added_to_cart_toast">Uppdaterade varukorg</string>
     <string name="Continue_shopping_button">Fortsätt handla</string>
     <string name="go_to_cart_button">Gå till varukorg</string>
     <string name="add_new_restaurant">Lägg till ny restaurang</string>
@@ -18,7 +18,7 @@
     <string name="search_restaurant">Sök efter en restaurang</string>
     <string name="Order_placed_successfully">Order skickad!</string>
     <string name="no">Nej</string>
-    <string name="place_order">Placera order</string>
+    <string name="place_order">Beställ</string>
     <string name="do_you_want_to_place_order">Vill du skicka din order?</string>
     <string name="Yes">Ja</string>
     <string name="update_dish">Uppdatera maträtt</string>
@@ -47,4 +47,12 @@
     <string name="cart">Varukorg</string>
     <string name="whole_menu">Hela menyn</string>
     <string name="close">Avsluta</string>
+    <string name="total">"Totalt: "</string>
+    <string name="_0">0</string>
+    <string name="password">Lösenord</string>
+    <string name="user_picture">Bild på användare</string>
+    <string name="confirm_password">Bekräfta lösenord</string>
+    <string name="sign_in">Logga in</string>
+    <string name="sign_up">Nytt konto</string>
+    <string name="was_deleted">raderades</string>
 </resources>

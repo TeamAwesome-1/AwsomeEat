@@ -3,6 +3,7 @@ package com.teamawsome.awsomeeat.ViewHolder;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
 import android.view.View;
@@ -92,7 +93,6 @@ public class CartViewHolder extends RecyclerView.ViewHolder implements View.OnCl
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                    firestoreMain.clearCartItem(documentId);
-                   Toast.makeText(view.getContext(), txt_cart_name.getText().toString() + " was deleted", Toast.LENGTH_SHORT).show();
                 }
             });
 
