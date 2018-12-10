@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 import com.rengwuxian.materialedittext.MaterialEditText;
+import com.teamawsome.DelayedProgressDialog;
 import com.teamawsome.awsomeeat.Common.Common;
 import com.teamawsome.awsomeeat.Database.Authentication;
 
@@ -28,29 +29,24 @@ public class SignUp extends AppCompatActivity {
 
         btnSignUp = (Button) findViewById(R.id.btnSignUp);
 
-        //Initialize Firebase
-        //mAuth = FirebaseAuth.getInstance();
-
-
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-
+                DelayedProgressDialog progressDialog = new DelayedProgressDialog();
 
                 if(Common.isNetworkAvailable(getBaseContext())) {
 
-                    if (!edtName.getText().toString().isEmpty())
+                    if (edtName.getText().toString().isEmpty()){
                         Toast.makeText(SignUp.this, getString(R.string.not_empty_email), Toast.LENGTH_SHORT).show();
-
-                    if (edtPassword.getText().toString().trim().length() < 6)
+                    } else if (edtPassword.getText().toString().trim().length() < 6)
                         Toast.makeText(SignUp.this, getString(R.string.at_least_6_characters), Toast.LENGTH_SHORT).show();
                     else if (!(edtPassword.getText().toString()).equals(edtConfirmPassword.getText().toString()))
                         Toast.makeText(SignUp.this, getString(R.string.no_match_password), Toast.LENGTH_SHORT).show();
                     else {
                         authentication.registerEmail(edtName.getText().toString(), edtPassword.getText().toString(), context);
-                        //registerEmail(edtName.getText().toString(), edtPassword.getText().toString());
                         Toast.makeText(SignUp.this, getString(R.string.registration_succeeded), Toast.LENGTH_SHORT).show();
+                        progressDialog.show(getSupportFragmentManager(), "Loading");
                     }
             }
         }

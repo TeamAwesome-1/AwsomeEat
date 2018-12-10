@@ -24,6 +24,7 @@ public class RestaurantViewHolder extends RecyclerView.ViewHolder implements Vie
     private final ImageView restaurantListImageView;
     private String itemId;
     private Authentication auth = Authentication.getInstance();
+    private EventHandler eventHandler = EventHandler.getInstance();
 
 
 
@@ -53,20 +54,8 @@ public class RestaurantViewHolder extends RecyclerView.ViewHolder implements Vie
 
     @Override
     public void onClick(View v) {
-
         //Save id for the restaurant that was clicked on
         idHolder.setRestaurantId(itemId);
-
-        if(auth.isAdmin()){
-            EventHandler.openFoodListFragment(v);
-
-        }else{
-           // open next fragment with foodcategories
-           // EventHandler.openFoodCategoryFragment(v);
-            EventHandler.openFoodListFragment(v);
-        }
-
-
-
+        eventHandler.openFoodListFragment(v);
     }
 }

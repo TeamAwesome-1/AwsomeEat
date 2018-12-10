@@ -26,6 +26,7 @@ public class AdminMainFragment extends Fragment {
     private TabLayout tableLayout;
     private AppBarLayout appBarLayout;
     private ViewPager viewPager;
+    private EventHandler eventHandler = EventHandler.getInstance();
 
     public AdminMainFragment() {
         // Required empty public constructor
@@ -42,13 +43,13 @@ public class AdminMainFragment extends Fragment {
         addNewRest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventHandler.openAddRestaurantFragment(view);
+                eventHandler.openAddRestaurantFragment(view);
             }
         });
         editRest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventHandler.openRestaurantListFragment(v);
+                eventHandler.openRestaurantListFragment(v);
             }
         });
 

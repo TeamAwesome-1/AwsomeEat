@@ -16,9 +16,9 @@ import java.util.List;
 public class CategoryListRecyclerViewAdapter extends RecyclerView.Adapter<FoodListViewHolder>  {
 
     List<Category> categoryList;
-    View view;
     FloatingActionButton addnewDish;
     private static Authentication authentication = Authentication.getInstance();
+    EventHandler eventHandler = EventHandler.getInstance();
 
     public CategoryListRecyclerViewAdapter (List<Category> categoryList){
         this.categoryList = categoryList;
@@ -33,17 +33,16 @@ public class CategoryListRecyclerViewAdapter extends RecyclerView.Adapter<FoodLi
         addnewDish = view.findViewById(R.id.addNewDishButton);
 
        if (authentication.isAdmin()) {
-            addnewDish.setVisibility(view.VISIBLE);
+           addnewDish.setVisibility(view.VISIBLE);
 
            addnewDish.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View v) {
-                   EventHandler.openAddishFragment(v);
+                   eventHandler.openAddishFragment(view);
                }
            });
        }
-
-       return new FoodListViewHolder(view);
+        return new FoodListViewHolder(view);
     }
 
     @Override

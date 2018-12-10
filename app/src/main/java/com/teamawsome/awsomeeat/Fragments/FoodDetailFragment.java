@@ -24,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 import com.teamawsome.awsomeeat.Admin.FirestoreMain;
 import com.teamawsome.awsomeeat.Common.Common;
+import com.teamawsome.awsomeeat.Database.Authentication;
 import com.teamawsome.awsomeeat.Database.Database;
 import com.teamawsome.awsomeeat.EventHandler;
 import com.teamawsome.awsomeeat.Model.Food;
@@ -38,21 +39,19 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class FoodDetailFragment extends Fragment {
-
-
-    TextView food_name, food_price, food_description, price_annotation;
-    ImageView food_image;
-    CollapsingToolbarLayout collapsingToolbarLayout;
-    FloatingActionButton btnCart;
-    Button continueShoppingButton;
-    Button goToCartButton;
-    ElegantNumberButton numberButton;
-    String foodId;
-    String restaurantId;
-    Food currentFood;
-    FirestoreMain firestoreMain = FirestoreMain.getInstance();
-    FirebaseUser user;
-
+    private TextView food_name, food_price, food_description, price_annotation;
+    private ImageView food_image;
+    private CollapsingToolbarLayout collapsingToolbarLayout;
+    private FloatingActionButton btnCart;
+    private Button continueShoppingButton;
+    private Button goToCartButton;
+    private ElegantNumberButton numberButton;
+    private String foodId;
+    private String restaurantId;
+    private Food currentFood;
+    private static FirestoreMain firestoreMain = FirestoreMain.getInstance();
+    private static Authentication authentication = Authentication.getInstance();
+    private EventHandler eventHandler = EventHandler.getInstance();
     public FoodDetailFragment() {
 
     }
@@ -99,8 +98,7 @@ public class FoodDetailFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 String amount = numberButton.getNumber();
-                user = FirebaseAuth.getInstance().getCurrentUser();
-                Order order = new Order(restaurantId,foodId,currentFood.getName(),amount,currentFood.getPrice(), user.getUid());
+                Order order = new Order(restaurantId,foodId,currentFood.getName(),amount,currentFood.getPrice(), authentication.getCurrentUser().getUid());
 
                 firestoreMain.addToCart(order);
                 Toast.makeText(getContext(), getString(R.string.added_to_cart_toast), Toast.LENGTH_SHORT).show();
@@ -116,7 +114,7 @@ public class FoodDetailFragment extends Fragment {
                     getActivity().getSupportFragmentManager().popBackStack();
                 }
                 else{
-                    EventHandler.openRestaurantListFragment(view);
+                    eventHandler.openRestaurantListFragment(view);
                 }
             }
         });
@@ -126,7 +124,7 @@ public class FoodDetailFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                EventHandler.openCartFragment(view);
+                eventHandler.openCartFragment(view);
             }
         });
 

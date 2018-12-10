@@ -1,6 +1,5 @@
 package com.teamawsome.awsomeeat;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.rengwuxian.materialedittext.MaterialEditText;
+import com.teamawsome.DelayedProgressDialog;
 import com.teamawsome.awsomeeat.Database.Authentication;
 
 public class SignIn extends AppCompatActivity {
@@ -33,13 +33,13 @@ public class SignIn extends AppCompatActivity {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final ProgressDialog mDialog = new ProgressDialog(SignIn.this);
-                mDialog.setMessage(getString(R.string.please_wait));
+                DelayedProgressDialog progressDialog = new DelayedProgressDialog();
 
                 if (!edtEmail.getText().toString().isEmpty() &&
                         !edtPassword.getText().toString().isEmpty()){
                     Log.d("Login", "OnClick: attempting to authenticate.");
-                    mDialog.show();
+                    progressDialog.show(getSupportFragmentManager(), "Loading");
+
                     authentication.signIn(edtEmail.getText().toString(),
                             edtPassword.getText().toString(), context);
                 }else{

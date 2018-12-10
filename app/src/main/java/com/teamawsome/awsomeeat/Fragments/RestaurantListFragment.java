@@ -21,7 +21,7 @@ public class RestaurantListFragment extends Fragment {
 
     private List<Restaurant> itemList = new ArrayList<>();
     private RestaurantRecyclerViewAdapter adapter;
-    FirestoreMain firestoreMain= FirestoreMain.getInstance();
+    private FirestoreMain firestoreMain= FirestoreMain.getInstance();
 
     public RestaurantListFragment() {
 

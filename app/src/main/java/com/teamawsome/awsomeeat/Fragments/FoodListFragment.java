@@ -37,6 +37,8 @@ public class FoodListFragment extends Fragment {
     private FloatingActionButton category5Button;
     private FloatingActionButton addNewDishButton;
     private FirestoreMain firestoreMain = FirestoreMain.getInstance();
+    private EventHandler eventHandler = EventHandler.getInstance();
+
     private Authentication auth = Authentication.getInstance();
     private static final String TAG = "Logging Example";
     FoodListRecyclerViewAdapter adapter;
@@ -135,7 +137,7 @@ public class FoodListFragment extends Fragment {
        });
 
        addNewDishButton.setOnClickListener(view -> {
-           EventHandler.openAddishFragment(view);
+           eventHandler.openAddishFragment(view);
 
         });
         }

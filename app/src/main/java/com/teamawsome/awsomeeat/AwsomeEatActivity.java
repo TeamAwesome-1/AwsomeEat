@@ -14,6 +14,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -28,6 +29,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -48,6 +50,9 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
     private static Authentication authentication = Authentication.getInstance();
     private final Context context = this;
     private Fragment fragment;
+    private EventHandler eventHandler = EventHandler.getInstance();
+    TextView textCartItemCount;
+    int mCartItemCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,6 +173,22 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.home, menu);
+
+        final MenuItem menuItem = menu.findItem(R.id.cart);
+
+
+        View actionView = MenuItemCompat.getActionView(menuItem);
+        textCartItemCount = (TextView) actionView.findViewById(R.id.cart_badge);
+
+        setupBadge();
+
+        actionView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onOptionsItemSelected(menuItem);
+            }
+        });
+
         return true;
     }
 
@@ -210,17 +231,34 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
 
         else if (id == R.id.adminItem) {
-            Fragment fragment = new AdminMainFragment();
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragmentinsertlayout, fragment).addToBackStack(null)
-                    .commit();
-           // EventHandler.openAdminFragment(getCurrentFocus());
+            eventHandler.openAdminFragment(getCurrentFocus());
         }
 
         //Closes the drawer after an item has been selected
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void setupBadge() {
+
+        if (textCartItemCount != null) {
+            if (mCartItemCount == 0) {
+                if (textCartItemCount.getVisibility() != View.GONE) {
+                    textCartItemCount.setVisibility(View.GONE);
+                }
+            } else {
+                textCartItemCount.setText(String.valueOf(Math.min(mCartItemCount, 99)));
+                if (textCartItemCount.getVisibility() != View.VISIBLE) {
+                    textCartItemCount.setVisibility(View.VISIBLE);
+                }
+            }
+        }
+    }
+
+    private void getCartNumber(){
+
+        mCartItemCount = firestoreMain.getCounterIcon();
     }
 
     @Override
