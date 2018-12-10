@@ -104,17 +104,14 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartViewHolder
                 }
             }
 
-    private void setTotalPrice(){
-       int totalPrice = 0;
-       for (int i = 0; i < getItemCount(); i++) {
+    private void setTotalPrice() {
+        int totalPrice = 0;
+        for (int i = 0; i < getItemCount(); i++) {
             Order order = orderList.get(i);
             totalPrice += (Integer.parseInt(order.getPrice())) * (Integer.parseInt(order.getQuantity()));
-       }
-       total_price.setText(fmt.format(totalPrice));
+        }
+        total_price.setText(fmt.format(totalPrice));
+
+
     }
-
-    }
-
-
-
-
+}

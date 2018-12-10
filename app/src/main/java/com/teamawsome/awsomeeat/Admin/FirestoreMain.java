@@ -55,6 +55,7 @@ public class FirestoreMain extends AppCompatActivity {
     private String category3;
     private String category4;
     private String category5;
+
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private Restaurant restaurant;
     private Food food;
@@ -83,6 +84,9 @@ public class FirestoreMain extends AppCompatActivity {
     }
 
 
+    public List<String> getCategories(){
+        return categories;
+    }
 
     public String getCategory1() {
         if(categories.size()>0) {
@@ -135,20 +139,37 @@ public class FirestoreMain extends AppCompatActivity {
 
     private void getCategoriesFromDatabase(){
         categories = new ArrayList<>();
-        db.collection("Categories")
-                    .get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()) {
-                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                    categories.add(document.getId());
+
+        listenerRegistration= db.collection("Categories")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            return;
+                        }
+
+                        for (DocumentChange dc : queryDocumentSnapshots.getDocumentChanges()) {
+                            if (dc.getType() == DocumentChange.Type.ADDED) {
+                                categories.add(dc.getDocument().getId());
+
+                            } else if (dc.getType() == DocumentChange.Type.REMOVED) {
+                                for (int i = 0; i <categories.size() ; i++) {
+                                   if(categories.get(i).equals(dc.getDocument().getId())){
+                                      categories.remove(i);
+                                   }
                                 }
-                            } else {
+                            } else if (dc.getType() == DocumentChange.Type.MODIFIED) {
+                                for (int i = 0; i <categories.size() ; i++) {
+                                    if(categories.get(i).equals(dc.getDocument().getId())){
+                                        categories.set(i, dc.getDocument().getId());
+                                    }
+                                }
 
                             }
                         }
-                    });
+
+                    }
+                });
         }
 
     /**

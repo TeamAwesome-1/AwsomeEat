@@ -1,12 +1,15 @@
 package com.teamawsome.awsomeeat.Adapters;
 
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+
+import com.teamawsome.awsomeeat.Admin.FirestoreMain;
 import com.teamawsome.awsomeeat.Model.Food;
 import com.teamawsome.awsomeeat.R;
 import com.teamawsome.awsomeeat.ViewHolder.FoodViewHolder;
@@ -16,16 +19,20 @@ import java.util.List;
 public class FoodListRecyclerViewAdapter extends RecyclerView.Adapter<FoodViewHolder> implements Filterable {
     public static List<Food> list;
     private List<Food> fullList = new ArrayList<>();
+    private List<FloatingActionButton> categoryButtons;
+    FirestoreMain firestoreMain = FirestoreMain.getInstance();
 
     public FoodListRecyclerViewAdapter() {
 
     }
 
-    public FoodListRecyclerViewAdapter(List<Food> list){
+    public FoodListRecyclerViewAdapter(List<Food> list, List<FloatingActionButton> categoryButton) {
         this.list = list;
         fullList = new ArrayList<>();
+        categoryButtons = categoryButton;
     }
-    public void copyList(List<Food> list){
+
+    public void copyList(List<Food> list) {
         fullList = new ArrayList<>(list);
     }
 
@@ -39,7 +46,6 @@ public class FoodListRecyclerViewAdapter extends RecyclerView.Adapter<FoodViewHo
     }
 
 
-
     @Override
     public void onBindViewHolder(@NonNull FoodViewHolder foodViewHolder, int position) {
         Food menuItem = list.get(position);
@@ -51,10 +57,11 @@ public class FoodListRecyclerViewAdapter extends RecyclerView.Adapter<FoodViewHo
         return list.size();
     }
 
-    public void addItem(Food listItem){
+    public void addItem(Food listItem) {
         list.add(listItem);
         copyList(list);
         this.notifyItemInserted(list.size() - 1);
+        setButtonvisibilities();
 
     }
 
@@ -62,8 +69,9 @@ public class FoodListRecyclerViewAdapter extends RecyclerView.Adapter<FoodViewHo
         for (int i = 0; i < fullList.size(); i++) {
             if (fullList.get(i).getId().equals(id)) {
                 fullList.set(i, food);
+                setButtonvisibilities();
             }
-            for (int j = 0; j < list.size() ; j++) {
+            for (int j = 0; j < list.size(); j++) {
                 if (list.get(j).getId().equals(id)) {
                     list.set(j, food);
                     this.notifyItemChanged(j);
@@ -81,10 +89,11 @@ public class FoodListRecyclerViewAdapter extends RecyclerView.Adapter<FoodViewHo
         }
     }
 
-   public void removeMenuItem(String id){
+    public void removeMenuItem(String id) {
         for (int i = 0; i < fullList.size(); i++) {
-            if (fullList.get(i).getId().equals(id)){
+            if (fullList.get(i).getId().equals(id)) {
                 fullList.remove(i);
+                setButtonvisibilities();
             }
             for (int j = 0; j < list.size(); j++) {
                 if (list.get(i).getId().equals(id)) {
@@ -95,7 +104,7 @@ public class FoodListRecyclerViewAdapter extends RecyclerView.Adapter<FoodViewHo
         }
     }
 
-    public void clearList(){
+    public void clearList() {
         list.clear();
         fullList.clear();
         this.notifyItemRangeRemoved(0, getItemCount());
@@ -111,12 +120,12 @@ public class FoodListRecyclerViewAdapter extends RecyclerView.Adapter<FoodViewHo
         protected FilterResults performFiltering(CharSequence category) {
             List<Food> filteredList = new ArrayList<>();
 
-            if(category == null || category.length() == 0 || category == "default"){
+            if (category == null || category.length() == 0 || category == "default") {
                 filteredList.addAll(fullList);
-            }else{
+            } else {
                 String filter = category.toString();
-                for(Food item : fullList){
-                    if(item.Category!=null) {
+                for (Food item : fullList) {
+                    if (item.Category != null) {
                         if (item.Category.equals(filter)) {
                             filteredList.add(item);
                         }
@@ -132,9 +141,23 @@ public class FoodListRecyclerViewAdapter extends RecyclerView.Adapter<FoodViewHo
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             list.clear();
-            list.addAll((List)results.values);
+            list.addAll((List) results.values);
             notifyDataSetChanged();
         }
     };
 
+
+
+    public void setButtonvisibilities(){
+         for (int i = 0; i < categoryButtons.size(); i++) {
+
+             for (int j = 0; j <fullList.size() ; j++) {
+                 if (fullList.get(j).Category!= null) {
+                     if (fullList.get(j).Category.equals(firestoreMain.getCategories().get(i))) {
+                         categoryButtons.get(i).setVisibility(View.VISIBLE);
+                     }
+                 }
+             }
+         }
+    }
 }

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:background="@color/fbutton_color_silver"
+    android:background="@android:color/white"
 
     >
 
@@ -21,6 +21,7 @@
         android:orientation="vertical">
 
         <ImageView
+            android:background="@drawable/image_border"
             android:id="@+id/picdish_imageview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -37,8 +38,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_room_service_black_24dp"
+            android:fontFamily="@font/actor"
             android:hint="Food Name"
             android:inputType="text"
+            android:text="Food Name"
             android:textColor="@android:color/holo_blue_bright"
             android:textColorHint="@android:color/holo_blue_bright"
             android:textSize="20sp"
@@ -52,6 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_subject_black_24dp"
+            android:fontFamily="@font/actor"
             android:hint="Category"
             android:inputType="text"
             android:textColorHint="@android:color/black"
@@ -68,6 +72,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_attach_money_black_24dp"
+            android:fontFamily="@font/actor"
             android:hint="Price:"
             android:inputType="text"
             android:textColorHint="@android:color/black"
@@ -96,6 +101,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_restaurant_menu_black_24dp"
+            android:fontFamily="@font/actor"
             android:hint="Resturant Name:"
             android:inputType="text"
             android:textColorHint="@android:color/black"
@@ -109,6 +115,7 @@
 
 
         <Button
+            android:background="@drawable/buttonshape"
             android:id="@+id/btnAdd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

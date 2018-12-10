@@ -70,6 +70,7 @@
                 android:focusable="true"
                 android:src="@drawable/wholemenu"
                 app:backgroundTint="@android:color/white" />
+
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/category1_button"
                 android:layout_width="wrap_content"
@@ -84,6 +85,7 @@
                 android:focusable="true"
                 android:src="@drawable/asianfood"
                 android:tooltipText="Asian"
+                android:visibility="gone"
                 app:backgroundTint="@android:color/white" />
 
             <android.support.design.widget.FloatingActionButton
@@ -99,6 +101,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:src="@drawable/vegeterian"
+                android:visibility="gone"
                 app:backgroundTint="@android:color/white" />
 
             <android.support.design.widget.FloatingActionButton
@@ -114,6 +117,7 @@
                 android:layout_toEndOf="@+id/category2_button"
                 android:clickable="true"
                 android:focusable="true"
+                android:visibility="gone"
                 android:src="@drawable/pizza"
                 app:backgroundTint="@android:color/white" />
 
@@ -130,6 +134,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:src="@drawable/foodkorv"
+                android:visibility="gone"
                 app:backgroundTint="@android:color/white" />
 
             <android.support.design.widget.FloatingActionButton
@@ -145,6 +150,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:src="@drawable/sandwichicon"
+                android:visibility="gone"
                 app:backgroundTint="@android:color/white" />
 
 

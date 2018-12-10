@@ -141,7 +141,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
     private void DisplayExitDialog() {
 
         AlertDialog.Builder alertdialog = new AlertDialog.Builder(this);
-        alertdialog.setTitle(R.string.sign_out);
+        alertdialog.setTitle(R.string.exit);
         alertdialog.setMessage(R.string.do_you_really_want_to_close_the_app);
         alertdialog.setIcon(R.drawable.ic_exit_to_app_black_24dp);
 
@@ -150,7 +150,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                signOut();
+                finishAffinity();
             }
         });
 
@@ -176,8 +176,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
         final MenuItem menuItem = menu.findItem(R.id.cart);
 
-
-        View actionView = MenuItemCompat.getActionView(menuItem);
+        View actionView = menuItem.getActionView();
         textCartItemCount = (TextView) actionView.findViewById(R.id.cart_badge);
 
         setupBadge();
@@ -218,12 +217,14 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
         } else if (id == R.id.nav_menu) {
             //Handle what happens when "menu" is pressed in navigationbar
-           eventHandler.openRestaurantListFragment(this.getCurrentFocus());
+            eventHandler.openRestaurantListFragment(getSupportFragmentManager());
+
         } else if (id == R.id.nav_cart) {
             //Handle what happens when "cart" is pressed in navigationbar
-          eventHandler.openCartFragment(this.getCurrentFocus());
+          eventHandler.openCartFragment(getSupportFragmentManager());
+
         } else if (id == R.id.edit_profile){
-          eventHandler.openEditProfileFragment(this.getCurrentFocus());
+          eventHandler.openEditProfileFragment(getSupportFragmentManager());
         }
         else if (id == R.id.nav_log_out) {
             signOut();
@@ -231,7 +232,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
 
         else if (id == R.id.adminItem) {
-            eventHandler.openAdminFragment(getCurrentFocus());
+            eventHandler.openAdminFragment(getSupportFragmentManager());
         }
 
         //Closes the drawer after an item has been selected
@@ -258,7 +259,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
     private void getCartNumber(){
 
-        mCartItemCount = firestoreMain.getCounterIcon();
+        mCartItemCount = 10;
     }
 
     @Override
