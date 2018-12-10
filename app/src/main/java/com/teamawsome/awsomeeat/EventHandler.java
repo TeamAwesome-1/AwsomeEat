@@ -104,13 +104,56 @@ public class EventHandler {
         openFragment(fragment, v);
     }
 
-    public void openEditProfileFragment(View currentFocus) {
+    public void openEditProfileFragment(View v) {
         fragment = new EditProfleFragment();
-        openFragment(fragment, currentFocus);
+        openFragment(fragment, v);
     }
 
-    public void openAdminFragment(View currentFocus) {
+    public void openAdminFragmentView(View v) {
         fragment = new AdminMainFragment();
-        openFragment(fragment, currentFocus);
+        openFragment(fragment, v);
     }
-}
+
+
+    public void openRestaurantListFragment(FragmentManager fm){
+        openBaseFragment(fm);
+    }
+
+    public void openCartFragment(FragmentManager fm){
+        fragment = new CartFragment();
+        openFragment(fragment, fm);
+    }
+
+    public void openAdminFragment(FragmentManager fm) {
+        fragment = new AdminMainFragment();
+        openFragment(fragment, fm);
+    }
+
+    public void openEditProfileFragment(FragmentManager fm) {
+        fragment = new EditProfleFragment();
+        openFragment(fragment, fm);
+    }
+
+
+    private void openFragment(Fragment fragment, FragmentManager fm, String baseFragmentTag){
+        fm.beginTransaction()
+                .replace(R.id.fragmentinsertlayout, fragment).addToBackStack(baseFragmentTag)
+                .commit();
+    }
+
+    public void openFragment(Fragment fragment, FragmentManager fm){
+        if(fm.findFragmentByTag(BASE_FRAGMENT_TAG) == null){
+            openFragment(fragment, fm, BASE_FRAGMENT_TAG);
+        }else {
+           fm.beginTransaction()
+                    .replace(R.id.fragmentinsertlayout, fragment).addToBackStack(null)
+                    .commit();
+        }
+    }
+
+    private void openBaseFragment(FragmentManager fm){
+        fm.popBackStack(BASE_FRAGMENT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
+    }
+    }
+
