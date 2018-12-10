@@ -38,6 +38,7 @@ public class FoodListFragment extends Fragment {
     private FloatingActionButton addNewDishButton;
     private FirestoreMain firestoreMain = FirestoreMain.getInstance();
     private EventHandler eventHandler = EventHandler.getInstance();
+    private List <FloatingActionButton> floatingActionButtons;
 
     private Authentication auth = Authentication.getInstance();
     private static final String TAG = "Logging Example";
@@ -55,20 +56,24 @@ public class FoodListFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_food_list, container, false);
 
+
         category4Button = view.findViewById(R.id.category4_button);
         category2Button = view.findViewById(R.id.category2_button);
         category1Button = view.findViewById(R.id.category1_button);
         category3Button = view.findViewById(R.id.category3_button);
         category5Button = view.findViewById(R.id.category5_button);
+
+        floatingActionButtons = new ArrayList<>();
+        floatingActionButtons.add(category1Button);
+        floatingActionButtons.add(category2Button);
+        floatingActionButtons.add(category3Button);
+        floatingActionButtons.add(category4Button);
+        floatingActionButtons.add(category5Button);
+
         wholeMenuButton = view.findViewById(R.id.wholeMenuButton);
         addNewDishButton = view.findViewById(R.id.addnewdish_button);
         //init the adapter
-        adapter = new FoodListRecyclerViewAdapter(itemList);
-
-        //Get info about which category user pressed and for which restaurant
-        if(idHolder.getCategoryId() != null) {
-            categoryId = idHolder.getCategoryId();
-        }
+        adapter = new FoodListRecyclerViewAdapter(itemList, floatingActionButtons);
         if(idHolder.getRestaurantId() != null) {
             restaurantId = idHolder.getRestaurantId();
         }
@@ -89,19 +94,7 @@ public class FoodListFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-          /*  //Load Foodlist for a specific category to the choosen restaurant
-            if(restaurantId != null && categoryId != null) {
-
-              firestoreMain.getMenuForRestaurantCategory(adapter, restaurantId, categoryId);
-
-            }else if(categoryId == null) {
-              firestoreMain.getRestaurantMenu(adapter, restaurantId);
-              //TODO ta bort /Sandra
-              Toast.makeText(getContext(), "Whole foodlist for restaurant is displayed", Toast.LENGTH_SHORT).show();
-
-            }*/
-          //Load the whole list from database
-          firestoreMain.getRestaurantMenu(adapter, restaurantId);
+        firestoreMain.getRestaurantMenu(adapter, restaurantId);
 
 
 
