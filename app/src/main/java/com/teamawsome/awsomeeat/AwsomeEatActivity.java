@@ -248,7 +248,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
     @Override
     protected void onStop() {
         super.onStop();
-
+        firestoreMain.detachListenerForCounter();
     }
 
     private void signOut() {

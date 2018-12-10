@@ -154,8 +154,8 @@ public class FoodListFragment extends Fragment {
     public void onStop(){
         super.onStop();
         //Deletes local list
-        adapter.clearList();
-        firestoreMain.detachSnapShotListener();
+        //adapter.clearList();
+        firestoreMain.detachListenerForRestaurantMenu();
     }
 
     @Override
