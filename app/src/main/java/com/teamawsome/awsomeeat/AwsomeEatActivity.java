@@ -142,7 +142,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
         AlertDialog.Builder alertdialog = new AlertDialog.Builder(this);
         alertdialog.setTitle(R.string.sign_out);
-        alertdialog.setMessage(R.string.do_you_want_to_sign_out);
+        alertdialog.setMessage(R.string.do_you_really_want_to_close_the_app);
         alertdialog.setIcon(R.drawable.ic_exit_to_app_black_24dp);
 
         //Inserts a Yes-button with a clicklistener
@@ -201,7 +201,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.cart) {
-         EventHandler.openCartFragment(getCurrentFocus());
+         eventHandler.openCartFragment(getCurrentFocus());
         }
 
         return super.onOptionsItemSelected(item);
@@ -218,12 +218,12 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
         } else if (id == R.id.nav_menu) {
             //Handle what happens when "menu" is pressed in navigationbar
-           EventHandler.openRestaurantListFragment(getCurrentFocus());
+           eventHandler.openRestaurantListFragment(getCurrentFocus());
         } else if (id == R.id.nav_cart) {
             //Handle what happens when "cart" is pressed in navigationbar
-          EventHandler.openCartFragment(getCurrentFocus());
+          eventHandler.openCartFragment(getCurrentFocus());
         } else if (id == R.id.edit_profile){
-          EventHandler.openEditProfileFragment(getCurrentFocus());
+          eventHandler.openEditProfileFragment(getCurrentFocus());
         }
         else if (id == R.id.nav_log_out) {
             signOut();
