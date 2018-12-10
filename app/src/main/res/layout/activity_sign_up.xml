@@ -31,8 +31,8 @@
             android:id="@+id/edtName"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:drawableLeft="@mipmap/ic_user"
-            android:hint="Email"
+            android:drawableStart="@mipmap/ic_user"
+            android:hint="@string/email"
             android:inputType="textEmailAddress"
 
             android:textColor="@android:color/white"
@@ -50,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:drawableLeft="@mipmap/ic_key"
-            android:hint="Password"
+            android:hint="@string/password"
 
             android:inputType="textPassword"
             android:textColor="@android:color/white"
@@ -67,8 +67,8 @@
             android:id="@+id/edtConfirmPassword"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:drawableLeft="@mipmap/ic_key"
-            android:hint=" Confirm Password"
+            android:drawableStart="@mipmap/ic_key"
+            android:hint="@string/confirm_password"
 
             android:inputType="textPassword"
             android:textColor="@android:color/white"
@@ -86,7 +86,7 @@
     <Button
         android:background="@drawable/buttonshape"
         android:id="@+id/btnSignUp"
-        android:text="Sign Up"
+        android:text="@string/sign_up"
         android:textColor="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

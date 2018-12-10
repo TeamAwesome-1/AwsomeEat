@@ -63,5 +63,16 @@
     <string name="update_restaurant">Update Restaurant</string>
     <string name="the_restaurant_have_been_updated">The restaurant have been updated</string>
     <string name="please_fill_all_fields">Please fill all fields</string>
+    <string name="total">Total:</string>
+    <string name="_0">0</string>
+    <string name="password">Password</string>
+    <string name="sign_in">Sign In</string>
+    <string name="user_picture">user picture</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="sign_up">Sign up</string>
+    <string name="was_deleted">Was deleted</string>
+
+    <string name="profile_updated">Profile updated!</string>
+    <string name="authentication_failer">Authentication failed.</string>
 
 </resources>

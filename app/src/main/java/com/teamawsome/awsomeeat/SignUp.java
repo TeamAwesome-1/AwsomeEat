@@ -33,7 +33,7 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                DelayedProgressDialog progressDialog = new DelayedProgressDialog();
+
 
                 if(Common.isNetworkAvailable(getBaseContext())) {
 
@@ -46,8 +46,7 @@ public class SignUp extends AppCompatActivity {
                     else {
 
                         authentication.registerEmail(edtName.getText().toString(), edtPassword.getText().toString(), SignUp.this);
-                        Toast.makeText(SignUp.this, getString(R.string.registration_succeeded), Toast.LENGTH_SHORT).show();
-                        progressDialog.show(getSupportFragmentManager(), "Loading");
+
                     }
             }
         }

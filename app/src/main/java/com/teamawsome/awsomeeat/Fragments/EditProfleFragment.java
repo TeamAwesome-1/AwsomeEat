@@ -44,13 +44,14 @@ public class EditProfleFragment extends Fragment {
 
     private void sendDB(View view){
         if (getinput(R.id.editAdress).isEmpty() ) {
-            Toast.makeText(getActivity(), "Must enter adress!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getString(R.string.must_enter_adress), Toast.LENGTH_SHORT).show();
         }else if (getinput(R.id.editName).isEmpty()){
-            Toast.makeText(getActivity(), "Must enter name!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getString(R.string.must_enter_name), Toast.LENGTH_SHORT).show();
         }else{
             if (authentication.getCurrentUser() != null) {
                 authentication.editUserAdress(getinput(R.id.editAdress), authentication.getCurrentUser().getUid());
                 authentication.setUserName(getinput(R.id.editName));
+                Toast.makeText(getActivity(), getString(R.string.profile_updated), Toast.LENGTH_SHORT).show();
             }
         }
     }

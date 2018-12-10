@@ -151,4 +151,10 @@ public class FoodDetailFragment extends Fragment {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        authentication.checkAuthState(getActivity());
+    }
+
 }

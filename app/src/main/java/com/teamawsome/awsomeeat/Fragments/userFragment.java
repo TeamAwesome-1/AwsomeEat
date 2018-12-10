@@ -73,11 +73,13 @@ public class userFragment extends Fragment {
                 if (Info_key.equals("Info")){
                      Intent intent = new Intent(getActivity(), AwsomeEatActivity.class);
                      startActivity(intent);
+                    Toast.makeText(getActivity(), getString(R.string.profile_updated), Toast.LENGTH_SHORT).show();
                 }else{
                     Fragment fragment = new RestaurantListFragment();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.fragmentinsertlayout, fragment);
                     fragmentTransaction.commit();
+                    Toast.makeText(getActivity(), getString(R.string.profile_updated), Toast.LENGTH_SHORT).show();
                 }
             }
         }

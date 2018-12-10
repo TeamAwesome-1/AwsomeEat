@@ -52,7 +52,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
     private Fragment fragment;
     private EventHandler eventHandler = EventHandler.getInstance();
     TextView textCartItemCount;
-    int mCartItemCount;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +60,6 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -98,6 +97,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
                 }
             }
         });
+
 
         // Starts the fragment shown on first page in app
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -164,12 +164,15 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
         setupBadge();
 
+
         actionView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onOptionsItemSelected(menuItem);
             }
         });
+
+        firestoreMain.updateCounter(() ->  setupBadge());
 
         return true;
     }
@@ -227,28 +230,26 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
     private void setupBadge() {
 
         if (textCartItemCount != null) {
-            if (mCartItemCount == 0) {
-                if (textCartItemCount.getVisibility() != View.GONE) {
-                    textCartItemCount.setVisibility(View.GONE);
-                }
+            if (firestoreMain.getCounter() == 0) {
+                      textCartItemCount.setVisibility(View.GONE);
             } else {
-                textCartItemCount.setText(String.valueOf(Math.min(mCartItemCount, 99)));
-                if (textCartItemCount.getVisibility() != View.VISIBLE) {
-                    textCartItemCount.setVisibility(View.VISIBLE);
-                }
+                textCartItemCount.setText(String.valueOf(Math.min(firestoreMain.getCounter(), 99)));
+                textCartItemCount.setVisibility(View.VISIBLE);
             }
         }
-    }
-
-    private void getCartNumber(){
-
-        mCartItemCount = 10;
     }
 
     @Override
     protected void onResume() {
         super.onResume();
        authentication.checkAuthState(this);
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
     }
 
     private void signOut() {

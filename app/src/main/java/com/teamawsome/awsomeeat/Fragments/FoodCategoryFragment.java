@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.teamawsome.awsomeeat.Adapters.CategoryListRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Admin.FirestoreMain;
 import com.teamawsome.awsomeeat.Common.Common;
+import com.teamawsome.awsomeeat.Database.Authentication;
 import com.teamawsome.awsomeeat.Model.Category;
 import com.teamawsome.awsomeeat.R;
 import com.teamawsome.idHolder;
@@ -26,6 +27,7 @@ public class FoodCategoryFragment extends Fragment {
     private RecyclerView recyclerView;
     private String restaurantId;
     private FirestoreMain firestoreMain = FirestoreMain.getInstance();
+    private static Authentication authentication = Authentication.getInstance();
 
     public FoodCategoryFragment() {
 
@@ -63,6 +65,12 @@ public class FoodCategoryFragment extends Fragment {
         //Deletes local list
         adapter.clearList();
         firestoreMain.detachSnapShotListener();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        authentication.checkAuthState(getActivity());
     }
 
 }

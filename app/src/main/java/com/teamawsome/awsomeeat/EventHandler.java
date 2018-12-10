@@ -24,7 +24,7 @@ import com.teamawsome.awsomeeat.Fragments.RestaurantListFragment;
  * Use Eventhandler to open fragments.
  */
 public class EventHandler {
-    
+
     private Fragment fragment;
     private final String BASE_FRAGMENT_TAG;
     private static final EventHandler EventHandler =  new EventHandler();
@@ -65,14 +65,8 @@ public class EventHandler {
 
     private void openFragment(Fragment fragment, View v){
         AppCompatActivity activity = (AppCompatActivity) v.getContext();
-
-        if(activity.getSupportFragmentManager().findFragmentByTag(BASE_FRAGMENT_TAG) == null){
-            openFragment(fragment, v, BASE_FRAGMENT_TAG);
-        }else {
-            activity.getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragmentinsertlayout, fragment).addToBackStack(null)
-                    .commit();
-        }
+        FragmentManager fm = activity.getSupportFragmentManager();
+        openFragment(fragment, fm);
     }
 
     private void openBaseFragment(View v){

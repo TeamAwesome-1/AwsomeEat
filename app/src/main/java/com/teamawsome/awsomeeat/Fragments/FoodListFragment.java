@@ -39,6 +39,7 @@ public class FoodListFragment extends Fragment {
     private FloatingActionButton addNewDishButton;
     private FloatingActionButton editRestaurantButton;
     private FirestoreMain firestoreMain = FirestoreMain.getInstance();
+    private static Authentication authentication = Authentication.getInstance();
     private EventHandler eventHandler = EventHandler.getInstance();
     private List <FloatingActionButton> floatingActionButtons;
 
@@ -157,7 +158,11 @@ public class FoodListFragment extends Fragment {
         firestoreMain.detachSnapShotListener();
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        authentication.checkAuthState(getActivity());
+    }
 
 }
 

@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.teamawsome.awsomeeat.Admin.AdminMain;
 import com.teamawsome.awsomeeat.Admin.FirestoreMain;
+import com.teamawsome.awsomeeat.AwsomeEatActivity;
+import com.teamawsome.awsomeeat.Database.Authentication;
 import com.teamawsome.awsomeeat.R;
 import com.teamawsome.awsomeeat.Model.Restaurant;
 import com.teamawsome.awsomeeat.Adapters.RestaurantRecyclerViewAdapter;
@@ -22,6 +24,7 @@ public class RestaurantListFragment extends Fragment {
     private List<Restaurant> itemList = new ArrayList<>();
     private RestaurantRecyclerViewAdapter adapter;
     private FirestoreMain firestoreMain= FirestoreMain.getInstance();
+    private static Authentication authentication = Authentication.getInstance();
 
     public RestaurantListFragment() {
 
@@ -46,7 +49,6 @@ public class RestaurantListFragment extends Fragment {
         //Load Restaurants from database
             firestoreMain.getRestaurantList(adapter);
 
-
         //specifies what happens when button is clicked - adminView is opened.
         // getActivity().findViewById(R.id.Button).setOnClickListener((View view) -> {
         // Intent intent = new Intent(getContext(), AdminMain.class);
@@ -61,6 +63,12 @@ public class RestaurantListFragment extends Fragment {
         //Deletes local list
         adapter.clearList();
         firestoreMain.detachSnapShotListener();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        authentication.checkAuthState(getActivity());
     }
 
 
