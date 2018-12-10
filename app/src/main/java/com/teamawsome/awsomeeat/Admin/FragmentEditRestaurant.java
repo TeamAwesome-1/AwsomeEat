@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.google.firebase.firestore.CollectionReference;
 import com.rengwuxian.materialedittext.MaterialEditText;
+import com.teamawsome.awsomeeat.EventHandler;
 import com.teamawsome.awsomeeat.Model.Restaurant;
 import com.teamawsome.awsomeeat.PictureHandler;
 import com.teamawsome.awsomeeat.R;
@@ -30,7 +31,8 @@ public class FragmentEditRestaurant extends Fragment {
     private MaterialEditText restaurantAdress;
     private MaterialEditText restaurantPhoneNumber;
     private Button updateRestaurantButton;
-
+    private Button deleteRestaurantButton;
+    private EventHandler eventHandler = EventHandler.getInstance();
 
 
     public FragmentEditRestaurant() {
@@ -46,6 +48,7 @@ public class FragmentEditRestaurant extends Fragment {
         restaurantAdress = view.findViewById(R.id.editrestaurantadress_edittext);
         restaurantPhoneNumber = view.findViewById(R.id.editrestaurantphone_edittext);
         updateRestaurantButton = view.findViewById(R.id.updaterestaurant_button);
+        deleteRestaurantButton = view.findViewById(R.id.deleterestaurant_button);
         restaurant = idHolder.getRestaurant();
         imageView = view.findViewById(R.id.editrestaurantpic_imageview);
         PictureHandler.setPictureFromUrl(restaurant.getPictureUrl() , imageView);
@@ -59,6 +62,13 @@ public class FragmentEditRestaurant extends Fragment {
             @Override
             public void onClick(View v) {
                 updateRestaurant();
+            }
+        });
+
+        deleteRestaurantButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteRestaurant();
             }
         });
 
@@ -77,9 +87,16 @@ public class FragmentEditRestaurant extends Fragment {
                .toString().length() >5 && restaurantPhoneNumber.getText().toString().contains("0")) {
             firestoreMain.updateRestaurant(restaurant.getId(), restaurant);
             Toast.makeText(this.getContext(), getString(R.string.the_restaurant_have_been_updated), Toast.LENGTH_SHORT).show();
+            getActivity().getSupportFragmentManager().popBackStack();
         } else {
            Toast.makeText(this.getContext(), getString(R.string.please_fill_all_fields), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void deleteRestaurant () {
+       firestoreMain.deleteRestaurant(restaurant.getId(), restaurant);
+        Toast.makeText(this.getContext(), getString(R.string.the_restaurant_have_been_deleted), Toast.LENGTH_SHORT).show();
+        eventHandler.openRestaurantListFragment(view);
     }
 
 
