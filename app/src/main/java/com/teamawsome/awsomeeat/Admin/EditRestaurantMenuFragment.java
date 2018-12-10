@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +38,7 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
     private EditText dishNameEdit;
    private EditText dishPriceEdit;
     private Button updateDish;
+    private Button deleteDish;
     private FloatingActionButton newDish;
     private FoodListRecyclerViewAdapter adapter;
     private LayoutInflater inflater;
@@ -43,6 +46,9 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
     private EditText picUrl;
     private String picUrlString;
     private ImageView picDish;
+
+
+
 
     private EventHandler eventHandler = EventHandler.getInstance();
 
@@ -73,6 +79,7 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
 
         picDish = view.findViewById(R.id.picdishedit_imageview);
         picUrl = view.findViewById(R.id.picurledit_edittext);
+        deleteDish = view.findViewById(R.id.deletedish_button);
 
 
 
@@ -151,8 +158,10 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
         dishPriceEdit.setText(food.getPrice());
       //  PictureHandler.setPictureFromUrl(food.getImage(), dishPic);
         newDish = view.findViewById(R.id.addNewDishButton);
-
+        picUrl.setText(food.getImage());
        updateDish.setOnClickListener(this::setUpdateDish1);
+       deleteDish.setOnClickListener(this::deleteDish);
+
         }
 
 
@@ -187,15 +196,23 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
 
     public void changeItem () {
         adapter = new FoodListRecyclerViewAdapter ();
-
         adapter.modifyItem(food.getId(), food);
         adapter.notifyDataSetChanged();
         firestoreMain.changeFood(food);
-        Toast.makeText(firestoreMain, "The dish have been updated", Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(firestoreMain, "The dish have been updated", Toast.LENGTH_SHORT).show();
+      //  activity.getSupportFragmentManager().popBackStack();
     }
 
     public void addNewDish (View v) {
        eventHandler.openAddishFragment(v);
+      //  activity.getSupportFragmentManager().popBackStack();
+
+
+            }
+
+            public void deleteDish (View v) {
+             firestoreMain.deleteFood(food);
+        //        activity.getSupportFragmentManager().popBackStack();
 
 
             }

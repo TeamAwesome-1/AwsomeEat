@@ -3,6 +3,7 @@ package com.teamawsome.awsomeeat.Admin;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -30,6 +31,7 @@ import com.teamawsome.awsomeeat.Adapters.CartRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Adapters.CategoryListRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Adapters.FoodListRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Adapters.RestaurantRecyclerViewAdapter;
+import com.teamawsome.awsomeeat.EventHandler;
 import com.teamawsome.awsomeeat.Fragments.CartFragment;
 import com.teamawsome.awsomeeat.Model.Category;
 import com.teamawsome.awsomeeat.Model.Food;
@@ -60,6 +62,8 @@ public class FirestoreMain extends AppCompatActivity {
     private CollectionReference foods = db.collection("foods");
     private ListenerRegistration listenerRegistration;
     private int counterIcon;
+    private EventHandler eventHandler = EventHandler.getInstance();
+    private View view;
 
     public int getCounterIcon() {
         return counterIcon;
@@ -355,6 +359,13 @@ public class FirestoreMain extends AppCompatActivity {
     public void changeFood(Food food ) {
         DocumentReference foods = db.collection("Foods").document(food.getId());
           foods.set(food);
+    }
+
+    public void deleteFood (Food food) {
+        DocumentReference foods = db.collection("Foods").document(food.getId());
+        foods.delete();
+
+
     }
 
     public void addToOrders(List<Order> cartList) {

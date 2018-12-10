@@ -218,12 +218,12 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
         } else if (id == R.id.nav_menu) {
             //Handle what happens when "menu" is pressed in navigationbar
-           eventHandler.openRestaurantListFragment(getCurrentFocus());
+           eventHandler.openRestaurantListFragment(this.getCurrentFocus());
         } else if (id == R.id.nav_cart) {
             //Handle what happens when "cart" is pressed in navigationbar
-          eventHandler.openCartFragment(getCurrentFocus());
+          eventHandler.openCartFragment(this.getCurrentFocus());
         } else if (id == R.id.edit_profile){
-          eventHandler.openEditProfileFragment(getCurrentFocus());
+          eventHandler.openEditProfileFragment(this.getCurrentFocus());
         }
         else if (id == R.id.nav_log_out) {
             signOut();

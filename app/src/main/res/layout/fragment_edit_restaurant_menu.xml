@@ -107,6 +107,13 @@
             android:text="Update"
             android:textColor="@android:color/white" />
 
+        <Button
+            android:id="@+id/deletedish_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Delete"
+            android:textColor="@color/colorText" />
+
 
     </LinearLayout>
 
