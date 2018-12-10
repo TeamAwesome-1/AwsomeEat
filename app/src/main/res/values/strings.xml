@@ -55,5 +55,14 @@
     <string name="cart">Cart</string>
     <string name="whole_menu">Whole menu</string>
     <string name="close">Close</string>
+    <string name="total">Total:</string>
+    <string name="_0">0</string>
+    <string name="password">Password</string>
+    <string name="sign_in">Sign In</string>
+    <string name="user_picture">user picture</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="sign_up">Sign up</string>
+    <string name="was_deleted">Was deleted</string>
+
 
 </resources>
