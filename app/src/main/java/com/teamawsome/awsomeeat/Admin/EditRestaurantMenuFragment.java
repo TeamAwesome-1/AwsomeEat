@@ -87,10 +87,7 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
 
 
         Spinner spinner = view.findViewById(R.id.spinnerAddDish1);
-        /*ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.categories));
-        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        spinner.setAdapter(adapter);
-        adapter.notifyDataSetChanged();*/
+
 
         ArrayAdapter<String> adapter;
         if(firestoreMain.getCategories()!=null) {
@@ -115,8 +112,11 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 switch (position) {
-                    case 1:
+                    case 0:
                         category = adapter.getItem(0);
+                        break;
+                    case 1:
+                        category = adapter.getItem(1);
                         break;
                     case 2:
                         category = adapter.getItem(2);
@@ -126,9 +126,6 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
                         break;
                     case 4:
                         category = adapter.getItem(4);
-                        break;
-                    case 5:
-                        category = adapter.getItem(5);
                         break;
                 }
             }
@@ -141,15 +138,11 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
         dishNameEdit = view.findViewById(R.id.food_name);
         dishPriceEdit = view.findViewById(R.id.food_price_edittext);
 
-       // dishNameEdit.setText(food.getName());
-       // dishPriceEdit.setText(food.getPrice());
+
         updateDish = view.findViewById(R.id.updateDishButton);
 
-   //TODO: Göra det möjligt att uppdatera food objekt ifrån Collection "Foods".
-     //TODO:   använd food objektet.
-    //    public void imageClicked () {
-      //  dishPic.setImageResource();
-       // }
+
+
 
 
         return view;
@@ -161,13 +154,13 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
 
 
 
-       // ImageView dishPic = view.findViewById(R.id.picDish);
+
         food = idHolder.getSeletedFood();
 
         PictureHandler.setPictureFromUrl(food.getImage(), picDish);
         dishNameEdit.setText(food.getName());
         dishPriceEdit.setText(food.getPrice());
-      //  PictureHandler.setPictureFromUrl(food.getImage(), dishPic);
+
         newDish = view.findViewById(R.id.addNewDishButton);
         picUrl.setText(food.getImage());
        updateDish.setOnClickListener(this::setUpdateDish1);
@@ -194,7 +187,7 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
     food.setName(dishNameEdit.getText().toString());
     food.setPrice(dishPriceEdit.getText().toString());
     food.setRestaurantId(idHolder.getRestaurantId());
-    food.Category=category;
+    food.setCategory(category);
     food.setImage(picUrlString);
     changeItem();
 

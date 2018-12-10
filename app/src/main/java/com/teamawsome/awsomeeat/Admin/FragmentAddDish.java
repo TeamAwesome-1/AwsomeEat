@@ -80,8 +80,11 @@ public class FragmentAddDish extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 switch (position) {
-                        case 1:
+                        case 0:
                             category = adapter.getItem(0);
+                            break;
+                        case 1:
+                            category = adapter.getItem(1);
                             break;
                         case 2:
                             category = adapter.getItem(2);
@@ -91,9 +94,6 @@ public class FragmentAddDish extends Fragment {
                             break;
                         case 4:
                             category = adapter.getItem(4);
-                            break;
-                        case 5:
-                            category = adapter.getItem(5);
                             break;
                     }
             }

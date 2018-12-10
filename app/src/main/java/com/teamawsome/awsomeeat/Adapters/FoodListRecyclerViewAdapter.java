@@ -1,5 +1,6 @@
 package com.teamawsome.awsomeeat.Adapters;
 
+import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
@@ -125,8 +126,8 @@ public class FoodListRecyclerViewAdapter extends RecyclerView.Adapter<FoodViewHo
             } else {
                 String filter = category.toString();
                 for (Food item : fullList) {
-                    if (item.Category != null) {
-                        if (item.Category.equals(filter)) {
+                    if (item.getCategory() != null) {
+                        if (item.getCategory().equals(filter)) {
                             filteredList.add(item);
                         }
                     }
@@ -148,12 +149,13 @@ public class FoodListRecyclerViewAdapter extends RecyclerView.Adapter<FoodViewHo
 
 
 
+    @SuppressLint("RestrictedApi")
     public void setButtonvisibilities(){
          for (int i = 0; i < categoryButtons.size(); i++) {
 
              for (int j = 0; j <fullList.size() ; j++) {
-                 if (fullList.get(j).Category!= null) {
-                     if (fullList.get(j).Category.equals(firestoreMain.getCategories().get(i))) {
+                 if (fullList.get(j).getCategory()!= null) {
+                     if (fullList.get(j).getCategory().equals(firestoreMain.getCategories().get(i))) {
                          categoryButtons.get(i).setVisibility(View.VISIBLE);
                      }
                  }
