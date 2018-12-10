@@ -23,19 +23,20 @@ import com.teamawsome.awsomeeat.Fragments.RestaurantListFragment;
  * Use Eventhandler to open fragments.
  */
 public class EventHandler {
-
-    //TODO Check if all methods are neccessary/Sandra
+    
     private Fragment fragment;
     private final String BASE_FRAGMENT_TAG;
-
     private static final EventHandler EventHandler =  new EventHandler();
     private EventHandler () {
         BASE_FRAGMENT_TAG = "baseFragment";
     }
 
+
     public static EventHandler getInstance () {
         return EventHandler;
     }
+
+
 
     private void openFragment(Fragment fragment, View v, String baseFragmentTag){
 
@@ -45,6 +46,21 @@ public class EventHandler {
                 .commit();
     }
 
+    private void openFragment(Fragment fragment, FragmentManager fm, String baseFragmentTag){
+        fm.beginTransaction()
+                .replace(R.id.fragmentinsertlayout, fragment).addToBackStack(baseFragmentTag)
+                .commit();
+    }
+
+    private void openFragment(Fragment fragment, FragmentManager fm){
+        if(fm.findFragmentByTag(BASE_FRAGMENT_TAG) == null){
+            openFragment(fragment, fm, BASE_FRAGMENT_TAG);
+        }else {
+            fm.beginTransaction()
+                    .replace(R.id.fragmentinsertlayout, fragment).addToBackStack(null)
+                    .commit();
+        }
+    }
 
     private void openFragment(Fragment fragment, View v){
         AppCompatActivity activity = (AppCompatActivity) v.getContext();
@@ -58,13 +74,18 @@ public class EventHandler {
         }
     }
 
-
     private void openBaseFragment(View v){
         AppCompatActivity activity = (AppCompatActivity) v.getContext();
         FragmentManager fm = activity.getSupportFragmentManager();
         fm.popBackStack(BASE_FRAGMENT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
     }
+
+    private void openBaseFragment(FragmentManager fm){
+        fm.popBackStack(BASE_FRAGMENT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
+    }
+
 
     /**
      * Opens the baseFragment-RestaurantListfragment.
@@ -114,7 +135,6 @@ public class EventHandler {
         openFragment(fragment, v);
     }
 
-
     public void openRestaurantListFragment(FragmentManager fm){
         openBaseFragment(fm);
     }
@@ -135,25 +155,10 @@ public class EventHandler {
     }
 
 
-    private void openFragment(Fragment fragment, FragmentManager fm, String baseFragmentTag){
-        fm.beginTransaction()
-                .replace(R.id.fragmentinsertlayout, fragment).addToBackStack(baseFragmentTag)
-                .commit();
-    }
 
-    public void openFragment(Fragment fragment, FragmentManager fm){
-        if(fm.findFragmentByTag(BASE_FRAGMENT_TAG) == null){
-            openFragment(fragment, fm, BASE_FRAGMENT_TAG);
-        }else {
-           fm.beginTransaction()
-                    .replace(R.id.fragmentinsertlayout, fragment).addToBackStack(null)
-                    .commit();
-        }
-    }
 
-    private void openBaseFragment(FragmentManager fm){
-        fm.popBackStack(BASE_FRAGMENT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
-    }
+
+
     }
 
