@@ -227,7 +227,6 @@ public class Authentication {
                     fragmentTransaction.add(R.id.fragmentinsertlayout, fragment);
                     fragmentTransaction.commit();
                 }else{
-                    loadAuthData();
                     fragment = new RestaurantListFragment();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.add(R.id.fragmentinsertlayout, fragment);
@@ -387,9 +386,8 @@ public class Authentication {
         currentUser = null;
         mAuth = null;
 
-        setAdress("");
+        setAdress(null);
         FirebaseAuth.getInstance().signOut();
-        //mAuth = null;
         Log.d(TAG, "Signed out:");
     }
 }
