@@ -38,7 +38,10 @@ public class SignUpProfileFields extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        Bundle bundle = new Bundle();
+        bundle.putString("Info_key","Info");
         Fragment fragment = new userFragment();
+        fragment.setArguments(bundle);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.fragmentinsertlayout, fragment);

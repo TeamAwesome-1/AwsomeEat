@@ -28,7 +28,7 @@ public class SignIn extends AppCompatActivity {
         edtEmail = (MaterialEditText)findViewById(R.id.edtEmail);
         btnSignIn = (Button)findViewById(R.id.btnSignIn);
 
-        authentication.setupFirebaseAuth(context);
+        authentication.setupFirebaseAuth(this);
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override

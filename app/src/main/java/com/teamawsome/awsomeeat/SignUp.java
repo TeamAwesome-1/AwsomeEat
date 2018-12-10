@@ -44,7 +44,8 @@ public class SignUp extends AppCompatActivity {
                     else if (!(edtPassword.getText().toString()).equals(edtConfirmPassword.getText().toString()))
                         Toast.makeText(SignUp.this, getString(R.string.no_match_password), Toast.LENGTH_SHORT).show();
                     else {
-                        authentication.registerEmail(edtName.getText().toString(), edtPassword.getText().toString(), context);
+
+                        authentication.registerEmail(edtName.getText().toString(), edtPassword.getText().toString(), SignUp.this);
                         Toast.makeText(SignUp.this, getString(R.string.registration_succeeded), Toast.LENGTH_SHORT).show();
                         progressDialog.show(getSupportFragmentManager(), "Loading");
                     }

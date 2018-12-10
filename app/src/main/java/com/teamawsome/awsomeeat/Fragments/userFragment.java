@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,8 +67,18 @@ public class userFragment extends Fragment {
             if (authentication.getCurrentUser() != null) {
                 authentication.setUserAdress(getinput(R.id.editAdress), authentication.getCurrentUser().getUid());
                 authentication.setUserName(getinput(R.id.editName));
-                Intent intent = new Intent(getActivity(), AwsomeEatActivity.class);
-                startActivity(intent);
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                Bundle bundle = this.getArguments();
+                String Info_key = bundle.getString("Info_key");
+                if (Info_key.equals("Info")){
+                     Intent intent = new Intent(getActivity(), AwsomeEatActivity.class);
+                     startActivity(intent);
+                }else{
+                    Fragment fragment = new RestaurantListFragment();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.fragmentinsertlayout, fragment);
+                    fragmentTransaction.commit();
+                }
             }
         }
     }
