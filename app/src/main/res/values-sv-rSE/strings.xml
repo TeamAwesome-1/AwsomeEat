@@ -61,4 +61,14 @@
     <string name="dish_added_to_restaurant_menu">Måltiden har lagts till i menyn</string>
     <string name="the_dish_have_been_updated">Måltiden har uppdaterats</string>
     <string name="please_enter_a_valid_picture_url">Fyll i en giltig URL för bilden</string>
+    <string name="name_of_the_restaurant">Skriv in namnet på restaurangen</string>
+    <string name="update_restaurant">Uppdatera restaurang</string>
+    <string name="the_restaurant_have_been_updated">Restaurangen har uppdaterats</string>
+    <string name="please_fill_all_fields">Fyll i alla fält</string>
+    <string name="delete_restaurant">Ta bort restaurang</string>
+    <string name="the_restaurant_have_been_deleted">Restaurang borttagen</string>
+    <string name="the_restaurant_have_been_added">Restaurang tillagd</string>
+    <string name="enter_a_valid_picture_url">Vänligen fyll i en giltig bild-url</string>
+    <string name="adding_a_restaurant_with_default_picture">Lägger till en restaurang med standardbild</string>
+    <string name="didnt_enter_email_password">Du fyllde inte i email eller lösenord</string>
 </resources>
