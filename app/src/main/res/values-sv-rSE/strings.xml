@@ -46,4 +46,5 @@
     <string name="cart_is_empty">Varukorgen är tom!</string>
     <string name="cart">Varukorg</string>
     <string name="whole_menu">Hela menyn</string>
+    <string name="close">Avsluta</string>
 </resources>

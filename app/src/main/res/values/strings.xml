@@ -54,5 +54,6 @@
     <string name="cart_is_empty">Cart is empty!</string>
     <string name="cart">Cart</string>
     <string name="whole_menu">Whole menu</string>
+    <string name="close">Close</string>
 
 </resources>

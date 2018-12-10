@@ -141,7 +141,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
     private void DisplayExitDialog() {
 
         AlertDialog.Builder alertdialog = new AlertDialog.Builder(this);
-        alertdialog.setTitle(R.string.sign_out);
+        alertdialog.setTitle(R.string.exit);
         alertdialog.setMessage(R.string.do_you_really_want_to_close_the_app);
         alertdialog.setIcon(R.drawable.ic_exit_to_app_black_24dp);
 
@@ -150,7 +150,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                signOut();
+                finishAffinity();
             }
         });
 
