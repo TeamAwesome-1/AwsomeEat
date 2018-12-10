@@ -161,7 +161,6 @@ public class FirestoreMain extends AppCompatActivity {
                          if (e != null) {
                              return;
                          }
-
                          for (DocumentChange dc : queryDocumentSnapshots.getDocumentChanges()) {
                              if (dc.getType() == DocumentChange.Type.ADDED) {
 
