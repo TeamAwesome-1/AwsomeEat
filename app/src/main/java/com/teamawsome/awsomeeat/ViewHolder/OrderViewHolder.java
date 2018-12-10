@@ -17,10 +17,10 @@ public class OrderViewHolder extends RecyclerView.ViewHolder implements View.OnC
     public OrderViewHolder(View itemView) {
         super(itemView);
 
-        txtOrderId = (TextView)itemView.findViewById(R.id.order_id);
-        txtOrderAddress = (TextView)itemView.findViewById(R.id.order_address);
-        txtOrderStatus = (TextView)itemView.findViewById(R.id.order_status);
-        txtOrderRoll = (TextView)itemView.findViewById(R.id.order_roll);
+        txtOrderId = itemView.findViewById(R.id.order_id);
+        txtOrderAddress = itemView.findViewById(R.id.order_address);
+        txtOrderStatus = itemView.findViewById(R.id.order_status);
+        txtOrderRoll = itemView.findViewById(R.id.order_roll);
 
         itemView.setOnClickListener(this);
     }

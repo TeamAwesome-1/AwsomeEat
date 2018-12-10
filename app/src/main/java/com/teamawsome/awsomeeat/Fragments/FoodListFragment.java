@@ -2,6 +2,7 @@ package com.teamawsome.awsomeeat.Fragments;
 
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -53,6 +54,7 @@ public class FoodListFragment extends Fragment {
 
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -86,7 +88,7 @@ public class FoodListFragment extends Fragment {
             editRestaurantButton.setVisibility(View.GONE);
         }
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_food);
+        recyclerView = view.findViewById(R.id.recycler_food);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);

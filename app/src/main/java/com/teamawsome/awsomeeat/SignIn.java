@@ -26,7 +26,7 @@ public class SignIn extends AppCompatActivity {
 
         edtPassword = (MaterialEditText)findViewById(R.id.edtPassword);
         edtEmail = (MaterialEditText)findViewById(R.id.edtEmail);
-        btnSignIn = (Button)findViewById(R.id.btnSignIn);
+        btnSignIn = findViewById(R.id.btnSignIn);
 
         authentication.setupFirebaseAuth(this);
 

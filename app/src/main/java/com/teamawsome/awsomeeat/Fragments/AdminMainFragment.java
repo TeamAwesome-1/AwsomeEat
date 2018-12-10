@@ -57,9 +57,9 @@ public class AdminMainFragment extends Fragment {
 
 
 
-        tableLayout= (TabLayout) view.findViewById(R.id.tablayout_id);
-        appBarLayout=(AppBarLayout) view.findViewById(R.id.appbarid);
-        viewPager=(ViewPager) view.findViewById(R.id.viewPager);
+        tableLayout= view.findViewById(R.id.tablayout_id);
+        appBarLayout= view.findViewById(R.id.appbarid);
+        viewPager= view.findViewById(R.id.viewPager);
 
        /* ViewPagerAdapter adapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
 

@@ -49,8 +49,8 @@ public class CartFragment extends Fragment {
         View view  = inflater.inflate(R.layout.fragment_cart, container, false);
 
         //Init
-        recyclerView = (RecyclerView)view.findViewById(R.id.listCart);
-        txtTotalPrice = (TextView)view.findViewById(R.id.total);
+        recyclerView = view.findViewById(R.id.listCart);
+        txtTotalPrice = view.findViewById(R.id.total);
         btnPlace = view.findViewById(R.id.btnPlaceOrder);
         //set the adapter for the recyclerview
         adapter = new CartRecyclerViewAdapter(cartList, txtTotalPrice);

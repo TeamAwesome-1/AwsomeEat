@@ -27,7 +27,7 @@ public class FoodListRecyclerViewAdapter extends RecyclerView.Adapter<FoodViewHo
     }
 
     public FoodListRecyclerViewAdapter(List<Food> list, List<FloatingActionButton> categoryButton) {
-        this.list = list;
+        FoodListRecyclerViewAdapter.list = list;
         fullList = new ArrayList<>();
         categoryButtons = categoryButton;
     }

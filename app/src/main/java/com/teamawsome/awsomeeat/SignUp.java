@@ -23,11 +23,11 @@ public class SignUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        edtName = (MaterialEditText)findViewById(R.id.edtName);
-        edtPassword = (MaterialEditText)findViewById(R.id.edtPassword);
-        edtConfirmPassword= (MaterialEditText)findViewById(R.id.edtConfirmPassword);
+        edtName = findViewById(R.id.edtName);
+        edtPassword = findViewById(R.id.edtPassword);
+        edtConfirmPassword= findViewById(R.id.edtConfirmPassword);
 
-        btnSignUp = (Button) findViewById(R.id.btnSignUp);
+        btnSignUp = findViewById(R.id.btnSignUp);
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override

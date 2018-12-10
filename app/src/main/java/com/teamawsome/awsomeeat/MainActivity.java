@@ -22,9 +22,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         authentication.setupFirebaseAuth(this);
-        btnSignIn=(Button) findViewById(R.id.btnSignIn);
-        btnSignUp=(Button) findViewById(R.id.btnSignUp);
-        txtSlogan = (TextView)findViewById(R.id.txtSlogan);
+        btnSignIn= findViewById(R.id.btnSignIn);
+        btnSignUp= findViewById(R.id.btnSignUp);
+        txtSlogan = findViewById(R.id.txtSlogan);
         Typeface face=Typeface.createFromAsset(getAssets(),"EC.ttf");
         txtSlogan.setTypeface(face);
 

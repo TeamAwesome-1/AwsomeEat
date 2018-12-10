@@ -57,11 +57,11 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -107,7 +107,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         }
@@ -159,7 +159,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
         final MenuItem menuItem = menu.findItem(R.id.cart);
 
         View actionView = menuItem.getActionView();
-        textCartItemCount = (TextView) actionView.findViewById(R.id.cart_badge);
+        textCartItemCount = actionView.findViewById(R.id.cart_badge);
 
         setupBadge();
 
@@ -221,7 +221,7 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
         }
 
         //Closes the drawer after an item has been selected
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

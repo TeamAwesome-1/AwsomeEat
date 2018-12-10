@@ -34,7 +34,7 @@ public class FragmentAddRestaurant extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.add_resturant_fragment,container,false);
         String [] values = {"French","Italian","Asian","Other"};
-        Spinner spinner = (Spinner) view.findViewById(R.id.spinner);
+        Spinner spinner = view.findViewById(R.id.spinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, values);
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinner.setAdapter(adapter);

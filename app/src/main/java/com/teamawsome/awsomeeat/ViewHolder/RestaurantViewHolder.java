@@ -32,9 +32,9 @@ public class RestaurantViewHolder extends RecyclerView.ViewHolder implements Vie
     public RestaurantViewHolder(@NonNull View itemView) {
         super(itemView);
         restaurantListView = itemView;
-        restaurantListNameView = (TextView) itemView.findViewById(R.id.name);
-        restaurantListAdressView = (TextView) itemView.findViewById(R.id.adress);
-        restaurantListImageView = (ImageView) itemView.findViewById(R.id.restaurant_image);
+        restaurantListNameView = itemView.findViewById(R.id.name);
+        restaurantListAdressView = itemView.findViewById(R.id.adress);
+        restaurantListImageView = itemView.findViewById(R.id.restaurant_image);
 
         restaurantListView.setOnClickListener(this);
 

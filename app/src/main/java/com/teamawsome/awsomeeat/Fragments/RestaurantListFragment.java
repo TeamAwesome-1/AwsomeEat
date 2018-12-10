@@ -33,7 +33,7 @@ public class RestaurantListFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_restaurant_list, container, false);
         adapter = new RestaurantRecyclerViewAdapter(itemList);
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.list);
+        RecyclerView recyclerView = view.findViewById(R.id.list);
         recyclerView.setAdapter(adapter);
         return view;
 
