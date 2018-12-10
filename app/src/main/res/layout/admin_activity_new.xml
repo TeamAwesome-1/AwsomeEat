@@ -41,13 +41,6 @@
         android:text="@string/add_new_restaurant" />
 
     <Button
-        android:id="@+id/searchRestButton"
-        style="@style/FirebaseUI.Button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/search_restaurant" />
-
-    <Button
         android:id="@+id/editRestButton"
         style="@style/FirebaseUI.Button"
         android:layout_width="match_parent"
