@@ -13,8 +13,13 @@
         android:id="@+id/editrestaurant_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="5dp"
+        android:layout_toStartOf="@+id/addnewdish_button"
         android:clickable="true"
-        android:src="@drawable/cheef" />
+        android:src="@drawable/renameicon"
+        android:background="@color/fbutton_color_silver"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/addnewdish_button"
