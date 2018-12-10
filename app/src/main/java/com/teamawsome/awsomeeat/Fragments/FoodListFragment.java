@@ -37,6 +37,7 @@ public class FoodListFragment extends Fragment {
     private FloatingActionButton category1Button;
     private FloatingActionButton category5Button;
     private FloatingActionButton addNewDishButton;
+    private FloatingActionButton editRestaurantButton;
     private FirestoreMain firestoreMain = FirestoreMain.getInstance();
     private EventHandler eventHandler = EventHandler.getInstance();
     private List <FloatingActionButton> floatingActionButtons;
@@ -73,6 +74,7 @@ public class FoodListFragment extends Fragment {
 
         wholeMenuButton = view.findViewById(R.id.wholeMenuButton);
         addNewDishButton = view.findViewById(R.id.addnewdish_button);
+        editRestaurantButton = view.findViewById(R.id.editrestaurant_button);
         //init the adapter
         adapter = new FoodListRecyclerViewAdapter(itemList, floatingActionButtons);
         if(idHolder.getRestaurantId() != null) {
@@ -80,6 +82,7 @@ public class FoodListFragment extends Fragment {
         }
         if (!auth.isAdmin()) {
             addNewDishButton.setVisibility(View.GONE);
+            editRestaurantButton.setVisibility(View.GONE);
         }
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_food);
@@ -134,6 +137,11 @@ public class FoodListFragment extends Fragment {
 
        addNewDishButton.setOnClickListener(view -> {
            eventHandler.openAddishFragment(view);
+
+        });
+
+        editRestaurantButton.setOnClickListener(view -> {
+            eventHandler.openEditRestaurantFragment(getActivity().getSupportFragmentManager());
 
         });
         }

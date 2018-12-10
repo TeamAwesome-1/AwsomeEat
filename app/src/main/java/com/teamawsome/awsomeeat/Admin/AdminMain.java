@@ -10,7 +10,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.teamawsome.awsomeeat.AwsomeEatActivity;
 import com.teamawsome.awsomeeat.R;
 
 public class AdminMain extends AppCompatActivity {
@@ -34,8 +33,8 @@ public class AdminMain extends AppCompatActivity {
         firebaseFirestore = FirebaseFirestore.getInstance();
 
         addDish = findViewById(R.id.dishAddEdit);
-        restaurantName = findViewById(R.id.restaurantName);
-        restaurantAdress = findViewById(R.id.restaurantAdress);
+        restaurantName = findViewById(R.id.editrestaurantname_edittext);
+        restaurantAdress = findViewById(R.id.editrestaurantadress_edittext);
         Button submitFood = findViewById(R.id.submitFoodButton);
         Button submitRestaurant = findViewById(R.id.submit);
         Button admin = findViewById(R.id.adminItem);
