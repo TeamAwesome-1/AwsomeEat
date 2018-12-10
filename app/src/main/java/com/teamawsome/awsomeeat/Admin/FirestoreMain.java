@@ -141,7 +141,12 @@ public class FirestoreMain extends AppCompatActivity {
         }
 
 
-     public int getCounter(){
+    public void setCounter(int counter) {
+        this.counter = counter;
+    }
+
+    public int getCounter(){
+
         return counter;
 
      }
