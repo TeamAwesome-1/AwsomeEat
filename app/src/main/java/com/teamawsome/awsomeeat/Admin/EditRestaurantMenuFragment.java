@@ -86,7 +86,7 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
 
 
 
-        Spinner spinner = (Spinner) view.findViewById(R.id.spinnerAddDish1);
+        Spinner spinner = view.findViewById(R.id.spinnerAddDish1);
         /*ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.categories));
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinner.setAdapter(adapter);
@@ -116,19 +116,19 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
 
                 switch (position) {
                     case 1:
-                        category = adapter.getItem(0).toString();
+                        category = adapter.getItem(0);
                         break;
                     case 2:
-                        category = adapter.getItem(2).toString();
+                        category = adapter.getItem(2);
                         break;
                     case 3:
-                        category = adapter.getItem(3).toString();
+                        category = adapter.getItem(3);
                         break;
                     case 4:
-                        category = adapter.getItem(4).toString();
+                        category = adapter.getItem(4);
                         break;
                     case 5:
-                        category = adapter.getItem(5).toString();
+                        category = adapter.getItem(5);
                         break;
                 }
             }

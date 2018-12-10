@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.teamawsome.awsomeeat.Admin.AdminMain;
+
 import com.teamawsome.awsomeeat.Admin.FirestoreMain;
 import com.teamawsome.awsomeeat.AwsomeEatActivity;
 import com.teamawsome.awsomeeat.Database.Authentication;
@@ -35,7 +35,7 @@ public class RestaurantListFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_restaurant_list, container, false);
         adapter = new RestaurantRecyclerViewAdapter(itemList);
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.list);
+        RecyclerView recyclerView = view.findViewById(R.id.list);
         recyclerView.setAdapter(adapter);
         return view;
 

@@ -20,9 +20,9 @@ public class AdminMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_activity_new);
-        tableLayout= (TabLayout) findViewById(R.id.tablayout_id);
-        appBarLayout=(AppBarLayout) findViewById(R.id.appbarid);
-        viewPager=(ViewPager) findViewById(R.id.viewPager);
+        tableLayout= findViewById(R.id.tablayout_id);
+        appBarLayout= findViewById(R.id.appbarid);
+        viewPager= findViewById(R.id.viewPager);
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 

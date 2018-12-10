@@ -63,16 +63,16 @@ public class FoodDetailFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_food_detail, container, false);
 
         //Init view
-        numberButton = (ElegantNumberButton) view.findViewById(R.id.number_button);
-        btnCart = (FloatingActionButton) view.findViewById(R.id.btnCart);
+        numberButton = view.findViewById(R.id.number_button);
+        btnCart = view.findViewById(R.id.btnCart);
         price_annotation = view.findViewById(R.id.price_annotation);
-        food_description = (TextView) view.findViewById(R.id.food_description);
-        food_name = (TextView) view.findViewById(R.id.food_name);
-        food_price = (TextView) view.findViewById(R.id.food_price);
-        food_image = (ImageView) view.findViewById(R.id.image_food);
+        food_description = view.findViewById(R.id.food_description);
+        food_name = view.findViewById(R.id.food_name);
+        food_price = view.findViewById(R.id.food_price);
+        food_image = view.findViewById(R.id.image_food);
         continueShoppingButton = view.findViewById(R.id.Continue_shopping_button);
         goToCartButton = view.findViewById(R.id.go_to_cart_button);
-        collapsingToolbarLayout = (CollapsingToolbarLayout) view.findViewById(R.id.collapsing);
+        collapsingToolbarLayout = view.findViewById(R.id.collapsing);
         collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.ExpandedAppbar);
         collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.CollapsedAppbar);
 

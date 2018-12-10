@@ -33,7 +33,7 @@ public class CategoryListRecyclerViewAdapter extends RecyclerView.Adapter<FoodLi
         addnewDish = view.findViewById(R.id.addNewDishButton);
 
        if (authentication.isAdmin()) {
-           addnewDish.setVisibility(view.VISIBLE);
+           addnewDish.setVisibility(View.VISIBLE);
 
            addnewDish.setOnClickListener(new View.OnClickListener() {
                @Override

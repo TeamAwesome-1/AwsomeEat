@@ -43,9 +43,9 @@ public class CartViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         public CartViewHolder(View itemView) {
             super(itemView);
 
-            txt_cart_name = (TextView)itemView.findViewById(R.id.cart_item_name);
-            txt_price = (TextView) itemView.findViewById(R.id.cart_item_price);
-            img_cart_count = (ImageView)itemView.findViewById(R.id.cart_item_count);
+            txt_cart_name = itemView.findViewById(R.id.cart_item_name);
+            txt_price = itemView.findViewById(R.id.cart_item_price);
+            img_cart_count = itemView.findViewById(R.id.cart_item_count);
 
             itemView.setOnClickListener(this);
         }
