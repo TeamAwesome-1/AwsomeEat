@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:text="Total: "
+                    android:text="@string/total"
                     android:textSize="20sp"
                     android:textColor="@android:color/white"
                     android:layout_width="wrap_content"
@@ -48,7 +48,7 @@
 
                 <TextView
                     android:id="@+id/total"
-                    android:text="0"
+                    android:text="@string/_0"
                     android:textSize="22sp"
                     android:textColor="@android:color/white"
                     android:layout_width="wrap_content"
@@ -59,7 +59,7 @@
             <Button
                 android:background="@drawable/buttonshape"
                 android:id="@+id/btnPlaceOrder"
-                android:text="Place Order"
+                android:text="@string/place_order"
                 android:textColor="@android:color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

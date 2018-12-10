@@ -34,28 +34,28 @@
 
         <Button
             android:id="@+id/btnSignUp"
-            android:text="Sign Up"
+            android:text="@string/sign_up"
             android:textColor="@android:color/white"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:background="@drawable/buttonshape"
-            android:drawableLeft="@drawable/signupicon"
+            android:drawableStart="@drawable/signupicon"
 
             />
 
 
         <Button
             android:id="@+id/btnSignIn"
-            android:text="Sign In"
+            android:text="@string/sign_in"
             android:textColor="@android:color/white"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:background="@drawable/buttonshape"
-            android:drawableLeft="@drawable/loginicon"
+            android:drawableStart="@drawable/loginicon"
             />
 
 
@@ -66,8 +66,8 @@
         android:layout_width="257dp"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/linearLayout3"
-        android:layout_alignLeft="@+id/linearLayout3"
-        android:layout_alignRight="@+id/linearLayout3"
+        android:layout_alignParentStart="@+id/linearLayout3"
+        android:layout_alignParentEnd="@+id/linearLayout3"
         android:layout_alignStart="@+id/linearLayout3"
         android:layout_below="@+id/linearLayout3"
         android:gravity="center"
