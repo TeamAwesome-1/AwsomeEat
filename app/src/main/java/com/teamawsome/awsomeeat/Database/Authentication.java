@@ -389,7 +389,7 @@ public class Authentication {
     public void logOut (){
         currentUser = null;
         mAuth = null;
-        firestoreMain.setCounter(0);
+
         setAdress("");
         FirebaseAuth.getInstance().signOut();
         //mAuth = null;
