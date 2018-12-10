@@ -53,7 +53,6 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
     private EventHandler eventHandler = EventHandler.getInstance();
     TextView textCartItemCount;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
