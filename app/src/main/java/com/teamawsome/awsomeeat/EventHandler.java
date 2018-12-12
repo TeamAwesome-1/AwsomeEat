@@ -33,25 +33,16 @@ public class EventHandler {
         return EventHandler;
     }
 
-
-
-    private void openFragment(Fragment fragment, View v, String baseFragmentTag){
-
-        AppCompatActivity activity = (AppCompatActivity) v.getContext();
-        activity.getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragmentinsertlayout, fragment).addToBackStack(baseFragmentTag)
-                .commit();
-    }
-
-    private void openFragment(Fragment fragment, FragmentManager fm, String baseFragmentTag){
+    private void openFragmentAndSetBaseFragmentTag(Fragment fragment, FragmentManager fm, String baseFragmentTag){
         fm.beginTransaction()
                 .replace(R.id.fragmentinsertlayout, fragment).addToBackStack(baseFragmentTag)
                 .commit();
     }
 
     private void openFragment(Fragment fragment, FragmentManager fm){
+
         if(fm.findFragmentByTag(BASE_FRAGMENT_TAG) == null){
-            openFragment(fragment, fm, BASE_FRAGMENT_TAG);
+            openFragmentAndSetBaseFragmentTag(fragment, fm, BASE_FRAGMENT_TAG);
         }else {
             fm.beginTransaction()
                     .replace(R.id.fragmentinsertlayout, fragment).addToBackStack(null)
@@ -68,7 +59,7 @@ public class EventHandler {
     private void openBaseFragment(View v){
         AppCompatActivity activity = (AppCompatActivity) v.getContext();
         FragmentManager fm = activity.getSupportFragmentManager();
-        fm.popBackStack(BASE_FRAGMENT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        openBaseFragment(fm);
 
     }
 
