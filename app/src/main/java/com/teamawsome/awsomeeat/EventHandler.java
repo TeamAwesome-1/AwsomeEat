@@ -15,10 +15,6 @@ import com.teamawsome.awsomeeat.Fragments.FoodDetailFragment;
 import com.teamawsome.awsomeeat.Fragments.FoodListFragment;
 
 
-/**
- * A class that handles fragmentransitions and fragmentLifecycle.
- * Use Eventhandler to open fragments.
- */
 public class EventHandler {
 
     private Fragment fragment;

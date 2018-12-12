@@ -205,21 +205,14 @@ public class FirestoreMain extends AppCompatActivity {
                 });
         }
 
-    /**
-     * Adds items to Cart-collection
-     * @param order -The orderobjekt that will be added to cart
-     */
+
     public void addToCart (Order order) {
 
             db.collection("Cart")
                     .add(order);
         }
 
-    /**
-     * Loads the cart for currentuser
-      * @param adapter - carts RecyclerViewAdpater
-     * @param userId- current user id.
-     */
+
     public void getCartList(CartRecyclerViewAdapter adapter, String userId){
 
         listenerForCartList= db.collection("Cart").whereEqualTo("userId", userId)
@@ -257,10 +250,6 @@ public class FirestoreMain extends AppCompatActivity {
 
         }
 
-    /**
-     * Loads a list of all restaurants from database
-      * @param adapter -the RestaurantRecyclerViewAdapter that will display the list of restaurants
-     */
    public void getRestaurantList(RestaurantRecyclerViewAdapter adapter){
 
             listenerForRestauranList = db.collection("restaurants").addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -326,11 +315,6 @@ public class FirestoreMain extends AppCompatActivity {
                 });
     }
 
-    /**
-     * Loads a foodlist for a specific restaurant from database
-     * @param adapter- FoodlistRecyclerViewAdapter that will display the list
-     * @param restaurantId- the id of the restaurant
-     */
     public void getRestaurantMenu (FoodListRecyclerViewAdapter adapter, String restaurantId) {
 
             restaurantMenuListener = db.collection("Foods").whereEqualTo("restaurantId", restaurantId)
