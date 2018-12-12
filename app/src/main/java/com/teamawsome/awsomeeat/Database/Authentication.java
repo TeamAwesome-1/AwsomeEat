@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -24,19 +23,12 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.teamawsome.DelayedProgressDialog;
-import com.teamawsome.awsomeeat.Admin.FirestoreMain;
 import com.teamawsome.awsomeeat.AwsomeEatActivity;
-import com.teamawsome.awsomeeat.Fragments.AdminMainFragment;
-import com.teamawsome.awsomeeat.Fragments.EditProfleFragment;
 import com.teamawsome.awsomeeat.Fragments.RestaurantListFragment;
 import com.teamawsome.awsomeeat.Fragments.userFragment;
 import com.teamawsome.awsomeeat.MainActivity;
 import com.teamawsome.awsomeeat.Model.User;
 import com.teamawsome.awsomeeat.R;
-import com.teamawsome.awsomeeat.SignIn;
-import com.teamawsome.awsomeeat.SignUp;
-import com.teamawsome.awsomeeat.SignUpProfileFields;
 
 public class Authentication {
 

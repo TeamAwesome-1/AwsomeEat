@@ -1,41 +1,23 @@
-package com.teamawsome.awsomeeat.Admin;
+package com.teamawsome.awsomeeat.Database;
 
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.teamawsome.awsomeeat.Adapters.CartRecyclerViewAdapter;
-//import com.teamawsome.awsomeeat.Adapters.CategoryListRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Adapters.FoodListRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Adapters.RestaurantRecyclerViewAdapter;
-import com.teamawsome.awsomeeat.AwsomeEatActivity;
-import com.teamawsome.awsomeeat.Database.Authentication;
 import com.teamawsome.awsomeeat.EventHandler;
-import com.teamawsome.awsomeeat.Fragments.CartFragment;
-import com.teamawsome.awsomeeat.Model.Category;
 import com.teamawsome.awsomeeat.Model.Food;
 import com.teamawsome.awsomeeat.Model.Order;
 import com.teamawsome.awsomeeat.Model.Restaurant;
@@ -62,22 +44,10 @@ public class FirestoreMain extends AppCompatActivity {
     private Restaurant restaurant;
     private Food food;
     private List<String> categories;
-    private CollectionReference foods = db.collection("foods");
-    private ListenerRegistration listenerRegistration;
     private ListenerRegistration listenerforCounter, listenerForCategories, restaurantMenuListener, listenerForCartList,listenerForRestauranList;
-    private int counterIcon;
-    private EventHandler eventHandler = EventHandler.getInstance();
     private IdHolder idHolder = IdHolder.getInstance();
-    private View view;
     private int counter;
 
-    public int getCounterIcon() {
-        return counterIcon;
-    }
-
-    public void setCounterIcon(int counterIcon) {
-        this.counterIcon = counterIcon;
-    }
 
     private static final FirestoreMain FirestoreMain = new FirestoreMain();
 
@@ -87,6 +57,7 @@ public class FirestoreMain extends AppCompatActivity {
     private FirestoreMain () {
         getCategoriesFromDatabase();
     }
+
 
     public List<String> getCategories(){
         return categories;
@@ -132,6 +103,14 @@ public class FirestoreMain extends AppCompatActivity {
         return "default";
     }
 
+    public int getCounter(){
+
+        return counter;
+
+    }
+
+
+
     //Lägg till ny restaurang.
 
     public void addRestaurant (String restaurantName, String restaurantAdress, String phoneNumber, String pictureUrl) {
@@ -140,30 +119,18 @@ public class FirestoreMain extends AppCompatActivity {
                 .add(restaurant);
         }
 
-        public void updateRestaurant (String restaurantId, Restaurant restaurant) {
+    public void updateRestaurant (String restaurantId, Restaurant restaurant) {
         DocumentReference updatedRestaurant = db.collection("restaurants").document(restaurantId);
         updatedRestaurant.set(restaurant);
         }
 
-        public void deleteRestaurant (String restaurantId, Restaurant restaurant) {
+    public void deleteRestaurant (String restaurantId, Restaurant restaurant) {
             DocumentReference updatedRestaurant = db.collection("restaurants").document(restaurantId);
             updatedRestaurant.delete();
 
         }
 
-
-    public void setCounter(int counter) {
-        this.counter = counter;
-    }
-
-    public int getCounter(){
-
-        return counter;
-
-     }
-
-
-     public void updateCounter(final Runnable r){
+    public void updateCounter(final Runnable r){
 
          listenerforCounter = db.collection("Cart").whereEqualTo("userId", authentication.getCurrentUser().getUid())
                  .addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -197,7 +164,6 @@ public class FirestoreMain extends AppCompatActivity {
                  });
 
      }
-
 
     private void getCategoriesFromDatabase(){
         categories = new ArrayList<>();
@@ -326,44 +292,10 @@ public class FirestoreMain extends AppCompatActivity {
             });
         }
 
-
-   /*public void getCategoriesForRestaurant(CategoryListRecyclerViewAdapter adapter, String restaurantId){
-
-
-            listenerRegistration = db.collection("Categories").whereArrayContains("restaurantId", restaurantId)
-                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                        @Override
-                        public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                            if (e != null) {
-                                return;
-                            }
-                            for (DocumentChange dc : queryDocumentSnapshots.getDocumentChanges()) {
-                                if (dc.getType() == DocumentChange.Type.ADDED) {
-
-                                    String id = dc.getDocument().getId();
-                                    Category category = dc.getDocument().toObject(Category.class);
-                                    category.setId(id);
-                                    adapter.addCategoryItem(category);
-
-                                } else if (dc.getType() == DocumentChange.Type.MODIFIED) {
-                                    String id = dc.getDocument().getId();
-                                    Category category = dc.getDocument().toObject(Category.class);
-                                    adapter.modifyItem(id, category);
-
-                                } else if (dc.getType() == DocumentChange.Type.REMOVED) {
-                                    String id = dc.getDocument().getId();
-                                    adapter.removeMenuItem(id);
-                                }
-                            }
-                        }
-                    });
-
-        }*/
-
     //Hämtar alla maträtter som hör till en specifik restaurangs matkategori
     public void getMenuForRestaurantCategory(FoodListRecyclerViewAdapter adapter, String restaurantId, String categoryId){
 
-        listenerRegistration = db.collection("Foods").whereEqualTo("restaurantId", restaurantId).whereEqualTo("Category", categoryId)
+        listenerForCategories = db.collection("Foods").whereEqualTo("restaurantId", restaurantId).whereEqualTo("Category", categoryId)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
@@ -399,7 +331,6 @@ public class FirestoreMain extends AppCompatActivity {
      * @param adapter- FoodlistRecyclerViewAdapter that will display the list
      * @param restaurantId- the id of the restaurant
      */
-    //OK
     public void getRestaurantMenu (FoodListRecyclerViewAdapter adapter, String restaurantId) {
 
             restaurantMenuListener = db.collection("Foods").whereEqualTo("restaurantId", restaurantId)
@@ -434,25 +365,25 @@ public class FirestoreMain extends AppCompatActivity {
 
         }
 
-    //OK    //Lägger till en ny maträtt i "Foods" collection.
-  public void addFood (String name, String price, String category, String picUrl) {
+    //Lägger till en ny maträtt i "Foods" collection.
+    public void addFood (String name, String price, String category, String picUrl) {
         food = new Food(name, price, idHolder.getRestaurantId(), category, picUrl);
 
         db.collection("Foods").add(food);
         }
-    //OK
+
     public void changeFood(Food food ) {
         DocumentReference foods = db.collection("Foods").document(food.getId());
           foods.set(food);
     }
-    //OK
+
     public void deleteFood (Food food) {
         DocumentReference foods = db.collection("Foods").document(food.getId());
         foods.delete();
 
 
     }
-    //OK
+
     public void addToOrders(List<Order> cartList) {
 
         for (int i = 0; i < cartList.size(); i++) {
@@ -460,7 +391,7 @@ public class FirestoreMain extends AppCompatActivity {
                     .add(cartList.get(i));
         }
     }
-    //OK
+
     public void clearCartItem ( String documentId){
         db.collection("Cart").document(documentId)
                 .delete()
@@ -477,18 +408,13 @@ public class FirestoreMain extends AppCompatActivity {
                     }
                 });
     }
-    //ok
+
     public void clearCart(List<Order> cartList){
         for (int i = 0; i < cartList.size(); i++) {
             Order order = cartList.get(i);
             String document  = order.getDocumentId();
             clearCartItem(document);
         }
-    }
-
-    public void detachSnapShotListener(){
-        //ANVÄNDS för kategorilistan ---Ska bort
-        listenerRegistration.remove();
     }
 
     public void detachListenerForCounter(){

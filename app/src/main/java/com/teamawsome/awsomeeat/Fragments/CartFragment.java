@@ -13,18 +13,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.ListenerRegistration;
+
 import com.teamawsome.awsomeeat.Adapters.CartRecyclerViewAdapter;
-import com.teamawsome.awsomeeat.Admin.FirestoreMain;
+import com.teamawsome.awsomeeat.Database.FirestoreMain;
 import com.teamawsome.awsomeeat.Database.Authentication;
 import com.teamawsome.awsomeeat.Model.Order;
 import com.teamawsome.awsomeeat.R;
-import java.text.NumberFormat;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
+
 import javax.annotation.Nullable;
 
 
