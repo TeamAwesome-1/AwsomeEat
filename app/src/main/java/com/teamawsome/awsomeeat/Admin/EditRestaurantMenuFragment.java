@@ -19,11 +19,11 @@ import android.widget.Toast;
 import com.google.firebase.firestore.CollectionReference;
 import com.teamawsome.awsomeeat.Adapters.FoodListRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Database.FirestoreMain;
-import com.teamawsome.awsomeeat.EventHandler;
+import com.teamawsome.awsomeeat.Helpers.EventHandler;
 import com.teamawsome.awsomeeat.Model.Food;
-import com.teamawsome.awsomeeat.PictureHandler;
+import com.teamawsome.awsomeeat.Helpers.PictureHandler;
 import com.teamawsome.awsomeeat.R;
-import com.teamawsome.IdHolder;
+import com.teamawsome.awsomeeat.Helpers.IdHolder;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.teamawsome.awsomeeat.Database.FirestoreMain;
-import com.teamawsome.awsomeeat.PictureHandler;
+import com.teamawsome.awsomeeat.Helpers.PictureHandler;
 import com.teamawsome.awsomeeat.R;
 
 public class FragmentAddRestaurant extends Fragment {

@@ -19,7 +19,7 @@ import android.widget.Toast;
 
 import com.teamawsome.awsomeeat.Database.FirestoreMain;
 import com.teamawsome.awsomeeat.Model.Food;
-import com.teamawsome.awsomeeat.PictureHandler;
+import com.teamawsome.awsomeeat.Helpers.PictureHandler;
 import com.teamawsome.awsomeeat.R;
 
 public class FragmentAddDish extends Fragment {

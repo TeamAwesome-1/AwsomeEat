@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.TextView;
 import com.teamawsome.awsomeeat.Database.FirestoreMain;
 import com.teamawsome.awsomeeat.Database.Authentication;
+import com.teamawsome.awsomeeat.Helpers.EventHandler;
 
 public class AwsomeEatActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private static final String TAG = "User";

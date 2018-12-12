@@ -3,9 +3,8 @@ package com.teamawsome.awsomeeat.Database;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
+
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentChange;
@@ -17,11 +16,10 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.teamawsome.awsomeeat.Adapters.CartRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Adapters.FoodListRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Adapters.RestaurantRecyclerViewAdapter;
-import com.teamawsome.awsomeeat.EventHandler;
 import com.teamawsome.awsomeeat.Model.Food;
 import com.teamawsome.awsomeeat.Model.Order;
 import com.teamawsome.awsomeeat.Model.Restaurant;
-import com.teamawsome.IdHolder;
+import com.teamawsome.awsomeeat.Helpers.IdHolder;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -3,7 +3,6 @@ package com.teamawsome.awsomeeat.Fragments;
 
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -11,13 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
-import com.teamawsome.awsomeeat.Admin.FragmentAddDish;
-
-import com.teamawsome.awsomeeat.Admin.ViewPagerAdapter;
 import com.teamawsome.awsomeeat.Database.Authentication;
-import com.teamawsome.awsomeeat.EventHandler;
+import com.teamawsome.awsomeeat.Helpers.EventHandler;
 import com.teamawsome.awsomeeat.R;
 
 

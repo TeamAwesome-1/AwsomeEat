@@ -12,11 +12,11 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
-import com.teamawsome.IdHolder;
+import com.teamawsome.awsomeeat.Helpers.IdHolder;
 import com.teamawsome.awsomeeat.Database.FirestoreMain;
-import com.teamawsome.awsomeeat.EventHandler;
+import com.teamawsome.awsomeeat.Helpers.EventHandler;
 import com.teamawsome.awsomeeat.Model.Restaurant;
-import com.teamawsome.awsomeeat.PictureHandler;
+import com.teamawsome.awsomeeat.Helpers.PictureHandler;
 import com.teamawsome.awsomeeat.R;
 
 

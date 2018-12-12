@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.rengwuxian.materialedittext.MaterialEditText;
-import com.teamawsome.DelayedProgressDialog;
+import com.teamawsome.awsomeeat.Helpers.DelayedProgressDialog;
 import com.teamawsome.awsomeeat.Database.Authentication;
 
 public class SignIn extends AppCompatActivity {

@@ -1,4 +1,4 @@
-package com.teamawsome.awsomeeat;
+package com.teamawsome.awsomeeat.Helpers;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,6 +13,7 @@ import com.teamawsome.awsomeeat.Fragments.CartFragment;
 import com.teamawsome.awsomeeat.Fragments.EditProfleFragment;
 import com.teamawsome.awsomeeat.Fragments.FoodDetailFragment;
 import com.teamawsome.awsomeeat.Fragments.FoodListFragment;
+import com.teamawsome.awsomeeat.R;
 
 
 public class EventHandler {

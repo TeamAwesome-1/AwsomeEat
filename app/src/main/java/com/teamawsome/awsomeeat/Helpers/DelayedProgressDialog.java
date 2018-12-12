@@ -1,4 +1,4 @@
-package com.teamawsome;
+package com.teamawsome.awsomeeat.Helpers;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;

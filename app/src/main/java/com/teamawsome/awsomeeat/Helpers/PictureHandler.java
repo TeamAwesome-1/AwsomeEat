@@ -1,6 +1,5 @@
-package com.teamawsome.awsomeeat;
+package com.teamawsome.awsomeeat.Helpers;
 
-import android.view.View;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;

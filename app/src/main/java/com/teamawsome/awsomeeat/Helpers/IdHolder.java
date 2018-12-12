@@ -1,4 +1,4 @@
-package com.teamawsome;
+package com.teamawsome.awsomeeat.Helpers;
 
 import com.teamawsome.awsomeeat.Model.Food;
 import com.teamawsome.awsomeeat.Model.Restaurant;

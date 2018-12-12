@@ -13,11 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.teamawsome.IdHolder;
+import com.teamawsome.awsomeeat.Helpers.IdHolder;
 import com.teamawsome.awsomeeat.Adapters.FoodListRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Database.FirestoreMain;
 import com.teamawsome.awsomeeat.Database.Authentication;
-import com.teamawsome.awsomeeat.EventHandler;
+import com.teamawsome.awsomeeat.Helpers.EventHandler;
 import com.teamawsome.awsomeeat.Model.Food;
 import com.teamawsome.awsomeeat.R;
 
