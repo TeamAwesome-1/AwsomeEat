@@ -3,28 +3,20 @@ package com.teamawsome.awsomeeat.ViewHolder;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.view.ContextMenu;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.teamawsome.awsomeeat.Admin.FirestoreMain;
-import com.teamawsome.awsomeeat.Common.Common;
 import com.teamawsome.awsomeeat.Interface.ItemClickListener;
 import com.teamawsome.awsomeeat.Model.Order;
-import com.teamawsome.awsomeeat.Model.Request;
 import com.teamawsome.awsomeeat.R;
 
 import java.text.NumberFormat;
 import java.util.Locale;
 
-public class CartViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnCreateContextMenuListener {
+public class CartViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private TextView txt_cart_name, txt_price;
         private ImageView img_cart_count;
@@ -57,7 +49,6 @@ public class CartViewHolder extends RecyclerView.ViewHolder implements View.OnCl
             img_cart_count.setImageDrawable(drawable);
             Locale locale = new Locale("en","SE");
             NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
-            //TODO ordeitem needs to have a price registred (=not null) for this to work/ Sandra kollar upp
             int price = (Integer.parseInt(orderInfo.getPrice()))*(Integer.parseInt(orderInfo.getQuantity()));
             txt_price.setText(fmt.format(price));
             itemId = orderInfo.getDocumentId();
@@ -72,12 +63,6 @@ public class CartViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
          }
 
-         //TODO Not working/Sandra och Shahin
-        @Override
-        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-            menu.setHeaderTitle("Select action");
-            menu.add(0,0, getAdapterPosition(), Common.DELETE);
-        }
 
 
         public void showDeleteDialog(View view, String documentId){

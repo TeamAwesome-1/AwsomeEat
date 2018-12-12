@@ -1,23 +1,19 @@
 package com.teamawsome.awsomeeat;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-
 import com.teamawsome.awsomeeat.Admin.EditRestaurantMenuFragment;
 import com.teamawsome.awsomeeat.Admin.FragmentAddDish;
 import com.teamawsome.awsomeeat.Admin.FragmentAddRestaurant;
-
 import com.teamawsome.awsomeeat.Admin.FragmentEditRestaurant;
 import com.teamawsome.awsomeeat.Fragments.AdminMainFragment;
 import com.teamawsome.awsomeeat.Fragments.CartFragment;
 import com.teamawsome.awsomeeat.Fragments.EditProfleFragment;
-import com.teamawsome.awsomeeat.Fragments.FoodCategoryFragment;
 import com.teamawsome.awsomeeat.Fragments.FoodDetailFragment;
 import com.teamawsome.awsomeeat.Fragments.FoodListFragment;
-import com.teamawsome.awsomeeat.Fragments.RestaurantListFragment;
+
 
 /**
  * A class that handles fragmentransitions and fragmentLifecycle.

@@ -28,7 +28,7 @@ import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.teamawsome.awsomeeat.Adapters.CartRecyclerViewAdapter;
-import com.teamawsome.awsomeeat.Adapters.CategoryListRecyclerViewAdapter;
+//import com.teamawsome.awsomeeat.Adapters.CategoryListRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Adapters.FoodListRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Adapters.RestaurantRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.AwsomeEatActivity;
@@ -211,6 +211,11 @@ public class FirestoreMain extends AppCompatActivity {
 
                         for (DocumentChange dc : queryDocumentSnapshots.getDocumentChanges()) {
                             if (dc.getType() == DocumentChange.Type.ADDED) {
+                                /*Category category = dc.getDocument().toObject(Category.class);
+                                String name = category.getName();
+                                category.setId(dc.getDocument().getId());
+                                categories.add(name);*/
+
                                 categories.add(dc.getDocument().getId());
 
                             } else if (dc.getType() == DocumentChange.Type.REMOVED) {
@@ -321,7 +326,7 @@ public class FirestoreMain extends AppCompatActivity {
         }
 
 
-   public void getCategoriesForRestaurant(CategoryListRecyclerViewAdapter adapter, String restaurantId){
+   /*public void getCategoriesForRestaurant(CategoryListRecyclerViewAdapter adapter, String restaurantId){
 
 
             listenerRegistration = db.collection("Categories").whereArrayContains("restaurantId", restaurantId)
@@ -352,7 +357,7 @@ public class FirestoreMain extends AppCompatActivity {
                         }
                     });
 
-        }
+        }*/
 
     //Hämtar alla maträtter som hör till en specifik restaurangs matkategori
     public void getMenuForRestaurantCategory(FoodListRecyclerViewAdapter adapter, String restaurantId, String categoryId){

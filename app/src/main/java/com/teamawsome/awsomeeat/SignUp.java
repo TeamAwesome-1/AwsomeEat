@@ -7,7 +7,6 @@ import android.widget.Button;
 import android.widget.Toast;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.teamawsome.DelayedProgressDialog;
-import com.teamawsome.awsomeeat.Common.Common;
 import com.teamawsome.awsomeeat.Database.Authentication;
 
 public class SignUp extends AppCompatActivity {
@@ -34,9 +33,6 @@ public class SignUp extends AppCompatActivity {
             public void onClick(View view) {
                 DelayedProgressDialog progressDialog = new DelayedProgressDialog();
 
-
-                if(Common.isNetworkAvailable(getBaseContext())) {
-
                     if (edtName.getText().toString().isEmpty()){
                         Toast.makeText(SignUp.this, getString(R.string.not_empty_email), Toast.LENGTH_SHORT).show();
                     } else if (edtPassword.getText().toString().trim().length() < 6)
@@ -48,7 +44,6 @@ public class SignUp extends AppCompatActivity {
                         progressDialog.show( ((AppCompatActivity) context).getSupportFragmentManager(), "Loading");
                     }
             }
-        }
 
         });
 

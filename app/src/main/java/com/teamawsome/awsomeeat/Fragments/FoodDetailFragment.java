@@ -12,30 +12,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
 import com.teamawsome.awsomeeat.Admin.FirestoreMain;
-import com.teamawsome.awsomeeat.Common.Common;
 import com.teamawsome.awsomeeat.Database.Authentication;
-import com.teamawsome.awsomeeat.Database.Database;
 import com.teamawsome.awsomeeat.EventHandler;
 import com.teamawsome.awsomeeat.Model.Food;
 import com.teamawsome.awsomeeat.Model.Order;
 import com.teamawsome.awsomeeat.PictureHandler;
 import com.teamawsome.awsomeeat.R;
 import com.teamawsome.idHolder;
-
-import org.w3c.dom.Text;
-
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class FoodDetailFragment extends Fragment {
