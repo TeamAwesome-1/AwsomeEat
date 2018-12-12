@@ -183,6 +183,10 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
             case R.id.nav_log_out:
                 signOut();
                 break;
+
+            case R.id.adminItem:
+                eventHandler.openAdminFragment(getSupportFragmentManager());
+                break;
         }
 
         //Closes the drawer after an item has been selected
