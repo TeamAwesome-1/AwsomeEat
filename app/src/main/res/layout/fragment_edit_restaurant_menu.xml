@@ -21,14 +21,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Enter an URL for the picture of the dish"
+        android:hint="@string/enter_an_url_for_the_picture_of_the_dish"
         android:inputType="textPersonName" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="370dp"
         android:layout_height="386dp"
-        android:layout_centerInParent="true"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:orientation="vertical">
@@ -37,8 +36,8 @@
             android:id="@+id/food_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_room_service_black_24dp"
-            android:hint="Food Name"
+            android:drawableStart="@drawable/ic_room_service_black_24dp"
+            android:hint="@string/food_name"
             android:inputType="text"
             android:textColor="@android:color/holo_blue_bright"
             android:textColorHint="@android:color/holo_blue_bright"
@@ -48,12 +47,12 @@
             app:met_primaryColor="@android:color/holo_red_light"
             app:met_singleLineEllipsis="true" />
 
-        <TextView
+        <EditText
             android:id="@+id/resturantCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_subject_black_24dp"
-            android:hint="Category"
+            android:drawableStart="@drawable/ic_subject_black_24dp"
+            android:hint="@string/category"
             android:inputType="text"
             android:textColorHint="@android:color/black"
             android:textSize="20sp"
@@ -64,12 +63,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <TextView
+        <EditText
             android:id="@+id/dish_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_attach_money_black_24dp"
-            android:hint="Price:"
+            android:drawableStart="@drawable/ic_attach_money_black_24dp"
+            android:hint="@string/price"
             android:inputType="text"
             android:textColorHint="@android:color/black"
             android:textSize="20sp"
@@ -79,8 +78,8 @@
             android:id="@+id/food_price_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_attach_money_black_24dp"
-            android:hint="price"
+            android:drawable="@drawable/ic_attach_money_black_24dp"
+            android:hint="@string/price"
             android:inputType="number"
             android:textColor="@android:color/black"
             android:textColorHint="@android:color/holo_blue_bright"
@@ -94,7 +93,6 @@
 
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_alignParentBottom="true"
             android:weightSum="2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -102,14 +100,12 @@
 
         <Button
             android:id="@+id/updateDishButton"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
             android:layout_marginLeft="6dp"
             android:layout_marginRight="6dp"
             android:layout_marginBottom="6dp"
             android:clickable="true"
             android:focusable="true"
-            android:text="Update"
+            android:text="@string/update"
             android:textColor="@android:color/white"
             android:layout_weight="1"
             android:layout_width="0dp"
@@ -125,7 +121,7 @@
             android:layout_margin="8dp"
             android:background="@drawable/buttonshape"
             android:id="@+id/deletedish_button"
-            android:text="Delete"
+            android:text="@string/delete"
             android:textColor="@color/colorText" />
 
         </LinearLayout>

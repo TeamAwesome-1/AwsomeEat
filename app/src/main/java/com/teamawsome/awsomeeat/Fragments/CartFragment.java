@@ -122,9 +122,6 @@ public class CartFragment extends Fragment {
         firestoreMain.addToOrders(cartList);
         //Clears the Cartobjects for currentuser
         firestoreMain.clearCart(cartList);
-        //clears local cartlist
-        adapter.clearList();
-
     }
 
    @Override

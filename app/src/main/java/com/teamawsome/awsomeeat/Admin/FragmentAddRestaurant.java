@@ -19,6 +19,8 @@ import com.teamawsome.awsomeeat.Database.FirestoreMain;
 import com.teamawsome.awsomeeat.Helpers.PictureHandler;
 import com.teamawsome.awsomeeat.R;
 
+import java.util.List;
+
 public class FragmentAddRestaurant extends Fragment {
     private FirestoreMain firestoreMain;
     private View view;
@@ -36,11 +38,7 @@ public class FragmentAddRestaurant extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.add_resturant_fragment,container,false);
-        String [] values = {"French","Italian","Asian","Other"};
-        Spinner spinner = view.findViewById(R.id.spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, values);
-        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        spinner.setAdapter(adapter);
+
         MaterialEditText restaurantName = view.findViewById(R.id.editrestaurantname_edittext);
         MaterialEditText restaurantAdress = view.findViewById(R.id.editrestaurantadress_edittext);
         MaterialEditText restaurantPhoneNumber = view.findViewById(R.id.restaurantPhoneNumber);

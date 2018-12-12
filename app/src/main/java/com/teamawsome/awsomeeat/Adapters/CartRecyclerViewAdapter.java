@@ -68,8 +68,8 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartViewHolder
         private void removeOrderListItem(int position){
             if(position >= 0 && position < orderList.size()){
                 orderList.remove(position);
-                this.notifyItemRemoved(position);
                 setTotalPrice();
+                this.notifyItemRemoved(position);
             }
         }
 

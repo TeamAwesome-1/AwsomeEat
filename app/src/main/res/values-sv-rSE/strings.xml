@@ -74,4 +74,12 @@
     <string name="food_name">Maträttens namn</string>
     <string name="food_price">Maträttens pris</string>
     <string name="description">Innehåll</string>
+    <string name="add_restaurant">Sätt till restaurang</string>
+    <string name="phone_number">Telefonnummer</string>
+    <string name="enter_a_url">Skriv in en url</string>
+    <string name="enter_an_url_for_the_picture_of_the_dish">Skriv in en url-adress till en bild på maträtten</string>
+    <string name="price">Pris:</string>
+    <string name="update">Uppdatera</string>
+    <string name="delete">Radera</string>
+    <string name="category">Kategori</string>
 </resources>

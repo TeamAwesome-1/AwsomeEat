@@ -15,7 +15,6 @@
         android:orientation="vertical"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_centerInParent="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout">
@@ -31,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Enter a URL"
+            android:hint="@string/enter_a_url"
             android:inputType="text"
             android:textColor="@color/fbutton_color_peter_river" />
 
@@ -39,7 +38,7 @@
             android:id="@+id/editrestaurantname_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_restaurantname"
+            android:drawableStart="@drawable/ic_restaurantname"
             android:hint="@string/name_of_the_restaurant"
             android:inputType="text"
             android:textColor="@color/fui_bgEmail"
@@ -54,8 +53,8 @@
             android:id="@+id/editrestaurantadress_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_add_location"
-            android:hint="Address"
+            android:drawableStart="@drawable/ic_add_location"
+            android:hint="@string/address"
             android:inputType="textPostalAddress"
             android:textColor="@android:color/holo_orange_dark"
             android:textColorHint="@android:color/holo_blue_bright"
@@ -71,8 +70,8 @@
             android:id="@+id/restaurantPhoneNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_local_phone_black_24dp"
-            android:hint="Phone Number"
+            android:drawableStart="@drawable/ic_local_phone_black_24dp"
+            android:hint="@string/phone_number"
             android:inputType="textPhonetic"
             android:textColor="@android:color/holo_orange_dark"
             android:textColorHint="@android:color/holo_blue_bright"
@@ -84,34 +83,27 @@
             app:met_singleLineEllipsis="true" />
 
 
-        <TextView
+        <EditText
             android:id="@+id/resturantCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_subject_black_24dp"
+            android:drawableStart="@drawable/ic_subject_black_24dp"
             android:inputType="text"
-            android:text="Category"
+            android:text="@string/category"
             android:textSize="25sp"
             app:met_baseColor="@android:color/white" />
 
-
-        <android.support.v7.widget.AppCompatSpinner
-            android:id="@+id/spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
 
         <Button
             android:id="@+id/btnAddRest"
             style="@style/FirebaseUI.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
             android:layout_marginLeft="6dp"
             android:layout_marginRight="6dp"
             android:layout_marginBottom="6dp"
             android:background="@drawable/buttonshape"
-            android:text="Add Resturant"
+            android:text="@string/add_restaurant"
             android:textColor="@android:color/white" />
 
     </LinearLayout>

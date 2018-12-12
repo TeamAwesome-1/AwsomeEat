@@ -81,5 +81,13 @@
     <string name="food_name">Food Name</string>
     <string name="food_price">Food Price</string>
     <string name="description">Description</string>
+    <string name="add_restaurant">Add Restaurant</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="enter_a_url">Enter a URL</string>
+    <string name="enter_an_url_for_the_picture_of_the_dish">Enter an URL for the picture of the dish</string>
+    <string name="price">Price:</string>
+    <string name="update">Update</string>
+    <string name="delete">Delete</string>
+    <string name="category">Category</string>
 
 </resources>
