@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import com.teamawsome.awsomeeat.Helpers.IdHolder;
 import com.teamawsome.awsomeeat.Adapters.FoodListRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Database.FirestoreMain;
@@ -20,7 +19,6 @@ import com.teamawsome.awsomeeat.Database.Authentication;
 import com.teamawsome.awsomeeat.Helpers.EventHandler;
 import com.teamawsome.awsomeeat.Model.Food;
 import com.teamawsome.awsomeeat.R;
-
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Nullable;
@@ -31,7 +29,6 @@ public class FoodListFragment extends Fragment {
 
     private List<Food> itemList = new ArrayList<>();
     private RecyclerView recyclerView;
-    private String categoryId;
     private String restaurantId;
     private FloatingActionButton category4Button;
     private FloatingActionButton category2Button;
@@ -102,7 +99,7 @@ public class FoodListFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        //load foodlist from database
         firestoreMain.getRestaurantMenu(adapter, restaurantId);
 
 

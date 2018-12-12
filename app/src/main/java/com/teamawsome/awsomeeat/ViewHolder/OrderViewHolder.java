@@ -9,8 +9,7 @@ import com.teamawsome.awsomeeat.R;
 
 public class OrderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    public TextView txtOrderId,txtOrderStatus, txtOrderRoll, txtOrderAddress;
-
+    private TextView txtOrderId,txtOrderStatus, txtOrderRoll, txtOrderAddress;
     private ItemClickListener itemClickListener;
 
 
@@ -32,7 +31,5 @@ public class OrderViewHolder extends RecyclerView.ViewHolder implements View.OnC
     @Override
     public void onClick(View view) {
         itemClickListener.onClick(view,getAdapterPosition(),false);
-
-
     }
 }

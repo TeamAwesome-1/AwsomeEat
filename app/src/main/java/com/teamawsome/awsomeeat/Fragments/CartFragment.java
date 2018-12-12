@@ -3,26 +3,23 @@ package com.teamawsome.awsomeeat.Fragments;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.teamawsome.awsomeeat.Adapters.CartRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Database.FirestoreMain;
 import com.teamawsome.awsomeeat.Database.Authentication;
 import com.teamawsome.awsomeeat.Model.Order;
 import com.teamawsome.awsomeeat.R;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.annotation.Nullable;
 
 
@@ -34,7 +31,7 @@ public class CartFragment extends Fragment {
     private CartRecyclerViewAdapter adapter;
     private FirestoreMain firestoreMain = FirestoreMain.getInstance();
     private static Authentication authentication = Authentication.getInstance();
-    private int price;
+
 
     public CartFragment() {
 
@@ -42,7 +39,7 @@ public class CartFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view  = inflater.inflate(R.layout.fragment_cart, container, false);
 
@@ -118,12 +115,6 @@ public class CartFragment extends Fragment {
     }
 
 
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        /*if(item.getTitle().equals(Common.DELETE))
-            deleteCart(item.getOrder());*/
-        return true;
-    }
 
     //Moves all cartItems to the Order-collection in database and clears the cart
     private void placeOrder() {
@@ -147,6 +138,7 @@ public class CartFragment extends Fragment {
     public void onResume() {
         super.onResume();
         authentication.checkAuthState(getActivity());
+
     }
 
 }

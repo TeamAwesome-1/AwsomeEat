@@ -29,7 +29,7 @@ import javax.annotation.Nullable;
 
 
 
-public class FirestoreMain extends AppCompatActivity {
+public class FirestoreMain {
 
 
     private String category1;
@@ -176,10 +176,6 @@ public class FirestoreMain extends AppCompatActivity {
 
                         for (DocumentChange dc : queryDocumentSnapshots.getDocumentChanges()) {
                             if (dc.getType() == DocumentChange.Type.ADDED) {
-                                /*Category category = dc.getDocument().toObject(Category.class);
-                                String name = category.getName();
-                                category.setId(dc.getDocument().getId());
-                                categories.add(name);*/
 
                                 categories.add(dc.getDocument().getId());
 

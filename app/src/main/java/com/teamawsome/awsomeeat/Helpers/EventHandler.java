@@ -65,11 +65,6 @@ public class EventHandler {
 
     }
 
-
-    /**
-     * Opens the baseFragment-RestaurantListfragment.
-     * @param v- view
-     */
     public void openRestaurantListFragment(View v){
         openBaseFragment(v);
     }

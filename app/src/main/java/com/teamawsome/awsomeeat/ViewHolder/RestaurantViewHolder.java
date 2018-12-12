@@ -5,21 +5,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.teamawsome.awsomeeat.Helpers.IdHolder;
 import com.teamawsome.awsomeeat.Database.Authentication;
-
-
 import com.teamawsome.awsomeeat.Helpers.EventHandler;
 import com.teamawsome.awsomeeat.Helpers.PictureHandler;
 import com.teamawsome.awsomeeat.R;
 import com.teamawsome.awsomeeat.Model.Restaurant;
 
 public class RestaurantViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-    private final View restaurantListView;
-    private final TextView restaurantListNameView;
-    private final TextView restaurantListAdressView;
-    private final ImageView restaurantListImageView;
+    private View restaurantListView;
+    private TextView restaurantListNameView;
+    private TextView restaurantListAdressView;
+    private ImageView restaurantListImageView;
     private String itemId;
     private Restaurant restaurant;
     private Authentication auth = Authentication.getInstance();
@@ -40,10 +37,6 @@ public class RestaurantViewHolder extends RecyclerView.ViewHolder implements Vie
 
     }
 
-    public void setData(String title, String subtitle) {
-        restaurantListNameView.setText(title);
-        restaurantListAdressView.setText(subtitle);
-    }
 
     //Set information for the listview
     public void setData(Restaurant restaurantInfo) {

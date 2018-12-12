@@ -1,25 +1,15 @@
 package com.teamawsome.awsomeeat.Model;
 
-import com.google.firebase.database.Exclude;
-
 public class Food {
 
     private String name;
-    @Exclude
     private String image;
-    @Exclude
     private String description;
-    @Exclude
     private String price;
-    @Exclude
     private String discount;
-    @Exclude
     private String restaurantId;
-
     private String category;
     private String id;
-
-
 
     public Food() {
 
@@ -43,6 +33,7 @@ public class Food {
         this.category = category;
         this.image = image;
     }
+
 
     public String getId() {
         return id;
@@ -73,7 +64,7 @@ public class Food {
     }
 
     public void setDescription(String description) {
-        description = description;
+        this.description = description;
     }
 
     public String getPrice() {

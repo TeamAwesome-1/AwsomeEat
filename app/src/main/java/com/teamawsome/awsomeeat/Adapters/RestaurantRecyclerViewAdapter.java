@@ -8,12 +8,11 @@ import android.view.ViewGroup;
 import com.teamawsome.awsomeeat.R;
 import com.teamawsome.awsomeeat.Model.Restaurant;
 import com.teamawsome.awsomeeat.ViewHolder.RestaurantViewHolder;
-
 import java.util.List;
 
 
 public class RestaurantRecyclerViewAdapter extends RecyclerView.Adapter<RestaurantViewHolder> {
-    public List<Restaurant> restaurantsList;
+    private List<Restaurant> restaurantsList;
 
     public RestaurantRecyclerViewAdapter( List<Restaurant> list) {
 
@@ -55,7 +54,7 @@ public class RestaurantRecyclerViewAdapter extends RecyclerView.Adapter<Restaura
         }
     }
 
-    public void removeListItem(int position) {
+    private void removeListItem(int position) {
         if (position >= 0 && position < restaurantsList.size()) {
             restaurantsList.remove(position);
             this.notifyItemRemoved(position);

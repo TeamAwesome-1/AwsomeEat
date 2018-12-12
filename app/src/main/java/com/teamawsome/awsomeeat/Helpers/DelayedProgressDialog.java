@@ -13,7 +13,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.widget.ProgressBar;
-
 import com.teamawsome.awsomeeat.R;
 
 public class DelayedProgressDialog extends DialogFragment {

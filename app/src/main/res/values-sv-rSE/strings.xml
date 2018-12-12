@@ -71,4 +71,7 @@
     <string name="enter_a_valid_picture_url">Vänligen fyll i en giltig bild-url</string>
     <string name="adding_a_restaurant_with_default_picture">Lägger till en restaurang med standardbild</string>
     <string name="didnt_enter_email_password">Du fyllde inte i email eller lösenord</string>
+    <string name="food_name">Maträttens namn</string>
+    <string name="food_price">Maträttens pris</string>
+    <string name="description">Innehåll</string>
 </resources>

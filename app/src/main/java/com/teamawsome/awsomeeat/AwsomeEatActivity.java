@@ -167,26 +167,22 @@ public class AwsomeEatActivity extends AppCompatActivity implements NavigationVi
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        if (id == R.id.nav_view) {
+        switch(id){
+            case R.id.nav_view:
+                break;
+            case R.id.nav_menu:
+                eventHandler.openRestaurantListFragment(getSupportFragmentManager());
+                break;
+            case R.id.nav_cart:
+                eventHandler.openCartFragment(getSupportFragmentManager());
+                break;
+            case R.id.edit_profile:
+                eventHandler.openEditProfileFragment(getSupportFragmentManager());
+                break;
 
-        } else if (id == R.id.nav_menu) {
-            //Handle what happens when "menu" is pressed in navigationbar
-            eventHandler.openRestaurantListFragment(getSupportFragmentManager());
-
-        } else if (id == R.id.nav_cart) {
-            //Handle what happens when "cart" is pressed in navigationbar
-          eventHandler.openCartFragment(getSupportFragmentManager());
-
-        } else if (id == R.id.edit_profile){
-          eventHandler.openEditProfileFragment(getSupportFragmentManager());
-        }
-        else if (id == R.id.nav_log_out) {
-            signOut();
-        }
-
-
-        else if (id == R.id.adminItem) {
-            eventHandler.openAdminFragment(getSupportFragmentManager());
+            case R.id.nav_log_out:
+                signOut();
+                break;
         }
 
         //Closes the drawer after an item has been selected

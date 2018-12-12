@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
-
 import com.teamawsome.awsomeeat.Database.FirestoreMain;
 import com.teamawsome.awsomeeat.Model.Food;
 import com.teamawsome.awsomeeat.R;
@@ -18,22 +17,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FoodListRecyclerViewAdapter extends RecyclerView.Adapter<FoodViewHolder> implements Filterable {
-    public static List<Food> list;
+    private List<Food> list;
     private List<Food> fullList = new ArrayList<>();
     private List<FloatingActionButton> categoryButtons;
-    FirestoreMain firestoreMain = FirestoreMain.getInstance();
+    private FirestoreMain firestoreMain = FirestoreMain.getInstance();
 
     public FoodListRecyclerViewAdapter() {
 
     }
 
     public FoodListRecyclerViewAdapter(List<Food> list, List<FloatingActionButton> categoryButton) {
-        FoodListRecyclerViewAdapter.list = list;
+        this.list = list;
         fullList = new ArrayList<>();
         categoryButtons = categoryButton;
     }
 
-    public void copyList(List<Food> list) {
+    private void copyList(List<Food> list) {
         fullList = new ArrayList<>(list);
     }
 
@@ -83,7 +82,7 @@ public class FoodListRecyclerViewAdapter extends RecyclerView.Adapter<FoodViewHo
     }
 
 
-    public void removeMenuItem(int position) {
+    private void removeMenuItem(int position) {
         if (position > 0 && position < list.size()) {
             list.remove(position);
             this.notifyItemRemoved(position);
@@ -150,7 +149,7 @@ public class FoodListRecyclerViewAdapter extends RecyclerView.Adapter<FoodViewHo
 
 
     @SuppressLint("RestrictedApi")
-    public void setButtonvisibilities(){
+    private void setButtonvisibilities(){
          for (int i = 0; i < categoryButtons.size(); i++) {
 
              for (int j = 0; j <fullList.size() ; j++) {

@@ -11,6 +11,7 @@ public class Order {
     private String documentId;
 
     public Order() {
+
     }
 
     public String getDocumentId() {

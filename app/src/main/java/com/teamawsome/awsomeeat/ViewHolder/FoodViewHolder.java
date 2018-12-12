@@ -4,7 +4,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.teamawsome.awsomeeat.Helpers.IdHolder;
 import com.teamawsome.awsomeeat.Database.Authentication;
 import com.teamawsome.awsomeeat.Helpers.EventHandler;
@@ -23,7 +22,6 @@ public class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     private PictureHandler pictureHandler = PictureHandler.getInstance();
     private IdHolder idHolder = IdHolder.getInstance();
 
-    private ItemClickListener itemClickListener;
 
     public FoodViewHolder(View itemView) {
         super(itemView);
@@ -31,8 +29,6 @@ public class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         food_name = itemView.findViewById(R.id.food_name);
         food_image = itemView.findViewById(R.id.food_image);
 
-
-        //Set cklicklistener on every listitem.
         itemView.setOnClickListener(this);
     }
 

@@ -6,7 +6,6 @@ import com.teamawsome.awsomeeat.Model.Restaurant;
 public class IdHolder {
 
     private static String restaurantId;
-    private static String categoryId;
     private static String foodId;
     private static Restaurant restaurant;
     private static Food selectedFood;
@@ -43,14 +42,6 @@ public class IdHolder {
 
     public void setRestaurantId(String restaurantId) {
         idHolder.restaurantId = restaurantId;
-    }
-
-    public String getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(String categoryId) {
-        idHolder.categoryId = categoryId;
     }
 
     public String getFoodId() {

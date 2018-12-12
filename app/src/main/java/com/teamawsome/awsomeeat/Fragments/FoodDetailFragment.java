@@ -2,6 +2,7 @@ package com.teamawsome.awsomeeat.Fragments;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -21,7 +22,6 @@ import com.teamawsome.awsomeeat.Model.Food;
 import com.teamawsome.awsomeeat.Model.Order;
 import com.teamawsome.awsomeeat.Helpers.PictureHandler;
 import com.teamawsome.awsomeeat.R;
-
 import javax.annotation.Nullable;
 
 public class FoodDetailFragment extends Fragment {
@@ -47,7 +47,7 @@ public class FoodDetailFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_food_detail, container, false);
 
@@ -112,7 +112,6 @@ public class FoodDetailFragment extends Fragment {
         goToCartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 eventHandler.openCartFragment(view);
             }
         });

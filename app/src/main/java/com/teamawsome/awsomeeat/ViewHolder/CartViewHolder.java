@@ -9,10 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.teamawsome.awsomeeat.Database.FirestoreMain;
-import com.teamawsome.awsomeeat.Interface.ItemClickListener;
 import com.teamawsome.awsomeeat.Model.Order;
 import com.teamawsome.awsomeeat.R;
-
 import java.text.NumberFormat;
 import java.util.Locale;
 
@@ -20,16 +18,8 @@ public class CartViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
         private TextView txt_cart_name, txt_price;
         private ImageView img_cart_count;
-        public ItemClickListener itemClickListener;
         private String itemId;
         private FirestoreMain firestoreMain = FirestoreMain.getInstance();
-
-
-
-        public void setTxt_cart_name(TextView txt_cart_name) {
-            this.txt_cart_name = txt_cart_name;
-        }
-
 
 
         public CartViewHolder(View itemView) {
@@ -58,14 +48,11 @@ public class CartViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
          @Override
         public void onClick(View view) {
-
             showDeleteDialog(view, itemId);
-
          }
 
 
-
-        public void showDeleteDialog(View view, String documentId){
+        private void showDeleteDialog(View view, String documentId){
             //Displays a AlertDialog with a question if current user surely wants to place the orders
             AlertDialog.Builder alertdialog = new AlertDialog.Builder(view.getContext());
             alertdialog.setTitle(R.string.Delete);
