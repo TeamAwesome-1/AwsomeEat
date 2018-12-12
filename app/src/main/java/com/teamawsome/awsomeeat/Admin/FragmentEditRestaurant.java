@@ -14,16 +14,17 @@ import android.widget.Toast;
 
 import com.google.firebase.firestore.CollectionReference;
 import com.rengwuxian.materialedittext.MaterialEditText;
+import com.teamawsome.IdHolder;
 import com.teamawsome.awsomeeat.EventHandler;
 import com.teamawsome.awsomeeat.Model.Restaurant;
 import com.teamawsome.awsomeeat.PictureHandler;
 import com.teamawsome.awsomeeat.R;
-import com.teamawsome.idHolder;
+import com.teamawsome.IdHolder;
 
 
 public class FragmentEditRestaurant extends Fragment {
-     private FirestoreMain firestoreMain;
-    View view;
+    private FirestoreMain firestoreMain;
+    private View view;
     private ImageView imageView;
     private EditText restpicUrl;
     private Restaurant restaurant;
@@ -33,6 +34,8 @@ public class FragmentEditRestaurant extends Fragment {
     private Button updateRestaurantButton;
     private Button deleteRestaurantButton;
     private EventHandler eventHandler = EventHandler.getInstance();
+    private PictureHandler pictureHandler = PictureHandler.getInstance();
+    private IdHolder idHolder = IdHolder.getInstance();
 
 
     public FragmentEditRestaurant() {
@@ -51,7 +54,7 @@ public class FragmentEditRestaurant extends Fragment {
         deleteRestaurantButton = view.findViewById(R.id.deleterestaurant_button);
         restaurant = idHolder.getRestaurant();
         imageView = view.findViewById(R.id.editrestaurantpic_imageview);
-        PictureHandler.setPictureFromUrl(restaurant.getPictureUrl() , imageView);
+        pictureHandler.setPictureFromUrl(restaurant.getPictureUrl() , imageView);
         firestoreMain = FirestoreMain.getInstance();
         restpicUrl = view.findViewById(R.id.editrestaurantpicurl_edittext);
         restpicUrl.setText(restaurant.pictureUrl);
@@ -82,7 +85,7 @@ public class FragmentEditRestaurant extends Fragment {
        restaurant.setAdress(restaurantAdress.getText().toString());
        restaurant.setPhoneNumber(restaurantPhoneNumber.getText().toString());
        restaurant.setPictureUrl(restpicUrl.getText().toString());
-       PictureHandler.setPictureFromUrl(restpicUrl.getText().toString() , imageView);
+       pictureHandler.setPictureFromUrl(restpicUrl.getText().toString() , imageView);
        if (restpicUrl.getText().toString().contains("http") && restaurantName.getText().toString().length() > 5 && restaurantAdress.getText()
                .toString().length() >5 && restaurantPhoneNumber.getText().toString().contains("0")) {
             firestoreMain.updateRestaurant(restaurant.getId(), restaurant);

@@ -7,13 +7,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.teamawsome.IdHolder;
 import com.teamawsome.awsomeeat.Database.Authentication;
 import com.teamawsome.awsomeeat.EventHandler;
 import com.teamawsome.awsomeeat.Interface.ItemClickListener;
 import com.teamawsome.awsomeeat.Model.Food;
 import com.teamawsome.awsomeeat.PictureHandler;
 import com.teamawsome.awsomeeat.R;
-import com.teamawsome.idHolder;
+import com.teamawsome.IdHolder;
 
 public class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     private Authentication auth = Authentication.getInstance();
@@ -22,12 +23,10 @@ public class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     private String itemId;
     private Food food;
     private EventHandler eventHandler = EventHandler.getInstance();
+    private PictureHandler pictureHandler = PictureHandler.getInstance();
+    private IdHolder idHolder = IdHolder.getInstance();
 
     private ItemClickListener itemClickListener;
-
-   /* public void setItemClickListener(ItemClickListener itemClickListener) {
-        this.itemClickListener = itemClickListener;
-    }*/
 
     public FoodViewHolder(View itemView) {
         super(itemView);
@@ -42,7 +41,7 @@ public class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
     public void setData (Food food){
         food_name.setText(food.getName());
-        PictureHandler.setPictureFromUrl(food.getImage(), food_image);
+        pictureHandler.setPictureFromUrl(food.getImage(), food_image);
         //save the id for specific food
         itemId = food.getId();
         this.food = food;
@@ -52,7 +51,7 @@ public class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     public void onClick(View view) {
 
         idHolder.setFoodId(itemId);
-        idHolder.setSeletedFood(food);
+        idHolder.setSelectedFood(food);
 
       if (auth.isAdmin()) {
         eventHandler.openEditRestaurantMenuFragment(view);

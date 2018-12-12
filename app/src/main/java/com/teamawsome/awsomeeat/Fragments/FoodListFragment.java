@@ -13,13 +13,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.teamawsome.IdHolder;
 import com.teamawsome.awsomeeat.Adapters.FoodListRecyclerViewAdapter;
 import com.teamawsome.awsomeeat.Admin.FirestoreMain;
 import com.teamawsome.awsomeeat.Database.Authentication;
 import com.teamawsome.awsomeeat.EventHandler;
 import com.teamawsome.awsomeeat.Model.Food;
 import com.teamawsome.awsomeeat.R;
-import com.teamawsome.idHolder;
+import com.teamawsome.IdHolder;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Nullable;
@@ -43,6 +44,7 @@ public class FoodListFragment extends Fragment {
     private static Authentication authentication = Authentication.getInstance();
     private EventHandler eventHandler = EventHandler.getInstance();
     private List <FloatingActionButton> floatingActionButtons;
+    private IdHolder idHolder = IdHolder.getInstance();
 
     private Authentication auth = Authentication.getInstance();
     private static final String TAG = "Logging Example";

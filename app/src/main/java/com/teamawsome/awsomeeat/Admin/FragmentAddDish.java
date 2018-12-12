@@ -25,16 +25,17 @@ import com.teamawsome.awsomeeat.R;
 
 public class FragmentAddDish extends Fragment {
     private FirestoreMain firestoreMain = FirestoreMain.getInstance();
-    View view;
-    EditText setFoodName;
-    Button addDish;
-    TextView dishPrice;
-    Food food;
-    RadioGroup foodCategory;
-    String category;
-    ImageView picDish;
-    EditText picUrl;
-    String picUrlString;
+    private View view;
+    private EditText setFoodName;
+    private Button addDish;
+    private TextView dishPrice;
+    private Food food;
+    private RadioGroup foodCategory;
+    private String category;
+    private ImageView picDish;
+    private EditText picUrl;
+    private String picUrlString;
+    private PictureHandler pictureHandler = PictureHandler.getInstance();
 
     public FragmentAddDish() {
     }
@@ -47,14 +48,8 @@ public class FragmentAddDish extends Fragment {
         picDish = view.findViewById(R.id.picdish_imageview);
         picUrl = view.findViewById(R.id.picture_url);
 
-
-
-
         Spinner spinner = view.findViewById(R.id.spinner2);
-       /* ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.categories));
-        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        spinner.setAdapter(adapter);
-        adapter.notifyDataSetChanged();*/
+
         ArrayAdapter<String> adapter;
         //Loads categories from database
         if(firestoreMain.getCategories()!=null) {
@@ -126,7 +121,7 @@ public class FragmentAddDish extends Fragment {
         picUrlString = picUrl.getText().toString();
         if (picUrlString.contains("http")) {
          //   picUrlString = picUrl.getText().toString();
-            PictureHandler.setPictureFromUrl(picUrlString, picDish);
+            pictureHandler.setPictureFromUrl(picUrlString, picDish);
             firestoreMain.addFood(setFoodName.getText().toString(), dishPrice.getText().toString(), category, picUrlString);
             Toast.makeText(this.getContext(), getString(R.string.dish_added_to_restaurant_menu), Toast.LENGTH_SHORT).show();
             getActivity().getSupportFragmentManager().popBackStack();

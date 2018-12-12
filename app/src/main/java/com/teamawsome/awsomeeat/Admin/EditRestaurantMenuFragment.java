@@ -25,7 +25,7 @@ import com.teamawsome.awsomeeat.EventHandler;
 import com.teamawsome.awsomeeat.Model.Food;
 import com.teamawsome.awsomeeat.PictureHandler;
 import com.teamawsome.awsomeeat.R;
-import com.teamawsome.idHolder;
+import com.teamawsome.IdHolder;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,7 +36,7 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
     CollectionReference foods;
     public static Food food;
     private EditText dishNameEdit;
-   private EditText dishPriceEdit;
+    private EditText dishPriceEdit;
     private Button updateDish;
     private Button deleteDish;
     private FloatingActionButton newDish;
@@ -46,6 +46,8 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
     private EditText picUrl;
     private String picUrlString;
     private ImageView picDish;
+    private PictureHandler pictureHandler = PictureHandler.getInstance();
+    private IdHolder idHolder = IdHolder.getInstance();
 
 
 
@@ -155,9 +157,9 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
 
 
 
-        food = idHolder.getSeletedFood();
+        food = idHolder.getSelectedFood();
 
-        PictureHandler.setPictureFromUrl(food.getImage(), picDish);
+        pictureHandler.setPictureFromUrl(food.getImage(), picDish);
         dishNameEdit.setText(food.getName());
         dishPriceEdit.setText(food.getPrice());
 
@@ -179,7 +181,7 @@ public class EditRestaurantMenuFragment extends Fragment implements View.OnClick
         public void setUpdateDish1 (View v){
 
             picUrlString = picUrl.getText().toString();
-            PictureHandler.setPictureFromUrl(picUrlString, picDish);
+            pictureHandler.setPictureFromUrl(picUrlString, picDish);
 
     dishNameEdit.setText(dishNameEdit.getText());
     dishPriceEdit.setText(dishPriceEdit.getText());

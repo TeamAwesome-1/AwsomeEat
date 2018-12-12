@@ -7,8 +7,17 @@ import com.squareup.picasso.Picasso;
 
 public class PictureHandler {
 
-public static void setPictureFromUrl(String url, ImageView imageView){
+private static final PictureHandler pictureHandler = new PictureHandler();
 
+private PictureHandler(){
+
+}
+
+public static PictureHandler getInstance(){
+    return pictureHandler;
+}
+
+public void setPictureFromUrl(String url, ImageView imageView){
     Picasso.get().load(url).into(imageView);
 }
 

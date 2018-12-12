@@ -39,7 +39,7 @@ import com.teamawsome.awsomeeat.Model.Category;
 import com.teamawsome.awsomeeat.Model.Food;
 import com.teamawsome.awsomeeat.Model.Order;
 import com.teamawsome.awsomeeat.Model.Restaurant;
-import com.teamawsome.idHolder;
+import com.teamawsome.IdHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,6 +67,7 @@ public class FirestoreMain extends AppCompatActivity {
     private ListenerRegistration listenerforCounter, listenerForCategories, restaurantMenuListener, listenerForCartList,listenerForRestauranList;
     private int counterIcon;
     private EventHandler eventHandler = EventHandler.getInstance();
+    private IdHolder idHolder = IdHolder.getInstance();
     private View view;
     private int counter;
 

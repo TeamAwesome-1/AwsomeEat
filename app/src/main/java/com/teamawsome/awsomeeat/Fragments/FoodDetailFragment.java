@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
+import com.teamawsome.IdHolder;
 import com.teamawsome.awsomeeat.Admin.FirestoreMain;
 import com.teamawsome.awsomeeat.Database.Authentication;
 import com.teamawsome.awsomeeat.EventHandler;
@@ -20,7 +21,7 @@ import com.teamawsome.awsomeeat.Model.Food;
 import com.teamawsome.awsomeeat.Model.Order;
 import com.teamawsome.awsomeeat.PictureHandler;
 import com.teamawsome.awsomeeat.R;
-import com.teamawsome.idHolder;
+import com.teamawsome.IdHolder;
 import javax.annotation.Nullable;
 
 public class FoodDetailFragment extends Fragment {
@@ -37,6 +38,9 @@ public class FoodDetailFragment extends Fragment {
     private static FirestoreMain firestoreMain = FirestoreMain.getInstance();
     private static Authentication authentication = Authentication.getInstance();
     private EventHandler eventHandler = EventHandler.getInstance();
+    private PictureHandler pictureHandler = PictureHandler.getInstance();
+    private IdHolder idHolder = IdHolder.getInstance();
+
     public FoodDetailFragment() {
 
     }
@@ -74,7 +78,7 @@ public class FoodDetailFragment extends Fragment {
         foodId = idHolder.getFoodId();
         restaurantId = idHolder.getRestaurantId();
         //get the Food-item selected in the foodlist.
-        currentFood = idHolder.getSeletedFood();
+        currentFood = idHolder.getSelectedFood();
         displayInformationAboutFood(currentFood);
 
 
@@ -118,7 +122,7 @@ public class FoodDetailFragment extends Fragment {
 
     private void displayInformationAboutFood(Food currentFood) {
         //set image
-        PictureHandler.setPictureFromUrl(currentFood.getImage(), food_image);
+        pictureHandler.setPictureFromUrl(currentFood.getImage(), food_image);
         //Set the rest of the information
         collapsingToolbarLayout.setTitle(currentFood.getName());
         food_name.setText(currentFood.getName());
